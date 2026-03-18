@@ -143,9 +143,18 @@ export default function RegimenPlans() {
                   </p>
                 </div>
 
-                <button className="bg-[#C5D82D] text-gray-900 px-6 py-3 rounded-lg font-semibold shadow hover:shadow-md hover:scale-[1.03] transition">
+                {/* <button className="bg-[#C5D82D] text-gray-900 px-6 py-3 rounded-lg font-semibold shadow hover:shadow-md hover:scale-[1.03] transition">
                   {plan.button}
-                </button>
+                </button> */}
+
+                <a
+  href="https://wa.me/919870263399"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-[#C5D82D] text-gray-900 px-6 py-3 rounded-lg font-semibold shadow hover:shadow-md hover:scale-[1.03] transition inline-block text-center"
+>
+  {plan.button}
+</a>
 
               </div>
             </div>
