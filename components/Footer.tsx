@@ -215,8 +215,8 @@ export default function Footer() {
   const links = {
     Product: [
       { href: "/products", label: "Products" },
-      { href: "/millet", label: "Millets" },
-      { href: "/partner", label: "Partner" },
+      { href: "/blogs", label: "Blogs" },
+      // { href: "/partner", label: "Partner" },
     ],
     Legal: [
       { href: "/privacy-policy", label: "Privacy & Policy" },
@@ -275,7 +275,7 @@ export default function Footer() {
                   </a>
                 </p>
                 <p className="text-sm text-gray-600">
-                  <span className="font-medium text-gray-700">FSSAI Regd. No.:</span> 23325011007087
+                  <span className="font-medium text-gray-700">FSSAI Regd. No.:</span> 23326009000349
                 </p>
               </div>
             </div>

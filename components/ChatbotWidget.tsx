@@ -741,7 +741,7 @@ export default function ChatbotWidget() {
 
             {/* Large Overlapping Icon Container */}
             <div className="relative z-10 flex items-center justify-center w-20 h-20 bg-white rounded-full border-2 border-white shadow-2xl transition-transform duration-300 group-hover:rotate-6">
-              <div className="relative w-14 h-14">
+              <div className="relative w-18 h-18">
                 <Image 
                   src="/logo.png" 
                   alt="GRASA" 

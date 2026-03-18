@@ -576,7 +576,8 @@ export default function Header() {
               onClick={() => handleScrollTo("consultation-form")}
               className="hidden sm:block border-2 border-black cursor-pointer rounded-full px-5 sm:px-7 py-2 text-xs sm:text-sm font-semibold text-black hover:bg-black hover:text-white transition"
             >
-              TAKE THE LONGEVITY TEST ™
+              {/* TAKE THE LONGEVITY TEST ™ */}
+              BOOK YOUR FREE LONGEVITY TEST ™
             </button>
 
             {/* CART ICON */}
@@ -617,7 +618,7 @@ export default function Header() {
                         </a>
 
                         <a
-                          href="/orders"
+                          href="/shop/orders"
                           className="w-full font-semibold text-center text-sm border rounded-md py-1.5 hover:bg-gray-100 transition"
                         >
                           My Orders
@@ -685,7 +686,7 @@ export default function Header() {
             href="tel:+919870263399" 
             className="block bg-gray-100 p-4 rounded-xl cursor-pointer hover:bg-gray-200 text-black"
           >
-            Call Nutrition Coach
+           Call Us Now 📞
           </a>
 
           <a 

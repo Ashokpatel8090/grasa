@@ -664,7 +664,7 @@
 //                     </div>
 //                   </div>
 //                   <div className="text-[0.63rem] text-[#7d7464] bg-[#f4ede0] border border-[#e3d9c9] rounded-[6px] p-[0.75rem_1rem] leading-[1.72] mt-[1.2rem]">
-//                     <strong className="text-[#1a1710]">Note:</strong> This longevity check is a wellness screener based on published South Asian metabolic health research. Biological age is an estimate — not a clinical measurement. It is not a diagnosis, and it does not replace a consultation with your doctor. GRASA is a food programme — not a medicine. Always consult your physician before making changes to your health routine. FSSAI Reg. No. 23325011007087.
+//                     <strong className="text-[#1a1710]">Note:</strong> This longevity check is a wellness screener based on published South Asian metabolic health research. Biological age is an estimate — not a clinical measurement. It is not a diagnosis, and it does not replace a consultation with your doctor. GRASA is a food programme — not a medicine. Always consult your physician before making changes to your health routine. FSSAI Reg. No. 23326009000349.
 //                   </div>
 //                 </div>
 //               )}
@@ -1340,7 +1340,7 @@ export default function GrasaLongevityCheck() {
                     </div>
                   </div>
                   <div className="text-[0.63rem] text-[#5c5c5c] bg-[#f4f4f2] border border-[#d6d1c4] rounded-[6px] p-[0.75rem_1rem] leading-[1.72] mt-[1.2rem]">
-                    <strong className="text-[#1b1b1b]">Note:</strong> This longevity check is a wellness screener based on published South Asian metabolic health research. Biological age is an estimate — not a clinical measurement. It is not a diagnosis, and it does not replace a consultation with your doctor. GRASA is a food programme — not a medicine. Always consult your physician before making changes to your health routine. FSSAI Reg. No. 23325011007087.
+                    <strong className="text-[#1b1b1b]">Note:</strong> This longevity check is a wellness screener based on published South Asian metabolic health research. Biological age is an estimate — not a clinical measurement. It is not a diagnosis, and it does not replace a consultation with your doctor. GRASA is a food programme — not a medicine. Always consult your physician before making changes to your health routine. FSSAI Reg. No. 23326009000349.
                   </div>
                 </div>
               )}
