@@ -216,7 +216,8 @@ export default function Footer() {
     Product: [
       { href: "/products", label: "Products" },
       { href: "/blogs", label: "Blogs" },
-      // { href: "/partner", label: "Partner" },
+      { href: "/vision-mission", label: "Vision & Mission" },
+      { href: "/science", label: "Science" },
     ],
     Legal: [
       { href: "/privacy-policy", label: "Privacy & Policy" },
@@ -248,8 +249,8 @@ export default function Footer() {
                   alt="Grasa logo"
                   className="h-14 w-14 rounded-full shadow-md"
                 />
-                <h2 className="font-sans text-xl font-bold tracking-tight text-gray-800">
-                  Grasa (Precision Nutrition Innovation Arm of - MediCAPS)
+                <h2 className="font-sans text-xl uppercase font-bold tracking-tight text-gray-800">
+                  GRASA
                 </h2>
               </div>
 

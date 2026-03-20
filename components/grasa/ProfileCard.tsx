@@ -197,7 +197,7 @@ export default function ProfileCard({
           </button>
 
           <button
-            onClick={() => router.push("/orders")}
+            onClick={() => router.push("/shop/orders")}
             className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700"
           >
             <ShoppingBag size={18} />

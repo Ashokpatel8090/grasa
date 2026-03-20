@@ -1,76 +1,305 @@
+// "use client";
+
+// import React from "react";
+// import { Check } from "lucide-react";
+
+// export default function RegimenPlans() {
+//   const plans = [
+//     {
+//       weeks: "1 MONTH",
+//       title: "Starter Reset",
+//       subtitle: "Start feeling better, faster",
+//       description:
+//         "For: First-timers who want to understand how food affects their body and start feeling a real difference.",
+//       features: [
+//         "Personalised nutrition plan",
+//         "Millet-based meal guidance",
+//         "Nutritionist consultation (ongoing)",
+//         "Basic lifestyle guidance",
+//         "Follow-up support",
+//         "Fresh food, home delivered",
+//       ],
+//       benefits: ["Reduced bloating", "Better digestion", "Improved daily energy"],
+//       oldPrice: "42,000",
+//       price: "21,000",
+//       button: "Start Here",
+//       badge: "", 
+//       active: false,
+//     },
+//     {
+//       weeks: "3 MONTHS",
+//       title: "Transformation",
+//       subtitle: "Where real results begin",
+//       description:
+//         "For: Anyone serious about lasting change — weight, energy, digestion, or managing blood sugar naturally.",
+//       features: [
+//         "Fully personalised & updated nutrition plan",
+//         "Structured week-by-week guidance",
+//         "3–4 consultations + ongoing check-ins",
+//         "Habit & lifestyle coaching",
+//         "Continuous support",
+//         "Fresh food, home delivered",
+//       ],
+//       benefits: [
+//         "Weight loss & fat reduction",
+//         "Stabilised blood sugar",
+//         "Improved energy & digestion",
+//       ],
+//       oldPrice: "63,000",
+//       price: "31,500",
+//       button: "Get This Plan",
+//       badge: "⭐ Most Popular", // Moved to the centered card
+//       active: true, 
+//     },
+//     {
+//       weeks: "6 MONTHS",
+//       title: "Complete Reset",
+//       subtitle: "Build long-term health that lasts",
+//       description:
+//         "For: Managing lifestyle conditions — PCOS, thyroid, metabolic issues — or wanting a complete, lasting transformation.",
+//       features: [
+//         "Everything in Transformation Plan",
+//         "Advanced personalisation",
+//         "More frequent check-ins",
+//         "Priority support",
+//         "Long-term habit building",
+//         "Lifestyle condition support",
+//         "Fresh food, home delivered",
+//       ],
+//       benefits: [
+//         "Sustainable weight loss",
+//         "Long-term blood sugar management",
+//         "PCOS, thyroid & metabolic support",
+//         "Complete lifestyle transformation",
+//       ],
+//       oldPrice: "84,000",
+//       price: "42,000",
+//       button: "Talk to Us First",
+//       badge: "",
+//       active: false,
+//     },
+//   ];
+
+//   return (
+//     <section 
+//       className="w-full bg-[#fbfbfb] py-20 overflow-hidden" 
+//       style={{ fontFamily: '"DM Sans", sans-serif' }}
+//     >
+//       <div className="max-w-[1400px] mx-auto px-6">
+        
+//         {/* SECTION HEADER */}
+//         <div className="mb-16">
+//           <h2 className="text-4xl font-bold text-gray-900 leading-tight max-w-lg">
+//             Three plans. One goal —
+//             <br />
+//             more healthy years ahead.
+//           </h2>
+//           <p className="mt-4 text-gray-600 max-w-2xl text-[16px]">
+//             Our clinically guided nutrition programs help restore gut balance,
+//             improve metabolism, and support long-term health through fermented
+//             grain nutrition and expert coaching.
+//           </p>
+//         </div>
+
+//         {/* PLANS GRID */}
+//         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+//           {plans.map((plan, i) => (
+//             <div
+//               key={i}
+//               className={`
+//                 group relative rounded-2xl p-1 transition-all duration-500 flex flex-col
+//                 ${plan.active 
+//                   ? 'bg-[#f3f3ee] border-[#C5D82D] border-2 scale-105 shadow-xl hover:bg-[#C5D82D] hover:border-transparent' 
+//                   : 'bg-[#f3f3ee] border-gray-300 border hover:bg-[#C5D82D] hover:border-transparent hover:scale-105 hover:shadow-xl'
+//                 }
+//               `}
+//             >
+//               {/* BADGE */}
+//               {plan.badge && (
+//                 <div className="absolute -top-3 left-6 z-10 bg-gray-900 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+//                   {plan.badge}
+//                 </div>
+//               )}
+
+//               <div className="p-7 flex-grow">
+//                 <p className="text-[11px] tracking-[3px] text-gray-800 font-bold mb-2">
+//                   {plan.weeks}
+//                 </p>
+
+//                 <h3 className="text-2xl font-bold text-gray-900 mb-1">
+//                   {plan.title}
+//                 </h3>
+//                 <p className="text-gray-800 font-semibold text-sm mb-4 opacity-80">
+//                   {plan.subtitle}
+//                 </p>
+
+//                 <p className="text-gray-700 text-[14px] leading-relaxed mb-6 italic min-h-[60px]">
+//                   {plan.description}
+//                 </p>
+
+//                 {/* FEATURES LIST */}
+//                 <ul className="space-y-3 mb-8">
+//                   {plan.features.map((feature, index) => (
+//                     <li key={index} className="flex items-start gap-3 text-[14px] text-gray-900 font-medium">
+//                       <div className="mt-1 bg-white rounded-full p-0.5 shadow-sm">
+//                         <Check size={14} className="text-[#2c5f3f]" />
+//                       </div>
+//                       <span>{feature}</span>
+//                     </li>
+//                   ))}
+//                 </ul>
+
+//                 {/* BENEFITS FOOTER */}
+//                 <div className="border-t border-gray-400/20 pt-5">
+//                   <p className="text-[10px] font-bold text-gray-900/60 uppercase tracking-widest mb-3">
+//                     By end of plan:
+//                   </p>
+//                   <div className="flex flex-wrap gap-2">
+//                     {plan.benefits.map((benefit, index) => (
+//                       <span 
+//                         key={index} 
+//                         className="text-[12px] bg-white/50 px-2 py-0.5 rounded-md font-semibold text-gray-800 border border-black/5"
+//                       >
+//                         {benefit}
+//                       </span>
+//                     ))}
+//                   </div>
+//                 </div>
+//               </div>
+
+//               {/* PRICE & CTA SECTION */}
+//               <div className="p-7 pt-0 mt-auto">
+//                 <div className="flex items-end justify-between border-t border-gray-400/20 pt-6">
+//                   <div>
+//                     <span className="text-gray-600 line-through text-xs font-bold block mb-1">
+//                       ₹{plan.oldPrice}
+//                     </span>
+//                     <span className="text-3xl font-black text-gray-900">
+//                       ₹{plan.price}
+//                     </span>
+//                     <p className="text-[10px] font-black uppercase tracking-tighter text-orange-600 mt-1">
+//                       Launch Offer 50% Off
+//                     </p>
+//                   </div>
+
+//                   <a
+//                     href="https://wa.me/919870263399"
+//                     target="_blank"
+//                     rel="noopener noreferrer"
+//                     className="bg-gray-900 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg hover:bg-black transition-colors"
+//                   >
+//                     {plan.button}
+//                   </a>
+//                 </div>
+//               </div>
+
+//               {/* Subtle Corner Dot */}
+//               <div className="absolute bottom-4 left-4 h-1.5 w-1.5 rounded-full bg-black/20" />
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
 "use client";
 
+import React from "react";
 import { Check } from "lucide-react";
 
 export default function RegimenPlans() {
-
   const plans = [
-  {
-    weeks: "6 WEEKS",
-    title: "Start & Feel Better",
-    description:
-      "For: Healthy but feeling slower than you should. Low energy, heavy after meals, want to see what's possible.",
-    tags: ["Low energy", "Heavy after meals", "Lifestyle reset"],
-    features: [
-      "Fresh specially made food · 3× per week",
-      "Blood check at Week 3 and Week 6",
-      "Weekly call with a health coach",
-    ],
-    oldPrice: "₹42,000",
-    price: "₹21,000",
-    offer: "50% launch offer",
-    button: "Start Here",
-    badge: "Most chosen",
-  },
-  {
-    weeks: "9 WEEKS",
-    title: "Restore & Strengthen",
-    description:
-      "For: Reports showing early concerns — sugar, cholesterol, or liver. Want to reverse it before it becomes a bigger problem.",
-    tags: ["Sugar", "Cholesterol", "Liver health"],
-    features: [
-      "Fresh specially made food · 3× per week",
-      "Blood checks at Week 3, 6, and 9",
-      "Weekly coach + doctor review of your reports",
-    ],
-    oldPrice: "₹63,000",
-    price: "₹31,500",
-    offer: "50% launch offer",
-    button: "Get This Plan",
-  },
-  {
-    weeks: "12 WEEKS",
-    title: "Full Reset",
-    description:
-      "For: Multiple concerns, medicine dependency, or simply wanting the most complete and lasting transformation.",
-    tags: ["Multiple concerns", "Medicine dependency", "Full transformation"],
-    features: [
-      "Fresh specially made food · 3× per week",
-      "Blood checks at Weeks 3, 6, 9, 12",
-      "Dedicated coordinator + full doctor support",
-    ],
-    oldPrice: "₹84,000",
-    price: "₹42,000",
-    offer: "50% launch offer",
-    button: "Talk to Us First",
-  },
-];
-
+    {
+      weeks: "1 MONTH",
+      title: "Starter Reset",
+      subtitle: "Start feeling better, faster",
+      description:
+        "For: First-timers who want to understand how food affects their body and start feeling a real difference.",
+      features: [
+        "Personalised nutrition plan",
+        "Millet-based meal guidance",
+        "Nutritionist consultation (ongoing)",
+        "Basic lifestyle guidance",
+        "Follow-up support",
+        "Fresh food, home delivered",
+      ],
+      benefits: ["Reduced bloating", "Better digestion", "Improved daily energy"],
+      oldPrice: "42,000",
+      price: "21,000",
+      button: "Start Here",
+      badge: "",
+      active: false,
+    },
+    {
+      weeks: "3 MONTHS",
+      title: "Transformation",
+      subtitle: "Where real results begin",
+      description:
+        "For: Anyone serious about lasting change — weight, energy, digestion, or managing blood sugar naturally.",
+      features: [
+        "Fully personalised & updated nutrition plan",
+        "Structured week-by-week guidance",
+        "3–4 consultations + ongoing check-ins",
+        "Habit & lifestyle coaching",
+        "Continuous support",
+        "Fresh food, home delivered",
+      ],
+      benefits: [
+        "Weight loss & fat reduction",
+        "Stabilised blood sugar",
+        "Improved energy & digestion",
+      ],
+      oldPrice: "63,000",
+      price: "31,500",
+      button: "Get This Plan",
+      badge: "⭐ Most Popular",
+      active: true,
+    },
+    {
+      weeks: "6 MONTHS",
+      title: "Complete Reset",
+      subtitle: "Build long-term health that lasts",
+      description:
+        "For: Managing lifestyle conditions — PCOS, thyroid, metabolic issues — or wanting a complete, lasting transformation.",
+      features: [
+        "Everything in Transformation Plan",
+        "Advanced personalisation",
+        "More frequent check-ins",
+        "Priority support",
+        "Long-term habit building",
+        "Lifestyle condition support",
+        "Fresh food, home delivered",
+      ],
+      benefits: [
+        "Sustainable weight loss",
+        "Long-term blood sugar management",
+        "PCOS, thyroid & metabolic support",
+        "Complete lifestyle transformation",
+      ],
+      oldPrice: "84,000",
+      price: "42,000",
+      button: "Talk to Us First",
+      badge: "",
+      active: false,
+    },
+  ];
 
   return (
-    <section id="regimen-plans" className="py-10 bg-gradient-to-b from-[#f7f7f4] to-[#f1f1ec]">
+    <section
+      className="w-full bg-[#fbfbfb] py-10 overflow-hidden"
+      style={{ fontFamily: '"DM Sans", sans-serif' }}
+    >
       <div className="max-w-[1400px] mx-auto px-6">
 
         {/* SECTION HEADER */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="text-4xl  font-bold text-gray-900 ">
+        <div className="mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-bold leading-[1.15] mb-6">
             Three plans. One goal —
-          </h2>
-          <h2 className="text-4xl  font-bold text-gray-900 mb-4">
+            <br />
             more healthy years ahead.
           </h2>
-
-          <p className="text-lg text-gray-600 ">
+          <p className="mt-4 text-gray-600 max-w-2xl text-[16px]">
             Our clinically guided nutrition programs help restore gut balance,
             improve metabolism, and support long-term health through fermented
             grain nutrition and expert coaching.
@@ -79,87 +308,108 @@ export default function RegimenPlans() {
 
         {/* PLANS GRID */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-
           {plans.map((plan, i) => (
             <div
               key={i}
-              className="group relative rounded-2xl overflow-hidden border border-gray-200 bg-white/90 backdrop-blur-sm shadow-md hover:shadow-2xl transition-all duration-500 ease-out hover:-translate-y-2 hover:border-gray-300">
+              className={`
+                group relative rounded-2xl p-1 transition-all duration-500 flex flex-col
+                ${plan.active
+                  ? 'bg-[#C5D82D] border-[#C5D82D] border-2 scale-105 shadow-xl hover:bg-[#1a2e1f] hover:border-[#1a2e1f]'
+                  : 'bg-[#f3f3ee] border-gray-300 border hover:bg-[#C5D82D] hover:border-transparent hover:scale-105 hover:shadow-xl'
+                }
+              `}
+            >
+              {/* BADGE */}
+              {plan.badge && (
+                <div className="absolute -top-3 left-6 z-10 bg-gray-900 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {plan.badge}
+                </div>
+              )}
 
-              {/* TOP SECTION */}
-              <div className="p-8 bg-[#f6f7f5]">
-
-                <p className="text-[11px] tracking-[3px] text-[#2c5f3f] font-semibold mb-3">
+              <div className="p-7 flex-grow">
+                <p className={`text-[11px] tracking-[3px] font-bold mb- ${plan.active ? 'text-gray-900 group-hover:text-[#C5D82D]' : 'text-gray-800'}`}>
                   {plan.weeks}
                 </p>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                <h3 className={`text-2xl font-bold mb-1 ${plan.active ? 'text-gray-900 group-hover:text-white' : 'text-gray-900'}`}>
                   {plan.title}
                 </h3>
+                <p className={`font-semibold text-sm mb-2 opacity-80 ${plan.active ? 'text-gray-800 group-hover:text-gray-200' : 'text-gray-800'}`}>
+                  {plan.subtitle}
+                </p>
 
-                <p className="text-gray-600 text-[15px] leading-relaxed mb-3">
+                <p className={`text-[14px] leading-relaxed mb-2 italic min-h-[60px] ${plan.active ? 'text-gray-700 group-hover:text-gray-300' : 'text-gray-700'}`}>
                   {plan.description}
                 </p>
 
-                {/* TAGS */}
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {plan.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="bg-[#e3f4ea] text-[#2c5f3f] text-xs px-3 py-1 rounded-full font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* FEATURES */}
-                <ul className="space-y-3">
+                {/* FEATURES LIST */}
+                <ul className="space-y-1 mb-4">
                   {plan.features.map((feature, index) => (
-                    <li
-                      key={index}
-                      className="flex items-start gap-1 text-[15px] text-gray-700"
-                    >
-                      <Check size={18} className="text-[#2c5f3f] mt-[2px]" />
-                      {feature}
+                    <li key={index} className={`flex items-start gap-3 text-[14px] font-medium ${plan.active ? 'text-gray-900 group-hover:text-gray-100' : 'text-gray-900'}`}>
+                      <div className="mt-1 bg-white rounded-full p-0.5 shadow-sm flex-shrink-0">
+                        <Check size={14} className="text-[#2c5f3f]" />
+                      </div>
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
 
-              {/* PRICE SECTION */}
-              <div className="bg-[#efe9dc] p-6 flex items-center justify-between">
-
-                <div>
-                  <p className="text-gray-500 line-through text-sm">
-                    {plan.oldPrice}
+                {/* BENEFITS FOOTER */}
+                <div className={`border-t pt-3 ${plan.active ? 'border-black/10 group-hover:border-white/10' : 'border-gray-400/20'}`}>
+                  <p className={`text-[10px] font-bold uppercase tracking-widest mb-3 ${plan.active ? 'text-gray-900/60 group-hover:text-white/50' : 'text-gray-900/60'}`}>
+                    By end of plan:
                   </p>
-
-                  <p className="text-2xl font-bold text-[#1e3a2f]">
-                    {plan.price}
-                  </p>
-
-                  <p className="text-[#ff7a00] text-[11px] font-semibold tracking-wide">
-                    50% LAUNCH OFFER
-                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {plan.benefits.map((benefit, index) => (
+                      <span
+                        key={index}
+                        className={`text-[12px] px-2 py-0.5 rounded-md font-semibold border
+                          ${plan.active
+                            ? 'bg-white/30 text-gray-900 border-black/10 group-hover:bg-white/10 group-hover:text-gray-100 group-hover:border-white/10'
+                            : 'bg-white/50 text-gray-800 border-black/5'
+                          }`}
+                      >
+                        {benefit}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-
-                {/* <button className="bg-[#C5D82D] text-gray-900 px-6 py-3 rounded-lg font-semibold shadow hover:shadow-md hover:scale-[1.03] transition">
-                  {plan.button}
-                </button> */}
-
-                <a
-                  href="https://wa.me/919870263399"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#C5D82D] text-gray-900 px-6 py-3 rounded-lg font-semibold shadow hover:shadow-md hover:scale-[1.03] transition inline-block text-center"
-                >
-                  {plan.button}
-                </a>
-
               </div>
+
+              {/* PRICE & CTA SECTION */}
+              <div className="p-7 pt-0 mt-auto">
+                <div className={`flex items-end justify-between border-t pt-6 ${plan.active ? 'border-black/10 group-hover:border-white/10' : 'border-gray-400/20'}`}>
+                  <div>
+                    <span className={`line-through text-xs font-bold block mb-1 ${plan.active ? 'text-gray-700 group-hover:text-gray-400' : 'text-gray-600'}`}>
+                      ₹{plan.oldPrice}
+                    </span>
+                    <span className={`text-3xl font-black ${plan.active ? 'text-gray-900 group-hover:text-white' : 'text-gray-900'}`}>
+                      ₹{plan.price}
+                    </span>
+                    <p className="text-[10px] font-black uppercase tracking-tighter text-orange-600 mt-1">
+                      Launch Offer 50% Off
+                    </p>
+                  </div>
+
+                  <a
+                    href="https://wa.me/919870263399"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition-colors
+                      ${plan.active
+                        ? 'bg-gray-900 text-white hover:bg-black group-hover:bg-[#C5D82D] group-hover:text-gray-100'
+                        : 'bg-gray-900 text-white hover:bg-black '
+                      }`}
+                  >
+                    {plan.button}
+                  </a>
+                </div>
+              </div>
+
+              {/* Subtle Corner Dot */}
+              <div className="absolute bottom-4 left-4 h-1.5 w-1.5 rounded-full bg-black/20" />
             </div>
           ))}
-
         </div>
       </div>
     </section>

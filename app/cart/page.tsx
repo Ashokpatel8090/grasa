@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import toast, { Toaster } from "react-hot-toast"
 import { useRouter } from "next/navigation"
+import { ArrowRight } from "lucide-react";
 
 interface CartItem {
   id: number
@@ -222,7 +223,7 @@ export default function CartPage() {
                   <div className="flex items-center gap-2">
                     {item.discount_percent > 0 ? (
                       <>
-                        <p className="text-lg font-bold text-emerald-600">
+                        <p className="text-2xl font-bold text-gray-900">
                           Rs. {item.effective_price}
                         </p>
                         <p className="line-through text-gray-500 text-sm">
@@ -308,18 +309,19 @@ export default function CartPage() {
           ))}
         </div>
 
-        <div className="mt-8 flex justify-end items-center gap-6">
-          <span className="text-xl font-semibold">
-            Total: Rs. {totalPrice}
-          </span>
+        <div className="mt-8 flex justify-end items-center gap-6  pt-6">
+  <span className="text-2xl font-bold text-[#1b1b1b]">
+    Total: ₹{totalPrice}
+  </span>
 
-          <Button
-            className="bg-emerald-600 hover:bg-emerald-700 text-white"
-            onClick={() => router.push("/checkout")}
-          >
-            Proceed to Buy
-          </Button>
-        </div>
+  <Button
+    className="bg-[#C5D82D] hover:bg-[#b8cc28] text-[#1b1b1b] font-bold text-lg px-8 py-6 rounded-xl flex items-center gap-2 transition-all hover:-translate-y-1 shadow-sm hover:shadow-md"
+    onClick={() => router.push("/checkout")}
+  >
+    Proceed to Buy
+    <ArrowRight size={20} strokeWidth={2.5} />
+  </Button>
+</div>
       </div>
     </>
   )
