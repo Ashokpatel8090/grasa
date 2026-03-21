@@ -478,20 +478,20 @@ const HeroSection = () => {
       <div className="max-w-7xl mx-auto">
 
         {/* Hero Container */}
-        <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden min-h-[420px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[620px] flex items-start pt-16 sm:pt-24 md:pt-32 lg:pt-36 px-6 sm:px-10 md:px-14 lg:px-20 shadow-xl">
+        <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden min-h-[420px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[620px] flex items-start pt-16 sm:pt-24 md:pt-32 lg:pt-36 px-6 sm:px-10 md:px-14 lg:px-20 shadow-premium-lg animate-fade-in">
 
-          {/* Background Image */}
+          {/* Background Image with Premium Overlay */}
           <div
-            className="absolute inset-0 bg-cover bg-center z-0"
+            className="absolute inset-0 bg-cover bg-center z-0 transition-smooth"
             style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.35)), url('/bg2.png')`,
+              backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.2) 100%), url('/bg2.png')`,
             }}
           />
 
           {/* Content */}
-          <div className="relative z-10 max-w-xl lg:max-w-2xl text-white">
+          <div className="relative z-10 max-w-xl lg:max-w-2xl text-white animate-fade-in-up">
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight md:leading-[1.1] mb-6 md:mb-8 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight md:leading-[1.1] mb-6 md:mb-8 tracking-tight text-balance-title drop-shadow-lg">
               Know the root cause <br className="hidden sm:block"/>
               of your digestive problems.
             </h1>

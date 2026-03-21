@@ -235,8 +235,8 @@ export default function Footer() {
       />
 
       {/* FOOTER STRUCTURE START */}
-      <footer className="bg-gray-100 border-t border-gray-200 text-gray-700">
-        <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 py-12 md:py-16">
+      <footer className="bg-gradient-to-b from-gray-50 to-gray-100 border-t border-gray-200 text-gray-700 transition-smooth">
+        <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
 
           {/* Top Section: Logo, Info, Links, and Social */}
           <div className="grid grid-cols-1 gap-10 md:grid-cols-4 lg:grid-cols-5">
@@ -290,7 +290,7 @@ export default function Footer() {
                     <li key={it.href}>
                       <Link
                         href={it.href}
-                        className="text-md text-gray-600 hover:text-primary transition-colors block"
+                        className="text-md text-gray-600 hover:text-[#C5D82D] transition-smooth hover:translate-x-1 inline-block"
                       >
                         {it.label}
                       </Link>

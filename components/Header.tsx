@@ -335,8 +335,8 @@ export default function Header() {
 
   return (
     <>
-      <header className="w-full bg-white fixed top-0 left-0 z-50 border-b border-gray-100">
-        <div className="flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px]">
+      <header className="w-full bg-white fixed top-0 left-0 z-50 border-b border-gray-200 shadow-sm backdrop-blur-sm bg-white/95">
+        <div className="flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] transition-smooth">
 
           {/* Logo */}
           <div className="flex items-center cursor-pointer" onClick={() => router.push("/")}>
@@ -357,20 +357,20 @@ export default function Header() {
             
             <button 
               onClick={() => router.push("/longevity-test")}
-              className={`hidden sm:block border-2 border-black cursor-pointer rounded-full px-5 sm:px-7 py-2 text-xs sm:text-sm font-semibold text-black hover:bg-black hover:text-white transition ${!mounted ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+              className={`hidden sm:block border-2 border-black cursor-pointer rounded-full px-5 sm:px-7 py-2 text-xs sm:text-sm font-semibold text-black hover:lift hover:bg-black hover:text-white transition-smooth ${!mounted ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
             >
               {hasStoredResult ? "RETAKE LONGEVITY TEST ™" : "TAKE THE LONGEVITY TEST ™"}
             </button>
 
             {/* CART ICON */}
             <div
-              className="relative cursor-pointer"
+              className="relative cursor-pointer transition-smooth hover:scale-110"
               onClick={() => router.push("/cart")}
             >
-              <FiShoppingCart className="w-6 h-6 text-black" />
+              <FiShoppingCart className="w-6 h-6 text-black transition-smooth" />
 
               {cartCount > 0 && (
-                <span className="absolute -top-3 -right-3 bg-[#C5D82D] text-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                <span className="absolute -top-3 -right-3 bg-[#C5D82D] text-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full animate-pulse-soft shadow-premium">
                   {cartCount}
                 </span>
               )}

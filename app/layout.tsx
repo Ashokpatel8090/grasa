@@ -20,20 +20,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body className="bg-white antialiased text-slate-900">
+    <html lang="en" className={cn("font-sans scroll-smooth", geist.variable)}>
+      <head>
+        <meta name="theme-color" content="#C5D82D" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+      </head>
+      <body className="bg-white antialiased text-slate-900 min-h-screen flex flex-col">
         <CartProvider>
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-black focus:text-white focus:px-4 focus:py-2 focus:rounded focus-ring">
+            Skip to main content
+          </a>
 
           <Header />
 
-          <main className="pt-[72px]">
+          <main id="main-content" className="pt-[72px] flex-grow transition-smooth">
             {children}
           </main>
 
           <Footer />
 
-          {/* ✅ Global Chatbot */}
-          {/* <ChatbotWidget /> */}
+          {/* Global Chatbot Widget */}
           <ChatbotWrapper />
 
         </CartProvider>
