@@ -439,6 +439,7 @@ export default function SciencePage() {
             A free conversation with our nutritionist. Your situation, your goals, honest guidance on whether GRASA is the right fit — and if it is, a plan built specifically for your body.
           </p>
           
+          
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button 
               onClick={() => window.open('tel:+919870263399')}
