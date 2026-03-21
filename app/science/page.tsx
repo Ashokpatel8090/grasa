@@ -47,7 +47,7 @@ export default function SciencePage() {
             <span className="text-[#5c5c5c] font-bold tracking-wider uppercase text-sm mb-4 block">The core argument</span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight">
               The food that made India healthy for thousands of years still works. <br />
-              <span className="text-[#849411] italic">We just stopped eating it.</span>
+              <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">We just stopped eating it.</span>
             </h2>
           </div>
           <div className="space-y-6 text-lg text-[#5c5c5c] font-medium leading-relaxed">
@@ -76,7 +76,7 @@ export default function SciencePage() {
           <div className="mb-16 max-w-3xl">
             <span className="text-[#C5D82D] bg-[#1b1b1b] px-4 py-1.5 rounded-full font-bold tracking-wider uppercase text-sm mb-6 inline-block">01. Ancient Indian Grains</span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight mb-6">
-              Why millets are metabolically superior to refined grains
+              Why millets are <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">metabolically superior</span>  to refined grains
             </h2>
             <p className="text-lg text-[#5c5c5c] font-medium">
               The word "millet" covers a family of ancient grains that were the foundation of Indian diets for millennia. They were replaced not because they were inferior, but because refined wheat and white rice were cheaper to produce and easier to sell. <strong className="text-[#1b1b1b]">The metabolic consequences of that substitution are now visible in India's health statistics.</strong>
@@ -157,45 +157,61 @@ export default function SciencePage() {
       </section>
 
       {/* ================= 02 PREPARATION SCIENCE ================= */}
-      <section className="py-24 px-6 md:px-12 max-w-6xl mx-auto">
+      <section className="py-10 px-6 md:px-12 max-w-6xl mx-auto">
         <div className="mb-16">
           <span className="text-[#C5D82D] bg-[#1b1b1b] px-4 py-1.5 rounded-full font-bold tracking-wider uppercase text-sm mb-6 inline-block">02. Preparation Science</span>
           <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight mb-6 max-w-3xl">
-            Why <span className="italic font-serif pr-1">how</span> it's prepared matters as much as what grain it is
+            Why <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">how</span> it's prepared matters as much as what grain it is
           </h2>
           <p className="text-lg text-[#5c5c5c] font-medium max-w-4xl">
             The metabolic benefit of any grain is not fixed. It depends enormously on how it is prepared. Traditional Indian food preparation methods were developed without any knowledge of biochemistry. But they achieve something biochemistry now explains clearly: <strong className="text-[#1b1b1b]">they increase the bioavailability of nutrients, reduce compounds that block absorption, and change the way the grain is digested.</strong>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6 mb-16">
           {[
             { icon: <Droplets size={32} className="text-[#C5D82D]" />, num: "01", title: "Washing & soaking", desc: "Grains are soaked in water for several hours. This activates enzymes that begin breaking down phytic acid — a compound that binds to minerals like iron, zinc, and calcium and prevents their absorption.", stat: "↑ Mineral absorption by up to 60%" },
             { icon: <Sun size={32} className="text-[#C5D82D]" />, num: "02", title: "Natural sun drying", desc: "After soaking, grains are dried in natural sunlight. This reduces moisture content in a way that preserves heat-sensitive B vitamins and polyphenols that would be destroyed by industrial drying methods.", stat: "Preserves heat-sensitive nutrients" },
             { icon: <Wind size={32} className="text-[#C5D82D]" />, num: "03", title: "Stone grinding", desc: "Cold stone grinding (chakki) keeps the grain at a low temperature throughout milling, preserving oils, enzymes, and the complete fibre structure of the grain. Industrial roller milling strips all of these.", stat: "Complete bran + germ retained" },
             { icon: <Clock size={32} className="text-[#C5D82D]" />, num: "04", title: "Small batch freshness", desc: "All GRASA products are made in small batches and delivered fresh. Rancidity in grain oils — which begins within days of grinding — is eliminated. You receive the grain as it was meant to be consumed.", stat: "Maximum nutritional integrity" }
           ].map((step, i) => (
-            <div key={i} className="flex gap-6 group">
-              <div className="bg-[#1b1b1b] p-4 rounded-2xl h-fit flex-shrink-0 group-hover:-translate-y-1 transition-transform duration-300">
+            <div
+              key={i}
+              className="flex flex-col sm:flex-row gap-2 p-6 bg-white border border-[#d6d1c4] rounded-3xl shadow-sm hover:border-[#C5D82D] transition-colors group"
+            >
+              {/* Icon */}
+              <div className="bg-[#1b1b1b] p-4 rounded-2xl h-fit w-fit flex-shrink-0 group-hover:-translate-y-1 transition-transform duration-300">
                 {step.icon}
               </div>
+
+              {/* Content */}
               <div>
-                <span className="text-[#d6d1c4] font-extrabold text-2xl block mb-1">{step.num}</span>
-                <h4 className="font-bold text-[#1b1b1b] text-xl mb-2">{step.title}</h4>
-                <p className="text-[#5c5c5c] text-sm leading-relaxed mb-4">{step.desc}</p>
+                {/* Optional Step Number */}
+                {/* <span className="text-[#868678] font-extrabold text-2xl block mb-1">
+                  {step.num}
+                </span> */}
+
+                <h4 className="font-bold text-[#1b1b1b] text-lg mb-2">
+                  {step.title}
+                </h4>
+
+                <p className="text-[#5c5c5c] text-sm leading-relaxed mb-4">
+                  {step.desc}
+                </p>
+
                 <span className="inline-block bg-[#ebecdf] text-[#849411] text-xs font-bold px-3 py-1.5 rounded-lg uppercase tracking-wide">
                   {step.stat}
                 </span>
               </div>
-            </div>
+</div>
           ))}
         </div>
 
         {/* Blockquote */}
-        <div className="bg-[#1b1b1b] text-white p-8 md:p-12 rounded-3xl relative overflow-hidden">
+        <div className="bg-[#1b1b1b] text-white p-8 md:p-5 rounded-3xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#C5D82D] opacity-10 rounded-full blur-2xl"></div>
           <blockquote className="text-xl md:text-3xl font-bold leading-tight mb-8 max-w-4xl relative z-10">
-            "The difference between a grain that <span className="text-[#C5D82D] italic">sits on a shelf</span> and one that was <span className="text-[#C5D82D] italic">soaked, dried, and stone-ground fresh</span> is not a minor nutritional detail. It is the difference between eating the shell of something and eating the thing itself."
+            "The difference between a grain that <span className="text-[#C5D82D] font-serif italic">sits on a shelf</span> and one that was <span className="text-[#C5D82D] font-serif italic">soaked, dried, and stone-ground fresh</span> is not a minor nutritional detail. It is the difference between eating the shell of something and eating the thing itself."
           </blockquote>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10 border-t border-white/10 pt-8">
             <p className="text-gray-300 text-sm flex gap-3"><CheckCircle2 size={18} className="text-[#C5D82D] flex-shrink-0" /> Phytic acid reduced by soaking — unlocking minerals</p>
@@ -212,7 +228,7 @@ export default function SciencePage() {
           <div className="mb-16">
             <span className="text-[#C5D82D] bg-[#1b1b1b] px-4 py-1.5 rounded-full font-bold tracking-wider uppercase text-sm mb-6 inline-block">03. Blood Sugar & Fat</span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight mb-6 max-w-3xl">
-              How replacing refined carbohydrates changes what your body stores
+              How replacing refined carbohydrates changes <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone"> what your body store</span>
             </h2>
             <p className="text-lg text-[#5c5c5c] font-medium max-w-4xl">
               Every time you eat a refined carbohydrate, your blood sugar rises sharply. Your body responds by releasing insulin to bring it back down. <strong className="text-[#1b1b1b]">Insulin's job, when there is excess glucose, is to convert it to fat and store it.</strong> Done many times a day, over many years, this is the mechanism behind weight gain, fatty liver, insulin resistance, and eventually Type 2 diabetes.
@@ -289,7 +305,7 @@ export default function SciencePage() {
           <div className="mb-16 text-center max-w-3xl mx-auto">
             <span className="text-[#1b1b1b] bg-[#C5D82D] px-4 py-1.5 rounded-full font-bold tracking-wider uppercase text-sm mb-6 inline-block">04. Gut Health</span>
             <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-              Your gut bacteria determine more than you think.
+              Your gut bacteria <span className="text-[#C5D82D] italic font-serif pr-2">determine more than you think.</span> 
             </h2>
             <p className="text-lg text-gray-300 font-medium">
               The gut microbiome influences your blood sugar, weight, immune response, energy, and mental clarity. And it is shaped, more than anything else, by what you eat.
@@ -325,7 +341,7 @@ export default function SciencePage() {
           <div className="mb-16">
             <span className="text-[#C5D82D] bg-[#1b1b1b] px-4 py-1.5 rounded-full font-bold tracking-wider uppercase text-sm mb-6 inline-block">05. Personalised Nutrition</span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight mb-6 max-w-3xl">
-              Why one plan does not work for everyone
+              Why one plan <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">does not work</span>  for everyone
             </h2>
             <p className="text-lg text-[#5c5c5c] font-medium max-w-4xl">
               The same food affects two people differently. A meal that is ideal for a 35-year-old woman managing PCOS is not ideal for a 52-year-old man with metabolic syndrome. <strong className="text-[#1b1b1b]">Generic nutrition plans fail because they ignore this. GRASA does not.</strong>
@@ -348,8 +364,14 @@ export default function SciencePage() {
           </div>
 
           <div className="bg-[#f4f4f2] p-8 md:p-12 rounded-3xl border border-[#d6d1c4]">
-            <h3 className="text-2xl font-bold text-[#1b1b1b] mb-8 text-center">Example: Two different people. Two different plans.</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <span className="text-[#C5D82D] bg-[#1b1b1b] px-4 py-1.5 rounded-full font-bold tracking-wider uppercase text-sm mb-2 inline-block">
+  Example — How plans differ
+</span>
+
+<h3 className="text-3xl font-bold text-[#1b1b1b] mb-8 text-left">
+  Three different people. Three different plans.
+</h3>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#d6d1c4]">
                 <p className="font-bold text-[#1b1b1b] mb-1">Person A — Reena, 34</p>
                 <p className="text-xs font-bold text-[#849411] uppercase tracking-wider mb-4">Goal: PCOS Management</p>
@@ -393,10 +415,10 @@ export default function SciencePage() {
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-4xl  font-bold text-[#1b1b1b] leading-tight mb-6">
             Four mechanisms. <br />
-            <span className="text-[#849411] italic">One outcome — your body works better.</span>
+            <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">One outcome — your body works better.</span>
           </h2>
           <p className="text-lg text-[#5c5c5c] font-medium">
-            GRASA works because superior grain nutrition, improved preparation, stabilised blood sugar, and gut microbiome restoration act simultaneously. The result is a whole-body shift that most people notice in how they feel before anything else.
+            GRASA works because <span className="text-[#1b1b1b] font-bold"> superior grain nutrition, improved preparation, stabilised blood sugar, and gut microbiome restoration </span> act simultaneously. The result is a whole-body shift that most people notice in how they feel before anything else.
           </p>
         </div>
 
@@ -433,7 +455,7 @@ export default function SciencePage() {
       {/* ================= CTA SECTION ================= */}
       <section className="bg-[#1b1b1b] text-white py-24 px-6 md:px-12 text-center rounded-t-[2.5rem] md:rounded-t-[4rem]">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-5xl  font-extrabold mb-6">Ready?</h2>
+          <h2 className="text-5xl text-[#C5D82D] font-serif italic font-extrabold mb-6">Ready?</h2>
           <p className="text-xl md:text-2xl text-gray-300 mb-4 font-medium">The science is why it works. <br className="md:hidden"/>The programme is how you experience it.</p>
           <p className="text-gray-400 mb-12 max-w-xl mx-auto">
             A free conversation with our nutritionist. Your situation, your goals, honest guidance on whether GRASA is the right fit — and if it is, a plan built specifically for your body.

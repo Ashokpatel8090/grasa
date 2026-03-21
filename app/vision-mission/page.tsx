@@ -20,7 +20,7 @@ export default function VisionMission() {
           <h1 className="text-5xl  font-extrabold leading-[1.1] tracking-tight">
             Food was always <br className="hidden md:block" />
             the answer. <br />
-            <span className="text-[#C5D82D] italic">We're making it <br className="hidden md:block" /> the first one.</span>
+            <span className="text-[#C5D82D] font-serif italic">We're making it <br className="hidden md:block" /> the first one.</span>
           </h1>
           <p className="mt-8 text-xl text-gray-300 max-w-3xl font-normal leading-relaxed">
             India is in the middle of a silent health crisis — one that was built on plates, and one that can be meaningfully reversed the same way. That is what GRASA exists for.
@@ -47,13 +47,16 @@ export default function VisionMission() {
       </section>
 
       {/* ================= THE PROBLEM SECTION ================= */}
-      <section className="py-24 px-6 md:px-12 max-w-6xl mx-auto">
+      <section className="py-18 px-6 md:px-12 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="sticky top-24">
             <span className="text-[#5c5c5c] font-bold tracking-wider uppercase text-sm mb-4 block">The Problem We're Solving</span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight">
               India doesn't have a medicine problem. <br />
-              <span className="text-[#849411] italic">It has a food problem.</span>
+              {/* <span className="text-gray-900 bg-[#C5D82D] italic">It has a food problem.</span> */}
+              <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">
+                It has a food problem.
+              </span>
             </h2>
           </div>
           <div className="space-y-6 text-lg text-[#5c5c5c] font-medium leading-relaxed">
@@ -77,12 +80,14 @@ export default function VisionMission() {
       </section>
 
       {/* ================= INDIA'S HEALTH REALITY ================= */}
-      <section className="py-24 px-6 md:px-12 bg-white border-y border-[#d6d1c4]">
+      <section className="py-10 px-6 md:px-12 bg-white border-y border-[#d6d1c4]">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-16 max-w-2xl">
+          <div className="mb-10 max-w-2xl">
             <span className="text-[#5c5c5c] font-bold tracking-wider uppercase text-sm mb-4 block">India's Health Reality</span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight mb-4">
-              The numbers that made us start.
+              The numbers that <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">
+                made us start.
+              </span> 
             </h2>
             <p className="text-lg text-[#5c5c5c] font-medium">
               These are not distant statistics. They are the people in your building, in your family, in your society.
@@ -92,21 +97,27 @@ export default function VisionMission() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card 1 */}
             <div className="bg-[#f4f4f2] p-8 rounded-3xl border border-[#d6d1c4] hover:shadow-lg transition-all hover:-translate-y-1">
-              <span className="text-5xl font-extrabold text-[#d6d1c4] opacity-50 mb-6 block">01</span>
+              <span className="flex items-center justify-center w-16 h-16 text-2xl font-bold text-black bg-[#C5D82D] rounded-full mb-6">
+  01
+</span>
               <h3 className="text-xl font-bold text-[#1b1b1b] mb-4">India is the diabetes capital of the world</h3>
               <p className="text-[#5c5c5c] mb-6">Over 77 million Indians live with Type 2 diabetes — a number projected to cross 134 million by 2045. The vast majority are on lifelong medication. Very few receive meaningful food-based intervention.</p>
               <p className="text-xs font-bold text-[#1b1b1b] uppercase tracking-wider">IDF Diabetes Atlas, 2021</p>
             </div>
             {/* Card 2 */}
             <div className="bg-[#f4f4f2] p-8 rounded-3xl border border-[#d6d1c4] hover:shadow-lg transition-all hover:-translate-y-1">
-              <span className="text-5xl font-extrabold text-[#d6d1c4] opacity-50 mb-6 block">02</span>
+              <span className="flex items-center justify-center w-16 h-16 text-2xl font-bold text-black bg-[#C5D82D] rounded-full mb-6">
+  02
+</span>
               <h3 className="text-xl font-bold text-[#1b1b1b] mb-4">Fatty liver now affects 1 in 3 urban Indians</h3>
               <p className="text-[#5c5c5c] mb-6">Non-alcoholic fatty liver disease (NAFLD) has quietly become one of India's most common conditions — driven almost entirely by refined grain consumption, sedentary living, and excess sugar. It is almost entirely reversible through food.</p>
               <p className="text-xs font-bold text-[#1b1b1b] uppercase tracking-wider">Journal of Clinical & Exp. Hepatology, 2022</p>
             </div>
             {/* Card 3 */}
             <div className="bg-[#f4f4f2] p-8 rounded-3xl border border-[#d6d1c4] hover:shadow-lg transition-all hover:-translate-y-1">
-              <span className="text-5xl font-extrabold text-[#d6d1c4] opacity-50 mb-6 block">03</span>
+              <span className="flex items-center justify-center w-16 h-16 text-2xl font-bold text-black bg-[#C5D82D] rounded-full mb-6">
+  03
+</span>
               <h3 className="text-xl font-bold text-[#1b1b1b] mb-4">South Asians age metabolically faster</h3>
               <p className="text-[#5c5c5c] mb-6">Indians accumulate visceral fat — the dangerous fat around organs — at lower BMIs than any other population. Our genetics make us more vulnerable. Our diets, increasingly dominated by refined carbs, accelerate the process.</p>
               <p className="text-xs font-bold text-[#1b1b1b] uppercase tracking-wider">The Lancet Diabetes & Endocrinology, 2020</p>
@@ -116,14 +127,21 @@ export default function VisionMission() {
       </section>
 
       {/* ================= VISION & MISSION ================= */}
-      <section className="py-24 px-6 md:px-12 max-w-6xl mx-auto space-y-32">
+      <section className="py-10 px-6 md:px-12 max-w-6xl mx-auto space-y-20">
         
         {/* Vision */}
         <div>
           <span className="text-[#C5D82D] bg-[#1b1b1b] px-4 py-1.5 rounded-full font-bold tracking-wider uppercase text-sm mb-8 inline-block">Our Vision</span>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight mb-8">
+          {/* <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight mb-8 ">
             A India where food is the <span className=" underline-offset-8">first intervention</span> — not the last resort.
-          </h2>
+          </h2> */}
+          <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight mb-8">
+  A India where food is the{" "}
+  <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">
+    first intervention
+  </span>{" "}
+  — not the last resort.
+</h2>
           <div className="text-lg text-[#5c5c5c] font-medium leading-relaxed max-w-4xl space-y-6 mb-16">
             <p>
               We envision a future where the first thing a person does when their energy drops, their weight creeps up, or their reports start drifting — is change what they eat. Not in a vague, generic way. In a <strong className="text-[#1b1b1b]">personalised, expert-guided, measurable way</strong> that fits their body, their life, and their kitchen.
@@ -177,7 +195,7 @@ export default function VisionMission() {
         <div>
           <span className="text-[#C5D82D] bg-[#1b1b1b] px-4 py-1.5 rounded-full font-bold tracking-wider uppercase text-sm mb-8 inline-block">Our Mission</span>
           <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight mb-8">
-            To make food-based health intervention <span className="text-[#849411] italic">accessible, guided, and measurable</span> — for every Indian.
+            To make food-based health intervention <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">accessible, guided, and measurable</span> — for every Indian.
           </h2>
           <p className="text-lg text-[#5c5c5c] font-medium leading-relaxed max-w-3xl mb-16">
             Not one day. Not at scale in ten years. <strong className="text-[#1b1b1b]">Right now, in Delhi NCR</strong>, one person at a time, one family at a time — building the evidence, the trust, and the infrastructure that makes this possible everywhere.
@@ -201,12 +219,12 @@ export default function VisionMission() {
       </section>
 
       {/* ================= WHY GRASA, WHY NOW ================= */}
-      <section className="py-24 px-6 md:px-12 bg-white border-y border-[#d6d1c4]">
+      <section className="py-12 px-6 md:px-12 bg-white border-y border-[#d6d1c4]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-[#5c5c5c] font-bold tracking-wider uppercase text-sm mb-4 block">Why GRASA, Why Now</span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1b1b1b] leading-tight">
-              The conditions for this to work have <span className="text-[#C5D82D] italic">never been better.</span>
+              The conditions for this to work have <span className="text-gray-900 bg-[#C5D82D] italic font-serif inline px-2 py-1 box-decoration-clone">never been better.</span>
             </h2>
             <p className="mt-6 text-lg text-[#5c5c5c] font-medium">
               India's food crisis is not new. What is new is that the evidence, the awareness, and the delivery infrastructure have finally converged to make a food-first intervention possible at scale.
@@ -234,7 +252,7 @@ export default function VisionMission() {
       </section>
 
       {/* ================= FOUNDER NOTE ================= */}
-      <section className="py-24 px-6 md:px-12 max-w-4xl mx-auto text-center">
+      <section className="py-10 px-6 md:px-12 max-w-4xl mx-auto text-center">
         <span className="text-[#5c5c5c] font-bold tracking-wider uppercase text-sm mb-8 block">A note from our founder</span>
         <blockquote className="text-2xl md:text-4xl font-bold text-[#1b1b1b] leading-tight mb-12">
           "I started GRASA because I kept seeing the same thing — people managing conditions for years with growing lists of medicines, and nobody asking them what they were eating. Not once."
@@ -252,7 +270,7 @@ export default function VisionMission() {
       {/* ================= CTA SECTION ================= */}
       <section className="bg-[#1b1b1b] text-white py-20 px-6 md:px-12 text-center rounded-t-[2.5rem] md:rounded-t-[4rem]">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-5xl font-extrabold mb-6">Ready to start?</h2>
+          <h2 className="text-6xl text-[#C5D82D] font-serif italic font-extrabold mb-6">Ready to start?</h2>
           <p className="text-xl md:text-2xl text-gray-300 mb-4 font-medium">This is what we believe. <br className="md:hidden"/>The programme is how we prove it.</p>
           <p className="text-gray-400 mb-12 max-w-xl mx-auto">
             Every person who completes a GRASA plan is evidence. Talk to us — free, no pressure — and become part of what we're building.
