@@ -475,7 +475,7 @@ const HeroSection = () => {
 
   return (
     <section className="px-4 sm:px-6 lg:px-8 pt-4 pb-10 ">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[100%] mx-auto">
 
         {/* Hero Container */}
         <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden min-h-[420px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[620px] flex items-start pt-16 sm:pt-24 md:pt-32 lg:pt-36 px-6 sm:px-10 md:px-14 lg:px-20 shadow-xl">

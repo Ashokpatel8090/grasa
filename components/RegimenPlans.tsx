@@ -85,9 +85,9 @@ export default function RegimenPlans() {
   return (
     <section
     id="regimen-plans"
-    className="w-full bg-[#f4f4f2] py-24 px-6 md:px-12 font-sans border-y border-[#d6d1c4]"
+    className="w-full bg-[#f4f4f2] py-10 px-6  font-sans border-y border-[#d6d1c4]"
   >
-      <div className="max-w-[1400px] mx-auto px-6">
+      <div className=" px-6">
 
         {/* SECTION HEADER */}
         <div className="mb-16">
@@ -111,7 +111,7 @@ export default function RegimenPlans() {
               className={`
                 group relative rounded-2xl p-1 transition-all duration-500 flex flex-col
                 ${plan.active
-                  ? 'bg-[#C5D82D] border-[#C5D82D] border-2 scale-105 shadow-xl hover:bg-[#1a2e1f] hover:border-[#1a2e1f]'
+                  ? 'bg-[#C5D82D] border-[#C5D82D] border-2 scale-105 shadow-xl hover:bg-[#0c0e0d] hover:border-[#C5D82D]'
                   : 'bg-[#f3f3ee] border-gray-300 border hover:bg-[#C5D82D] hover:border-transparent hover:scale-105 hover:shadow-xl'
                 }
               `}
@@ -194,7 +194,7 @@ export default function RegimenPlans() {
                     rel="noopener noreferrer"
                     className={`px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition-colors
                       ${plan.active
-                        ? 'bg-gray-900 text-white hover:bg-black group-hover:bg-[#C5D82D] group-hover:text-gray-100'
+                        ? 'bg-gray-900 text-white  hover:bg-[#C5D82D] hover:text-gray-900'
                         : 'bg-gray-900 text-white hover:bg-black '
                       }`}
                   >

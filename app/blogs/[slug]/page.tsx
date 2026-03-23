@@ -1,3 +1,5 @@
+
+
 // import { blogs, BlogPost } from "@/data/blogs";
 // import { notFound } from "next/navigation";
 // import Link from "next/link";
@@ -22,104 +24,106 @@
 //   if (!blog) return notFound();
 
 //   return (
-//     <article className="min-h-screen bg-gray-50 py-10">
+//     <article className="min-h-screen bg-[#ebecdf] py-20">
+
 //       <div className="max-w-6xl mx-auto px-6">
 
-        
+//         {/* Title Section */}
+//         <header className="mb-12 text-center">
 
-//         {/* Title */}
-//         <header className="mb-10">
-//           <h1
-//   className="
-//     text-4xl 
-//     font-extrabold 
-//     leading-tight 
-//     text-gray-900 
-//     mb-4 
-//     text-center 
-//     mx-auto
-//   "
-// >
-//     {blog.title}
-//     </h1>
+//           {/* <p className="text-[#8ca21f] font-medium mb-4">
+//             Gut Health Insights
+//           </p> */}
+
+//           <h1 className="text-4xl font-bold text-[#0f172a] leading-tight">
+//             {blog.title}
+//           </h1>
+
 //         </header>
 
 //         {/* Hero Image */}
-//         <div className="mb-12 overflow-hidden rounded-3xl shadow-lg">
-//   <img
-//     src={blog.image}
-//     alt={blog.title}
-//     className="
-//     w-full
-//     h-[220px]
-//     sm:h-[260px]
-//     md:h-[320px]
-//     lg:h-[380px]
-//     xl:h-[420px]
-//     object-cover
-//     transition-transform duration-500 hover:scale-105
-//     "
-//   />
-// </div>
+//         <div className="mb-16 overflow-hidden rounded-2xl shadow-md bg-white">
+//           <img
+//             src={blog.image}
+//             alt={blog.title}
+//             className="
+//               w-full
+//               h-[220px]
+//               sm:h-[260px]
+//               md:h-[320px]
+//               lg:h-[380px]
+//               xl:h-[420px]
+//               object-cover
+//               transition-transform duration-500 hover:scale-105
+//             "
+//           />
+//         </div>
 
-//         {/* Blog Content */}
-//         <div
-//   className="
-//   text-gray-700
-//   leading-relaxed
-//   space-y-2
+//         {/* Blog Content Card */}
+//         <div className="bg-white rounded-2xl shadow-md p-8 md:p-12">
 
-//   [&>h2]:text-2xl
-//   sm:[&>h2]:text-3xl
-//   md:[&>h2]:text-4xl
-//   [&>h2]:font-extrabold
-//   [&>h2]:text-gray-900
-//   [&>h2]:mt-14
-//   [&>h2]:tracking-tight
+//           <div
+//             className="
+//             text-gray-700
+//             leading-relaxed
+//             space-y-3
 
-//   [&>h3]:text-xl
-//   sm:[&>h3]:text-2xl
-//   [&>h3]:font-semibold
-//   [&>h3]:text-gray-900
-//   [&>h3]:mt-10
+//             [&>h2]:text-[28px]
+//             md:[&>h2]:text-[34px]
+//             [&>h2]:font-bold
+//             [&>h2]:text-[#0f172a]
+//             [&>h2]:mt-12
 
-//   [&>p]:text-base 
-//   sm:[&>p]:text-lg
-//   [&>p]:leading-8
-//   [&>p]:text-gray-700
+//             [&>h3]:text-xl
+//             md:[&>h3]:text-2xl
+//             [&>h3]:font-semibold
+//             [&>h3]:text-[#0f172a]
+//             [&>h3]:mt-8
 
-//   [&>ul]:list-disc
-//   [&>ul]:pl-6
-//   [&>ul]:space-y-2
-//   [&>ul]:text-base
-//   sm:[&>ul]:text-lg
+//             [&>p]:text-[16px]
+//             md:[&>p]:text-[18px]
+//             [&>p]:leading-8
+//             [&>p]:text-gray-600
 
-//   [&>ul>li]:marker:text-emerald-600
-//   [&>ul>li]:pl-1
+//             [&>ul]:list-disc
+//             [&>ul]:pl-6
+//             [&>ul]:space-y-2
+//             [&>ul]:text-[16px]
 
-//   [&>strong]:text-gray-900
-//   [&>strong]:font-semibold
+//             [&>ul>li]:marker:text-[#8ca21f]
 
-//   [&>blockquote]:border-l-4
-//   [&>blockquote]:border-emerald-500
-//   [&>blockquote]:bg-emerald-50/70
-//   [&>blockquote]:px-6
-//   [&>blockquote]:py-4
-//   [&>blockquote]:rounded-xl
-//   [&>blockquote]:text-lg
-//   [&>blockquote]:font-medium
-//   [&>blockquote]:text-emerald-900
+//             [&>strong]:text-[#0f172a]
+//             [&>strong]:font-semibold
 
-//   [&>hr]:my-12
-//   [&>hr]:border-gray-200
-//   "
-//   dangerouslySetInnerHTML={{ __html: blog.content }}
-// />
+//             [&>blockquote]:border-l-4
+//             [&>blockquote]:border-[#8ca21f]
+//             [&>blockquote]:bg-[#f6f7ea]
+//             [&>blockquote]:px-6
+//             [&>blockquote]:py-4
+//             [&>blockquote]:rounded-xl
+//             [&>blockquote]:text-lg
+//             [&>blockquote]:font-medium
+//             [&>blockquote]:text-[#0f172a]
+
+//             [&>hr]:my-12
+//             [&>hr]:border-gray-200
+//             "
+//             dangerouslySetInnerHTML={{ __html: blog.content }}
+//           />
+
+//         </div>
+
+        
 
 //       </div>
 //     </article>
 //   );
 // }
+
+
+
+
+
 
 
 
@@ -148,25 +152,25 @@ export default async function BlogDetails({
   if (!blog) return notFound();
 
   return (
-    <article className="min-h-screen bg-[#ebecdf] py-20">
+    <article className="min-h-screen bg-[#ebecdf] py-12 ">
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* Title Section */}
-        <header className="mb-12 text-center">
+        <header className="mb-10 text-center">
 
-          {/* <p className="text-[#8ca21f] font-medium mb-4">
+          {/* <p className="text-[#5c5c5c] font-bold tracking-wider uppercase text-sm mb-4">
             Gut Health Insights
           </p> */}
 
-          <h1 className="text-4xl font-bold text-[#0f172a] leading-tight">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1b1b1b] leading-tight">
             {blog.title}
           </h1>
 
         </header>
 
         {/* Hero Image */}
-        <div className="mb-16 overflow-hidden rounded-2xl shadow-md bg-white">
+        <div className="mb-12 overflow-hidden rounded-xl shadow-sm border border-[#d6d1c4] bg-[#f4f4f2]">
           <img
             src={blog.image}
             alt={blog.title}
@@ -174,9 +178,8 @@ export default async function BlogDetails({
               w-full
               h-[220px]
               sm:h-[260px]
-              md:h-[320px]
-              lg:h-[380px]
-              xl:h-[420px]
+              md:h-[360px]
+              lg:h-[420px]
               object-cover
               transition-transform duration-500 hover:scale-105
             "
@@ -184,60 +187,67 @@ export default async function BlogDetails({
         </div>
 
         {/* Blog Content Card */}
-        <div className="bg-white rounded-2xl shadow-md p-8 md:p-12">
+        <div className="bg-[#f4f4f2] rounded-xl shadow-sm border border-[#d6d1c4] p-6 sm:p-8 md:p-12">
 
           <div
             className="
-            text-gray-700
+            text-[#5c5c5c]
             leading-relaxed
-            space-y-3
+            space-y-4
 
-            [&>h2]:text-[28px]
-            md:[&>h2]:text-[34px]
+            [&>h2]:text-[26px]
+            md:[&>h2]:text-[32px]
             [&>h2]:font-bold
-            [&>h2]:text-[#0f172a]
-            [&>h2]:mt-12
+            [&>h2]:text-[#1b1b1b]
+            [&>h2]:mt-10
+            [&>h2]:mb-4
 
             [&>h3]:text-xl
             md:[&>h3]:text-2xl
-            [&>h3]:font-semibold
-            [&>h3]:text-[#0f172a]
+            [&>h3]:font-bold
+            [&>h3]:text-[#1b1b1b]
             [&>h3]:mt-8
+            [&>h3]:mb-3
 
             [&>p]:text-[16px]
             md:[&>p]:text-[18px]
             [&>p]:leading-8
-            [&>p]:text-gray-600
+            [&>p]:text-[#5c5c5c]
+            [&>p]:mb-5
 
             [&>ul]:list-disc
             [&>ul]:pl-6
             [&>ul]:space-y-2
             [&>ul]:text-[16px]
+            md:[&>ul]:text-[18px]
+            [&>ul]:mb-6
 
-            [&>ul>li]:marker:text-[#8ca21f]
+            [&>ul>li]:marker:text-[#C5D82D]
+            [&>ol>li]:marker:text-[#1b1b1b]
+            [&>ol>li]:marker:font-bold
 
-            [&>strong]:text-[#0f172a]
-            [&>strong]:font-semibold
+            [&>strong]:text-[#1b1b1b]
+            [&>strong]:font-bold
 
             [&>blockquote]:border-l-4
-            [&>blockquote]:border-[#8ca21f]
-            [&>blockquote]:bg-[#f6f7ea]
+            [&>blockquote]:border-[#C5D82D]
+            [&>blockquote]:bg-[#ebecdf]
             [&>blockquote]:px-6
-            [&>blockquote]:py-4
-            [&>blockquote]:rounded-xl
+            [&>blockquote]:py-5
+            [&>blockquote]:rounded-r-xl
             [&>blockquote]:text-lg
+            md:[&>blockquote]:text-xl
             [&>blockquote]:font-medium
-            [&>blockquote]:text-[#0f172a]
+            [&>blockquote]:text-[#1b1b1b]
+            [&>blockquote]:my-8
 
-            [&>hr]:my-12
-            [&>hr]:border-gray-200
+            [&>hr]:my-10
+            [&>hr]:border-[#d6d1c4]
             "
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />
 
         </div>
-
-        
 
       </div>
     </article>

@@ -1639,20 +1639,20 @@ export default function ProductsGrid() {
                     </span>
                   </div>
 
-                  <div className="text-2xl font-bold text-[#1b1b1b] mb-2">
+                  <div className="text-2xl font-bold text-[#1b1b1b] ">
                     ₹{product.effective_price}
                   </div>
 
                   {/* Dynamic Tags Section */}
-                  <div className="flex-grow mb-4 flex flex-col gap-3 mt-2">
+                  <div className="flex-grow mb-2 flex flex-col gap-3 mt-1">
                     {feelsList.length > 0 && (
                       <div>
-                        <h4 className="text-[11px] font-bold text-[#5c5c5c] uppercase tracking-wider mb-2">
+                        <h4 className="text-[11px] font-bold text-[#5c5c5c] uppercase tracking-wider mb-1">
                           What You'll Feel
                         </h4>
                         <ExpandableTagList 
                           items={feelsList} 
-                          tagClassName="bg-[#f2fceb] border border-[#c3e6b1] text-[#3b6b21] px-3 py-1 rounded-full text-[12px] font-medium"
+                          tagClassName="bg-[#f2fceb] border border-[#c3e6b1] text-[#3b6b21] px-3 py-1 rounded-full text-[11px] font-medium"
                         />
                       </div>
                     )}
@@ -1663,12 +1663,12 @@ export default function ProductsGrid() {
 
                     {ingredientsList.length > 0 && (
                       <div>
-                        <h4 className="text-[11px] font-bold text-[#5c5c5c] uppercase tracking-wider mb-2">
+                        <h4 className="text-[11px] font-bold text-[#5c5c5c] uppercase tracking-wider mb-1">
                           Key Ingredients
                         </h4>
                         <ExpandableTagList 
                           items={ingredientsList} 
-                          tagClassName="bg-[#f4f4f2] border border-[#d6d1c4] text-[#1b1b1b] px-3 py-1 rounded-full text-[12px] font-medium"
+                          tagClassName="bg-[#f4f4f2] border border-[#d6d1c4] text-[#1b1b1b] px-3 py-1 rounded-full text-[11px] font-medium"
                         />
                       </div>
                     )}

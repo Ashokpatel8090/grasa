@@ -206,7 +206,7 @@ export default function RegimenSection() {
 
   return (
     <section className="w-full bg-[#faf8f3] overflow-hidden py-10">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[100%] mx-auto px-6 lg:px-12">
         
         {/* Main Dark Container */}
         <div className="relative w-full bg-[#0f1114] rounded-[2.5rem] p-8 sm:p-12 md:p-16 flex flex-col gap-12 overflow-hidden shadow-2xl">
