@@ -1581,25 +1581,26 @@ export default function ProductsGrid() {
   }
 
   return (
-    <section className="bg-[#f5f5f5] py-10">
+    <section className="bg-gray-50 py-12 md:py-20">
       <Toaster
         position="bottom-center"
         toastOptions={{
           duration: 2500,
           style: {
-            background: "#1b1b1b",
+            background: "#1f2937",
             color: "#fff",
             borderRadius: "10px",
           },
         }}
       />
 
-      <div className="w-[90%] mx-auto">
-        {/* Changed to Serif and applied your dark hex color */}
-        <h2 className="text-3xl sm:text-4xl md:text-[44px] font-bold leading-[1.15] mb-6">Millet Products</h2>
-        <p className="text-[#5c5c5c] max-w-2xl mb-10 text-md leading-relaxed">
-          Discover our range of wholesome, nutrient-dense millet products designed to support your health and fit seamlessly into your daily lifestyle.
-        </p>
+      <div className="w-[90%] md:w-[95%] mx-auto">
+        <div className="mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.2] mb-4 text-foreground">Millet Products</h2>
+          <p className="text-gray-600 max-w-2xl text-base sm:text-lg leading-relaxed">
+            Discover our range of wholesome, nutrient-dense millet products designed to support your health and fit seamlessly into your daily lifestyle.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {products.map((product) => {
@@ -1612,34 +1613,34 @@ export default function ProductsGrid() {
               <div
                 key={product.id}
                 onClick={() => router.push(`/products/${product.id}`)}
-                className="bg-white rounded-xl border border-[#d6d1c4] shadow-sm hover:shadow-lg transition-shadow overflow-hidden cursor-pointer flex flex-col"
+                className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden cursor-pointer flex flex-col"
               >
                 {/* Product Image */}
-                <div className="w-full h-[230px] overflow-hidden shrink-0">
+                <div className="w-full h-48 sm:h-56 overflow-hidden shrink-0 bg-gray-100">
                   <img
                     src={product.image_url}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
 
-                <div className="p-4 flex flex-col flex-grow">
+                <div className="p-4 sm:p-5 flex flex-col flex-grow">
                   
-                   <h3 className="text-xl font-bold text-[#1b1b1b] line-clamp-1 mb-1">
+                  <h3 className="text-lg sm:text-xl font-bold text-foreground line-clamp-1 mb-3">
                     {product.name}
                   </h3>
 
                   {/* Price Section */}
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="text-[#5c5c5c] line-through text-sm">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-gray-500 line-through text-sm font-medium">
                       ₹{product.price}
                     </span>
-                    <span className="text-[#3b6b21] text-md font-semibold">
+                    <span className="text-green-600 text-sm sm:text-base font-bold bg-green-50 px-2 py-1 rounded">
                       {product.discount_percent.toFixed(1)}% OFF
                     </span>
                   </div>
 
-                  <div className="text-2xl font-bold text-[#1b1b1b] mb-2">
+                  <div className="text-2xl sm:text-3xl font-bold text-accent mb-4">
                     ₹{product.effective_price}
                   </div>
 
@@ -1676,51 +1677,50 @@ export default function ProductsGrid() {
 
                   {/* Action Buttons */}
                   <div
-                    className="flex gap-4 pt-2 mt-auto"
+                    className="flex gap-3 sm:gap-4 pt-4 mt-auto"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <button
                       onClick={() => router.push(`/products/${product.id}`)}
-                      className="flex-1 bg-[#1b1b1b] text-white py-3 rounded-lg font-medium hover:bg-[#333333] transition"
+                      className="flex-1 bg-foreground text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-300"
                     >
-                      View Details
+                      View
                     </button>
 
                     {!cartItem ? (
                       <button
                         disabled={product.stock_quantity === 0 || addingId === product.id}
                         onClick={() => handleAddToCart(product.id, product.name)}
-                        className={`flex-1 py-3 rounded-lg font-medium transition
-                        ${
+                        className={`flex-1 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 ${
                           product.stock_quantity === 0
-                            ? "bg-[#e5e5e5] cursor-not-allowed text-[#5c5c5c]"
-                            : "bg-[#C5D82D] text-[#1b1b1b] font-bold hover:bg-[#b8cc28]"
+                            ? "bg-gray-200 cursor-not-allowed text-gray-500"
+                            : "bg-accent text-foreground hover:shadow-lg hover:scale-105"
                         }`}
                       >
                         {addingId === product.id
                           ? "Adding..."
                           : product.stock_quantity === 0
                           ? "Out of Stock"
-                          : "Add to Cart"}
+                          : "Add"}
                       </button>
                     ) : (
-                      <div className="flex items-center justify-between bg-[#C5D82D] rounded-lg flex-1 px-1 border border-black/5 text-[#1b1b1b]">
+                      <div className="flex items-center justify-between bg-accent rounded-lg flex-1 px-2 text-foreground font-bold">
                         <button
                           onClick={() => handleDecrement(product.id, product.name)}
-                          className="p-2 hover:bg-black/10 rounded-lg transition"
+                          className="p-2 hover:bg-black/10 rounded transition-colors"
                         >
-                          <FiMinus size={18} />
+                          <FiMinus size={16} />
                         </button>
 
-                        <span className="font-bold text-lg">
+                        <span className="text-base">
                           {cartItem.quantity}
                         </span>
 
                         <button
                           onClick={() => handleIncrement(product.id, product.name)}
-                          className="p-2 hover:bg-black/10 rounded-lg transition"
+                          className="p-2 hover:bg-black/10 rounded transition-colors"
                         >
-                          <FiPlus size={18} />
+                          <FiPlus size={16} />
                         </button>
                       </div>
                     )}

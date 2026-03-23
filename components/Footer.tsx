@@ -235,8 +235,8 @@ export default function Footer() {
       />
 
       {/* FOOTER STRUCTURE START */}
-      <footer className="bg-gray-100 border-t border-gray-200 text-gray-700">
-        <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 py-12 md:py-16">
+      <footer className="bg-gray-50 border-t border-gray-200 text-gray-700">
+        <div className="mx-auto w-[90%] md:w-[95%] px-4 md:px-6 lg:px-8 py-12 md:py-20">
 
           {/* Top Section: Logo, Info, Links, and Social */}
           <div className="grid grid-cols-1 gap-10 md:grid-cols-4 lg:grid-cols-5">
