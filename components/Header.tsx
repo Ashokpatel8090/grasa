@@ -484,7 +484,7 @@ export default function Header() {
                           </div>
                           <div>
                             <p className="text-[13px] font-medium text-[#1b1b1b] leading-tight m-0">My Account</p>
-                            <p className="text-[11px] text-gray-400 mt-0.5 m-0">Welcome back!</p>
+                            <p className="text-[11px] text-gray-800 mt-0.5 m-0">Welcome back!</p>
                           </div>
                         </div>
 
@@ -559,8 +559,8 @@ export default function Header() {
                             </svg>
                           </div>
                           <div>
-                            <p className="text-[12px] text-gray-500 font-medium leading-tight m-0">Welcome to GRASA</p>
-                            <p className="text-[11px] text-gray-400 mt-0.5 m-0">Sign in to continue</p>
+                            <p className="text-[12px] text-gray-800 font-medium leading-tight m-0">Welcome to GRASA</p>
+                            <p className="text-[11px] text-gray-700 mt-0.5 m-0">Sign in to continue</p>
                           </div>
                         </div>
 
