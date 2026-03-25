@@ -796,7 +796,8 @@ export default function ChatbotWidget() {
 
     try {
       const res = await fetch("https://grasachat.srv1067874.hstgr.cloud/ask/chat", {
-      // const res = await fetch("http://localhost:5000/ask/chat", {
+
+   
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage.text }),
