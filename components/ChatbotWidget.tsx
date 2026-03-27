@@ -367,43 +367,43 @@ export default function ChatbotWidget() {
 
             {/* Input Area */}
             <div className="p-3 sm:p-4 bg-[#f4f4f2] border-t border-[#d6d1c4]">
-  <div className="flex items-center gap-1 sm:gap-2 bg-white border border-[#d6d1c4] rounded-2xl p-1 sm:p-1.5 focus-within:border-[#1b1b1b] focus-within:ring-1 focus-within:ring-[#1b1b1b] transition-all">
-    
-    {/* Input */}
-    <input
-      value={input}
-      onChange={(e) => setInput(e.target.value)}
-      onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-      placeholder={isListening ? "Listening..." : "Type your message..."}
-      className="flex-1 min-w-0 bg-transparent px-2 sm:px-3 py-2 text-sm sm:text-[15px] outline-none text-[#1b1b1b] placeholder:text-[#5c5c5c] font-medium"
-    />
+              <div className="flex items-center gap-1 sm:gap-2 bg-white border border-[#d6d1c4] rounded-2xl p-1 sm:p-1.5 focus-within:border-[#1b1b1b] focus-within:ring-1 focus-within:ring-[#1b1b1b] transition-all">
+                
+                {/* Input */}
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                  placeholder={isListening ? "Listening..." : "Type your message..."}
+                  className="flex-1 min-w-0 bg-transparent px-2 sm:px-3 py-2 text-sm sm:text-[15px] outline-none text-[#1b1b1b] placeholder:text-[#5c5c5c] font-medium"
+                />
 
-    {/* Mic Button */}
-    <button
-      onClick={toggleListening}
-      className={`flex-shrink-0 p-2 sm:p-2.5 rounded-xl transition-all ${
-        isListening 
-          ? "bg-red-100 text-red-500 animate-pulse" 
-          : "bg-gray-100 text-[#5c5c5c] hover:bg-gray-200"
-      }`}
-    >
-      <Mic size={16} className="sm:w-[18px] sm:h-[18px]" />
-    </button>
+                {/* Mic Button */}
+                <button
+                  onClick={toggleListening}
+                  className={`flex-shrink-0 p-2 sm:p-2.5 rounded-xl transition-all ${
+                    isListening 
+                      ? "bg-red-100 text-red-500 animate-pulse" 
+                      : "bg-gray-100 text-[#5c5c5c] hover:bg-gray-200"
+                  }`}
+                >
+                  <Mic size={16} className="sm:w-[18px] sm:h-[18px]" />
+                </button>
 
-    {/* Send Button */}
-    <button
-      onClick={sendMessage}
-      disabled={loading || !input.trim()}
-      className="flex-shrink-0 bg-[#C5D82D] hover:opacity-90 text-[#1b1b1b] p-2 sm:p-2.5 rounded-xl transition-all disabled:opacity-50"
-    >
-      <Send size={16} className="sm:w-[18px] sm:h-[18px] fill-current" />
-    </button>
-  </div>
+                {/* Send Button */}
+                <button
+                  onClick={sendMessage}
+                  disabled={loading || !input.trim()}
+                  className="flex-shrink-0 bg-[#C5D82D] hover:opacity-90 text-[#1b1b1b] p-2 sm:p-2.5 rounded-xl transition-all disabled:opacity-50"
+                >
+                  <Send size={16} className="sm:w-[18px] sm:h-[18px] fill-current" />
+                </button>
+              </div>
 
-  <p className="text-[9px] sm:text-[10px] text-center text-[#5c5c5c] mt-2 sm:mt-3 font-bold uppercase tracking-wider">
-    Powered by IDC INDIA
-  </p>
-</div>
+              <p className="text-[9px] sm:text-[10px] text-center text-[#5c5c5c] mt-2 sm:mt-3 font-bold uppercase tracking-wider">
+                Powered by IDC INDIA
+              </p>
+            </div>
           </div>
         )}
       </div>
