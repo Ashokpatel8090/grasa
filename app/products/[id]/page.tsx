@@ -677,7 +677,7 @@ export default function ProductDetails({ params }: Props) {
             <h1 className="text-3xl font-bold">{product.name}</h1>
 
             {/* PRICE SECTION */}
-            <div className="space-y-1">
+            {/* <div className="space-y-1">
               <div className="flex items-end gap-3">
                 <span className="text-red-500 text-3xl font-semibold">
                   -{product.discount_percent}%
@@ -692,6 +692,33 @@ export default function ProductDetails({ params }: Props) {
                   ₹{product.price.toLocaleString()}
                 </span>
               </div>
+            </div> */}
+
+            <div className="space-y-1">
+              <div className="flex items-end gap-3">
+                
+                {/* Show discount only if > 0 */}
+                {product.discount_percent > 0 && (
+                  <span className="text-red-500 text-3xl font-semibold">
+                    -{product.discount_percent}%
+                  </span>
+                )}
+
+                {/* Always show effective price */}
+                <span className="text-4xl font-semibold text-gray-800">
+                  ₹{product.effective_price.toLocaleString()}
+                </span>
+              </div>
+
+              {/* Show MRP only if discount exists */}
+              {product.discount_percent > 0 && (
+                <div className="text-gray-500 text-lg">
+                  M.R.P.:{" "}
+                  <span className="line-through">
+                    ₹{product.price.toLocaleString()}
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* CART ACTION BUTTONS */}

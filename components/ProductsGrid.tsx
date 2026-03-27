@@ -1630,14 +1630,25 @@ export default function ProductsGrid() {
                   </h3>
 
                   {/* Price Section */}
-                  <div className="flex items-center gap-3 mb-1">
+                  {/* <div className="flex items-center gap-3 mb-1">
                     <span className="text-[#5c5c5c] line-through text-sm">
                       ₹{product.price}
                     </span>
                     <span className="text-[#3b6b21] text-md font-semibold">
                       {product.discount_percent.toFixed(1)}% OFF
                     </span>
-                  </div>
+                  </div> */}
+
+                  {product.discount_percent > 0 && (
+                    <div className="flex items-center gap-3 mb-1">
+                      <span className="text-[#5c5c5c] line-through text-sm">
+                        ₹{product.price}
+                      </span>
+                      <span className="text-[#3b6b21] text-md font-semibold">
+                        {product.discount_percent.toFixed(1)}% OFF
+                      </span>
+                    </div>
+                  )}
 
                   <div className="text-2xl font-bold text-[#1b1b1b] ">
                     ₹{product.effective_price}
