@@ -10,8 +10,11 @@ import { CartProvider } from "@/components/grasa/CartContext";
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata = {
-  title: "GRASA - Science Led Gut Health",
+  title: "GRASA ",
   description: "Science Led Gut Health Solution",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
