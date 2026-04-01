@@ -4,8 +4,90 @@ import React from "react";
 import { ArrowRight, Phone, CheckCircle2, Package, Compass, Target, Sprout, Home, TrendingDown, Handshake  } from "lucide-react";
 
 
+const generateVisionSchema = () => {
+  const domain = "https://www.grasamillets.com";
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      // 🏢 ORGANIZATION
+      {
+        "@type": "Organization",
+        "@id": `${domain}/#organization`,
+        "name": "Grasa",
+        "url": domain,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${domain}/logo.png`
+        },
+        "description": "Grasa is a science-led nutrition company focused on millet-based food solutions for gut health, metabolic health, and longevity."
+      },
+
+      // 🌐 WEBSITE
+      {
+        "@type": "WebSite",
+        "@id": `${domain}/#website`,
+        "url": domain,
+        "name": "Grasa",
+        "publisher": {
+          "@id": `${domain}/#organization`
+        }
+      },
+
+      // 🎯 VISION PAGE
+      {
+        "@type": "AboutPage",
+        "@id": `${domain}/vision-mission#webpage`,
+        "url": `${domain}/vision-mission`,
+        "name": "Vision & Mission - Grasa",
+        "description": "Learn about Grasa’s vision to make food the first intervention for health and its mission to provide personalised nutrition solutions.",
+
+        "inLanguage": "en",
+
+        "isPartOf": {
+          "@id": `${domain}/#website`
+        },
+
+        "publisher": {
+          "@id": `${domain}/#organization`
+        },
+
+        "about": [
+          "Food as Medicine",
+          "Millet Nutrition",
+          "Metabolic Health",
+          "Gut Health",
+          "Longevity"
+        ],
+
+        // ✅ MAIN CONTENT
+        "mainEntity": {
+          "@type": "Article",
+          "name": "Grasa Vision and Mission",
+          "description": "Grasa aims to make food-based health intervention accessible, guided and measurable through millet-based nutrition and personalised plans.",
+          "author": {
+            "@type": "Organization",
+            "name": "Grasa"
+          }
+        }
+      }
+
+    ]
+  };
+};
+
 export default function VisionMission() {
+  const schemaData = generateVisionSchema();
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schemaData),
+      }}
+    />
+    
     <div className="min-h-screen bg-[#f4f4f2] font-sans selection:bg-[#C5D82D] selection:text-[#1b1b1b]">
       
       {/* ================= HERO SECTION ================= */}
@@ -295,5 +377,6 @@ export default function VisionMission() {
       </section>
 
     </div>
+    </>
   );
 }

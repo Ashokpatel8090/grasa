@@ -559,6 +559,8 @@ export default function LongevityTestPage() {
       whatsapp_number: ""
     };
 
+    console.log(payload)
+
     let fetchedResult: ApiResultData | null = null;
     
     try {

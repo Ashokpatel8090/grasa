@@ -1,233 +1,3 @@
-// "use client"
-
-// import Link from "next/link"
-// import { Button } from "@/components/ui/button"
-// import { ArrowRight, Phone, Mail } from "lucide-react"
-// import { motion } from "framer-motion"
-
-// // ✅ Function to generate JSON-LD schema object
-// const generateContactSchema = () => {
-//   const domain = "https://www.grasafoods.com"
-//   const logoUrl = `${domain}/logo.png`
-
-//   return {
-//     "@context": "https://schema.org",
-//     "@type": "ContactPage",
-//     "name": "GRASA Super Foods & Beverages Contact Us",
-//     "description":
-//       "Get in touch with GRASA Super Foods & Beverages for product inquiries, partnership opportunities, or support.",
-//     "url": `${domain}/contact`,
-//     "mainEntity": {
-//       "@type": "Organization",
-//       "name": "GRASA Super Foods & Beverages Pvt. Ltd.",
-//       "url": domain,
-//       "logo": logoUrl,
-//       "contactPoint": [
-//         {
-//           "@type": "ContactPoint",
-//           "telephone": "+91-9870263399",
-//           "contactType": "customer service",
-//           "email": "support@grasafoods.com",
-//           "areaServed": "IN",
-//           "availableLanguage": "en",
-//         },
-//         {
-//           "@type": "ContactPoint",
-//           "email": "support@grasafoods.com",
-//           "contactType": "sales",
-//           "areaServed": "IN",
-//           "availableLanguage": "en",
-//         },
-//       ],
-//       "address": {
-//         "@type": "PostalAddress",
-//         "addressLocality": "New Delhi",
-//         "addressCountry": "IN",
-//       },
-//     },
-//   }
-// }
-
-// // ✅ Reusable floating animation bubble
-// const FloatingBubble = ({ delay, size, color, top, left }: any) => (
-//   <motion.div
-//     initial={{ y: 0, opacity: 0.7 }}
-//     animate={{
-//       y: [0, -15, 0],
-//       opacity: [0.7, 1, 0.7],
-//     }}
-//     transition={{
-//       duration: 4,
-//       repeat: Infinity,
-//       delay,
-//       ease: "easeInOut",
-//     }}
-//     className="absolute rounded-full blur-md"
-//     style={{
-//       background: color,
-//       width: size,
-//       height: size,
-//       top,
-//       left,
-//     }}
-//   />
-// )
-
-// export default function ContactPage() {
-//   const jsonLd = generateContactSchema()
-
-//   return (
-//     <>
-//       {/* ✅ JSON-LD Schema */}
-//       <script
-//         type="application/ld+json"
-//         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-//       />
-
-//       {/* ✅ Main Content */}
-//       <div className="bg-gray-50 min-h-screen flex items-center justify-center py-16 px-4">
-//         <div className="max-w-6xl w-full bg-white shadow-xl rounded-2xl p-8 md:p-16 flex flex-col md:flex-row gap-12 relative overflow-hidden">
-//           {/* ✅ Left Column: Framer Motion Animation */}
-//           <div className="md:w-1/2 flex items-center justify-center relative overflow-hidden">
-//             {/* Background Animated Layer */}
-//             <div className="absolute inset-0">
-//               <FloatingBubble
-//                 delay={0}
-//                 size="100px"
-//                 color="rgba(30,119,10,0.25)"
-//                 top="10%"
-//                 left="20%"
-//               />
-//               <FloatingBubble
-//                 delay={1.2}
-//                 size="70px"
-//                 color="rgba(20,92,8,0.35)"
-//                 top="40%"
-//                 left="60%"
-//               />
-//               <FloatingBubble
-//                 delay={2.3}
-//                 size="120px"
-//                 color="rgba(45,140,20,0.2)"
-//                 top="70%"
-//                 left="30%"
-//               />
-//               <FloatingBubble
-//                 delay={0.8}
-//                 size="60px"
-//                 color="rgba(15,80,5,0.25)"
-//                 top="20%"
-//                 left="70%"
-//               />
-//             </div>
-
-//             {/* Foreground Text Animation */}
-//             <motion.div
-//               initial={{ opacity: 0, scale: 0.95 }}
-//               animate={{ opacity: 1, scale: 1 }}
-//               transition={{ duration: 0.8, ease: "easeOut" }}
-//               className="relative z-10 text-center md:text-left"
-//             >
-//               <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1e770a] mb-4">
-//                 Let’s Connect!
-//               </h2>
-//               <p className="text-zinc-600 text-lg max-w-sm">
-//                 Reach out for collaborations, support, or insights into our
-//                 precision nutrition research.
-//               </p>
-//             </motion.div>
-//           </div>
-
-//           {/* ✅ Right Column: Contact Info */}
-//           <div className="md:w-1/2 flex flex-col gap-2 relative z-10">
-//             <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1e770a]">
-//               We’d Love to Hear From You.
-//             </h1>
-//             <p className="text-zinc-600 text-lg">
-//               Whether you have a question about our products, gut health, or
-//               partnership opportunities — the GRASA team is here for you.
-//             </p>
-
-//             {/* --- Contact Details --- */}
-//             <div className="flex flex-col gap-2 text-zinc-700">
-//               <div>
-//                 <p className="font-serif font-bold text-xl">Head Office</p>
-//                 <p>GRASA Super Foods & Beverages Pvt. Ltd.</p>
-//                 <p>New Delhi, India</p>
-//               </div>
-
-//               <div className="flex flex-col md:flex-row md:gap-8">
-//                 {/* Phone Section */}
-//                 <div className="flex flex-col gap-1">
-//                   <p className="font-serif font-semibold text-xl flex items-center gap-2">
-//                     <Phone className="w-5 h-5 text-gray-600" />
-//                     Phone
-//                   </p>
-//                   <Link
-//                     href="tel:+919870263399"
-//                     className="text-[#1e770a] hover:underline"
-//                   >
-//                     +91-9870263399
-//                   </Link>
-//                 </div>
-
-//                 {/* Email Section */}
-//                 <div className="flex flex-col gap-1">
-//                   <p className="font-serif font-semibold text-xl flex items-center gap-2">
-//                     <Mail className="w-5 h-5 text-gray-600" />
-//                     Email
-//                   </p>
-//                   <Link
-//                     href="mailto:info@grasafoods.com"
-//                     className="text-[#1e770a] hover:underline"
-//                   >
-//                     info@grasafoods.com
-//                   </Link>
-//                 </div>
-//               </div>
-
-//               {/* Orders Section */}
-//               <div>
-//                 <p className="font-serif font-semibold text-xl flex items-center gap-2">
-//                   🛒 For Orders & Deliveries
-//                 </p>
-//                 <Link
-//                   href="mailto:support@grasafoods.com"
-//                   className="text-[#1e770a] hover:underline"
-//                 >
-//                   support@grasafoods.com
-//                 </Link>
-//               </div>
-//             </div>
-
-//             {/* CTA Section */}
-//             <div>
-//               <p className="text-lg text-zinc-700 mb-2">
-//                 Looking for products?
-//               </p>
-//               <Button
-//                 className="py-3 px-6 text-lg bg-[#1e770a] hover:bg-[#145c08] hover:underline shadow-lg rounded-xl"
-//                 asChild
-//               >
-//                 <Link href="/products">
-//                   Shop Products
-//                   <ArrowRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5 inline" />
-//                 </Link>
-//               </Button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-
-
-
-
-
-
-
 "use client";
 
 import Link from "next/link";
@@ -237,36 +7,90 @@ import { FaWhatsapp } from "react-icons/fa";
 
 // ✅ Function to generate JSON-LD schema object
 const generateContactSchema = () => {
-  const domain = "https://www.grasafoods.com";
-  const logoUrl = `${domain}/logo.png`;
+  const domain = "https://www.grasamillets.com";
 
   return {
     "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "name": "GRASA Super Foods & Beverages Contact Us",
-    "description": "Get in touch with GRASA for product inquiries, partnership opportunities, or support.",
-    "url": `${domain}/contact`,
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "GRASA Super Foods & Beverages Pvt. Ltd.",
-      "url": domain,
-      "logo": logoUrl,
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "telephone": "+91-9870263399",
-          "contactType": "customer service",
-          "email": "support@grasafoods.com",
-          "areaServed": "IN",
-          "availableLanguage": "en",
+    "@graph": [
+
+      // 🏢 ORGANIZATION
+      {
+        "@type": "Organization",
+        "@id": `${domain}/#organization`,
+        "name": "GRASA SUPER FOODS & BEVERAGES PVT. LTD.",
+        "url": domain,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${domain}/logo.png`
         },
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "New Delhi",
-        "addressCountry": "IN",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+91-9870263399",
+            "contactType": "customer service",
+            "email": "support@grasafoods.com",
+            "areaServed": "IN",
+            "availableLanguage": "en"
+          }
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "New Delhi",
+          "addressCountry": "IN"
+        }
       },
-    },
+
+      // 🌐 WEBSITE
+      {
+        "@type": "WebSite",
+        "@id": `${domain}/#website`,
+        "url": domain,
+        "name": "Grasa",
+        "publisher": {
+          "@id": `${domain}/#organization`
+        }
+      },
+
+      // 📞 CONTACT PAGE
+      {
+        "@type": "ContactPage",
+        "@id": `${domain}/contact#webpage`,
+        "url": `${domain}/contact`,
+        "name": "Contact GRASA",
+        "description": "Get in touch with GRASA for product inquiries, support, or partnerships.",
+        "inLanguage": "en",
+
+        "isPartOf": {
+          "@id": `${domain}/#website`
+        },
+
+        "publisher": {
+          "@id": `${domain}/#organization`
+        },
+
+        // ✅ MAIN ENTITY (IMPORTANT)
+        "mainEntity": {
+          "@type": "Organization",
+          "@id": `${domain}/#organization`
+        },
+
+        // ✅ ACTION (POWERFUL)
+        "potentialAction": {
+          "@type": "CommunicateAction",
+          "target": [
+            {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://wa.me/919870263399",
+              "actionPlatform": [
+                "http://schema.org/MobileWebPlatform",
+                "http://schema.org/DesktopWebPlatform"
+              ]
+            }
+          ]
+        }
+      }
+
+    ]
   };
 };
 
@@ -280,7 +104,7 @@ export default function ContactPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section className="w-full bg-[#ebecdf] py-16 md:py-24 min-h-screen">
+      <section className="w-full bg-[#ebecdf] py-10 min-h-screen">
         <div className="max-w-[1400px] mx-auto px-12 grid lg:grid-cols-2 gap-12 items-center">
           
           {/* LEFT CONTENT - Brand Style */}

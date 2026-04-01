@@ -1,66 +1,48 @@
-
-// import Link from 'next/link';
-// import { blogs } from '@/data/blogs';
-
-// export default function BlogsListing() {
-//   return (
-//     <main className="max-w-7xl mx-auto px-4 py-12">
-//       <h1 className="text-4xl font-bold mb-10 text-gray-900">GRASA Wellness Blogs</h1>
-      
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//         {blogs.map((blog) => (
-//           <article key={blog.slug} className="group border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 bg-white">
-//             <div className="relative h-56 overflow-hidden">
-//               <img 
-//                 src={blog.image} 
-//                 alt={blog.title} 
-//                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-//               />
-//               <div className="absolute top-4 left-4">
-//                 <span className="bg-white/90 backdrop-blur-sm text-emerald-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
-//                   {blog.category}
-//                 </span>
-//               </div>
-//             </div>
-            
-//             <div className="p-6">
-//               <h2 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-emerald-700 transition-colors line-clamp-2">
-//                 <Link href={`/blogs/${blog.slug}`}>
-//                   {blog.title}
-//                 </Link>
-//               </h2>
-//               <p className="text-gray-600 text-sm mb-6 line-clamp-3">
-//                 {blog.excerpt}
-//               </p>
-//               <div className="flex items-center justify-between border-t pt-4">
-//                 <span className="text-xs text-gray-400 font-medium">{blog.date}</span>
-//                 <Link 
-//                   href={`/blogs/${blog.slug}`} 
-//                   className="text-sm font-bold text-emerald-600 hover:text-emerald-800"
-//                 >
-//                   READ BLOG →
-//                 </Link>
-//               </div>
-//             </div>
-//           </article>
-//         ))}
-//       </div>
-//     </main>
-//   );
-// }
-
-
-
-
-
-
-
-
 import Link from 'next/link';
 import { blogs } from '@/data/blogs';
 
+
+const generateBlogsSchema = () => {
+  const domain = "https://www.grasamillets.com";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "GRASA Wellness Blogs",
+    "url": `${domain}/blogs`,
+    "description": "Explore wellness blogs by GRASA covering gut health, millets nutrition, metabolic health, and lifestyle improvement.",
+
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": blogs.map((blog, index) => ({
+        "@type": "BlogPosting",
+        "position": index + 1,
+        "headline": blog.title,
+        "description": blog.excerpt,
+        "image": blog.image,
+        "author": {
+          "@type": "Organization",
+          "name": blog.author || "Grasa"
+        },
+        "datePublished": blog.date,
+        "url": `${domain}/blogs/${blog.slug}`
+      }))
+    }
+  };
+};
+
+
 export default function BlogsListing() {
+  const schemaData = generateBlogsSchema();
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schemaData),
+      }}
+    />
+   
     <main className="min-h-screen bg-[#ebecdf] px-4 py-12">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-10 text-[#1b1b1b] text-center">GRASA Wellness Blogs</h1>
@@ -108,5 +90,6 @@ export default function BlogsListing() {
         </div>
       </div>
     </main>
+     </>
   );
 }

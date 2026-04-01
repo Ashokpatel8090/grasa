@@ -1442,6 +1442,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/components/grasa/CartContext";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import toast, { Toaster } from "react-hot-toast";
+import Script from "next/script";
 
 // ---------------- TYPES ----------------
 type Product = {
@@ -1580,7 +1581,44 @@ export default function ProductsGrid() {
     );
   }
 
+  const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Millet Products",
+  "itemListElement": products.map((product, index) => ({
+    "@type": "Product",
+    "position": index + 1,
+    "name": product.name,
+    "description": product.description,
+    "image": product.image_url,
+    "sku": product.id.toString(),
+    "brand": {
+      "@type": "Brand",
+      "name": "Grasa"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "INR",
+      "price": product.effective_price,
+      "availability":
+        product.stock_quantity > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      "url": `https://www.grasamillets.com/products/${product.id}`
+    }
+  }))
+};
+
   return (
+    <>
+      <Script
+        id="product-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productSchema),
+        }}
+      />
+
     <section className="bg-[#f5f5f5] py-10">
       <Toaster
         position="bottom-center"
@@ -1743,5 +1781,6 @@ export default function ProductsGrid() {
         </div>
       </div>
     </section>
+        </>
   );
 }

@@ -7,8 +7,88 @@ import {
   Dna, Utensils, Zap, Target, ArrowDownRight, ArrowUpRight
 } from "lucide-react";
 
+const generateScienceSchema = () => {
+  const domain = "https://www.grasamillets.com";
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      // 🏢 ORGANIZATION
+      {
+        "@type": "Organization",
+        "@id": `${domain}/#organization`,
+        "name": "Grasa",
+        "url": domain,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${domain}/logo.png`
+        }
+      },
+
+      // 🌐 WEBSITE
+      {
+        "@type": "WebSite",
+        "@id": `${domain}/#website`,
+        "url": domain,
+        "name": "Grasa",
+        "publisher": {
+          "@id": `${domain}/#organization`
+        }
+      },
+
+      // 🧠 SCIENCE PAGE
+      {
+        "@type": "MedicalWebPage",
+        "@id": `${domain}/science#webpage`,
+        "url": `${domain}/science`,
+        "name": "The Science Behind GRASA",
+        "description": "Scientific explanation of how millet-based nutrition improves gut health, blood sugar control, metabolism, and overall health.",
+        "inLanguage": "en",
+
+        "isPartOf": {
+          "@id": `${domain}/#website`
+        },
+
+        "publisher": {
+          "@id": `${domain}/#organization`
+        },
+
+        "about": [
+          "Gut Health",
+          "Millets Nutrition",
+          "Blood Sugar Control",
+          "Metabolic Health",
+          "Ancient Grains"
+        ],
+
+        // ✅ MAIN CONTENT
+        "mainEntity": {
+          "@type": "Article",
+          "name": "GRASA Science: How Food Impacts Your Body",
+          "description": "Detailed explanation of how ancient grains, preparation techniques, gut microbiome, and blood sugar response influence long-term health outcomes.",
+          "author": {
+            "@type": "Organization",
+            "name": "Grasa"
+          }
+        }
+      }
+
+    ]
+  };
+};
+
 export default function SciencePage() {
+  const schemaData = generateScienceSchema();
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schemaData),
+        }}
+      />
+   
     <div className="min-h-screen bg-[#f4f4f2] font-sans selection:bg-[#C5D82D] selection:text-[#1b1b1b]">
       
       {/* ================= HERO SECTION ================= */}
@@ -481,5 +561,6 @@ export default function SciencePage() {
       </section>
 
     </div>
+     </>
   );
 }

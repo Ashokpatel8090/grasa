@@ -89,7 +89,12 @@ export default function Header() {
 
             {/* DESKTOP CTA */}
             <button
-              onClick={() => router.push("/longevity-test")}
+              onClick={() => {
+                  if (hasStoredResult) {
+                    localStorage.removeItem('grasa_longevity_result');
+                  }
+                  router.push("/longevity-test");
+                }}
               className={`hidden md:block bg-[#1b1b1b] text-white border border-[#1b1b1b] cursor-pointer rounded-full px-6 py-2.5 text-xs font-bold tracking-wider uppercase hover:bg-[#C5D82D] hover:text-[#1b1b1b] hover:border-[#C5D82D] transition-all duration-300 hover:shadow-[0_0_15px_rgba(197,216,45,0.3)] hover:-translate-y-0.5 ${!mounted ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
             >
               {hasStoredResult ? "Retake Longevity Test ™" : "Take The Longevity Test ™"}

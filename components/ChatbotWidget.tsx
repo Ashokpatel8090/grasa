@@ -401,7 +401,7 @@ export default function ChatbotWidget() {
               </div>
 
               <p className="text-[9px] sm:text-[10px] text-center text-[#5c5c5c] mt-2 sm:mt-3 font-bold uppercase tracking-wider">
-                Powered by IDC INDIA
+                Powered by GRASA MILLETS & FOODS PVT LTD
               </p>
             </div>
           </div>
