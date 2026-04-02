@@ -427,9 +427,9 @@ export default function RegimenPlans() {
                     <span className={`text-3xl font-black ${plan.active ? "text-[#1b1b1b]" : "text-[#1b1b1b]"}`}>
                       ₹{plan.price}
                     </span>
-                    <p className="text-[10px] font-black uppercase tracking-tighter text-orange-600 mt-1">
+                    {/* <p className="text-[10px] font-black uppercase tracking-tighter text-orange-600 mt-1">
                       Launch Offer 50% Off
-                    </p>
+                    </p> */}
                   </div>
 
                   <a
