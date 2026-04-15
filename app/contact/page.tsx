@@ -28,7 +28,7 @@ const generateContactSchema = () => {
             "@type": "ContactPoint",
             "telephone": "+91-9870263399",
             "contactType": "customer service",
-            "email": "support@grasafoods.com",
+            "email": "support@grasamillets.com",
             "areaServed": "IN",
             "availableLanguage": "en"
           }
@@ -147,8 +147,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="font-semibold text-md text-[#1b1b1b]">Email Support</p>
-                  <Link href="mailto:support@grasafoods.com" className="text-gray-600 text-sm mt-1 hover:text-[#1b1b1b] block">
-                    support@grasafoods.com
+                  <Link href="mailto:support@grasamillets.com" className="text-gray-600 text-sm mt-1 hover:text-[#1b1b1b] block">
+                    support@grasamillets.com
                   </Link>
                   <Link href="mailto:info@grasafoods.com" className="text-gray-600 text-sm mt-1 hover:text-[#1b1b1b] block">
                     info@grasafoods.com

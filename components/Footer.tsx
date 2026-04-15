@@ -20,7 +20,7 @@
 //         "@type": "ContactPoint",
 //         "telephone": "+91-9870263399",
 //         "contactType": "customer service",
-//         "email": "support@grasafoods.com",
+//         "email": "",
 //         "areaServed": "IN",
 //         "availableLanguage": "en",
 //       },
@@ -42,7 +42,7 @@
 
 //   // 2. Site Navigation Schema
 //   const navigationLinks = [
-//     { href: "/products", label: "Products" },
+//     { href: "/products", label: "Products"support@grasamillets.com },
 //     { href: "/millet", label: "Millet" },
 //     { href: "/partner", label: "Partner" },
 //     { href: "/privacy-policy", label: "Privacy & Policy" },
@@ -139,9 +139,9 @@
 //                   </a>
 //                 </p>
 //                 <p>
-//                   <a href="mailto:support@grasafoods.com" className="hover:text-[#849411] transition-colors flex items-center gap-2 font-medium group">
+//                   <a href="mailto:support@grasamillets.com" className="hover:text-[#849411] transition-colors flex items-center gap-2 font-medium group">
 //                     <svg className="w-4 h-4 text-[#C5D82D] group-hover:text-[#849411] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-//                     support@grasafoods.com
+//                     support@grasamillets.com
 //                   </a>
 //                 </p>
 //                 <div className="pt-2">
@@ -259,7 +259,7 @@ const generateFooterSchema = () => {
         "@type": "ContactPoint",
         "telephone": "+91-9870263399",
         "contactType": "customer service",
-        "email": "support@grasafoods.com",
+        "email": "support@grasamillets.com",
         "areaServed": "IN",
         "availableLanguage": "en",
       },
@@ -384,9 +384,9 @@ export default function Footer() {
                   </a>
                 </p>
                 <p>
-                  <a href="mailto:support@grasafoods.com" className="hover:text-[#849411] transition-colors flex items-center gap-2 font-medium group">
+                  <a href="mailto:support@grasamillets.com" className="hover:text-[#849411] transition-colors flex items-center gap-2 font-medium group">
                     <svg className="w-4 h-4 text-[#C5D82D] group-hover:text-[#849411] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    support@grasafoods.com
+                    support@grasamillets.com
                   </a>
                 </p>
                 <div className="pt-2">
