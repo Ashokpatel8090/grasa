@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 
-import { BASE_URL } from "@/lib/api";
+import { BASE_URL } from "@/components/config/api";
 
 /* ===================== TYPES ===================== */
 interface JWTPayload {
@@ -90,51 +90,125 @@ export default function Login() {
 
   /* ===================== LOGIN SUCCESS HANDLER ===================== */
   // Moved ABOVE the submit handlers to fix initialization scoping issues
-  const handleLoginSuccess = (
-    token: string,
-    userObj: any,
-    balances?: {
-      balance_available?: number;
-      balance_pending?: number;
-      lifetime_earnings?: number;
-    }
-  ) => {
-    const decoded = decodeToken(token);
+  // const handleLoginSuccess = (
+  //   token: string,
+  //   userObj: any,
+  //   balances?: {
+  //     balance_available?: number;
+  //     balance_pending?: number;
+  //     lifetime_earnings?: number;
+  //   }
+  // ) => {
+  //   const decoded = decodeToken(token);
 
-    const userId = decoded.sub || decoded.id || userObj?.id;
-    const roleValue = decoded.role || decoded.role_id || userObj?.role_id;
+  //   const userId = decoded.sub || decoded.id || userObj?.id;
+  //   const roleValue = decoded.role || decoded.role_id || userObj?.role_id;
 
-    const userRole =
-      {
-        1: "Patient",
-        2: "Doctor",
-        4: "Other",
-        5: "Channel-partner",
-        6: "Nutritionist",
-      }[Number(roleValue)] || "Unknown";
+  //   const userRole =
+  //     {
+  //       1: "Patient",
+  //       2: "Doctor",
+  //       4: "Other",
+  //       5: "Channel-partner",
+  //       6: "Nutritionist",
+  //     }[Number(roleValue)] || "Unknown";
 
-    /* ===== SAVE AUTH DATA ===== */
-    setCookie("token", token);
-    setCookie("user", encodeURIComponent(JSON.stringify(userObj)));
-    setCookie("user_id", String(userId));
-    setCookie("user_role", String(userRole));
+  //   /* ===== SAVE AUTH DATA ===== */
+  //   setCookie("token", token);
+  //   setCookie("user", encodeURIComponent(JSON.stringify(userObj)));
+  //   setCookie("user_id", String(userId));
+  //   setCookie("user_role", String(userRole));
 
-    /* ===== SAVE BALANCE DATA ===== */
+  //   /* ===== SAVE BALANCE DATA ===== */
+  //   setCookie(
+  //     "balance_available",
+  //     String(balances?.balance_available ?? 0)
+  //   );
+  //   setCookie(
+  //     "balance_pending",
+  //     String(balances?.balance_pending ?? 0)
+  //   );
+  //   setCookie(
+  //     "lifetime_earnings",
+  //     String(balances?.lifetime_earnings ?? 0)
+  //   );
+
+  //   navigateTo(previousPage);
+  // };
+
+
+
+const handleLoginSuccess = (
+  token: string,
+  userObj: any,
+  balances?: {
+    balance_available?: number;
+    balance_pending?: number;
+    lifetime_earnings?: number;
+  },
+  subscription?: {
+    status?: string;
+    plan_id?: number;
+    current_period_end?: string;
+    cancel_at_cycle_end?: boolean;
+  } | null
+) => {
+  const decoded = decodeToken(token);
+
+  const userId = decoded.sub || decoded.id || userObj?.id;
+  const roleValue = decoded.role || decoded.role_id || userObj?.role_id;
+
+  const userRole =
+    {
+      1: "Patient",
+      2: "Doctor",
+      4: "Other",
+      5: "Channel-partner",
+      6: "Nutritionist",
+    }[Number(roleValue)] || "Unknown";
+
+  /* ===== AUTH ===== */
+  setCookie("token", token);
+  setCookie("user", encodeURIComponent(JSON.stringify(userObj)));
+  setCookie("user_id", String(userId));
+  setCookie("user_role", String(userRole));
+
+  /* ===== BALANCE ===== */
+  setCookie("balance_available", String(balances?.balance_available ?? 0));
+  setCookie("balance_pending", String(balances?.balance_pending ?? 0));
+  setCookie("lifetime_earnings", String(balances?.lifetime_earnings ?? 0));
+
+  /* ===== ✅ GRASA SUBSCRIPTION HANDLING ===== */
+  if (subscription) {
+    // store full object
     setCookie(
-      "balance_available",
-      String(balances?.balance_available ?? 0)
+      "grasa_subscription",
+      encodeURIComponent(JSON.stringify(subscription))
+    );
+
+    setCookie("subscription_status", subscription.status ?? "inactive");
+    setCookie("subscription_plan_id", String(subscription.plan_id ?? ""));
+    setCookie(
+      "subscription_expiry",
+      subscription.current_period_end ?? ""
     );
     setCookie(
-      "balance_pending",
-      String(balances?.balance_pending ?? 0)
+      "subscription_cancel_at_cycle_end",
+      String(subscription.cancel_at_cycle_end ?? false)
     );
-    setCookie(
-      "lifetime_earnings",
-      String(balances?.lifetime_earnings ?? 0)
-    );
+  } else {
+    // 🔴 IMPORTANT: clear or set default when null
+    setCookie("grasa_subscription", "");
+    setCookie("subscription_status", "inactive");
+    setCookie("subscription_plan_id", "");
+    setCookie("subscription_expiry", "");
+    setCookie("subscription_cancel_at_cycle_end", "false");
+  }
 
-    navigateTo(previousPage);
-  };
+  console.log("Subscription:", subscription);
+
+  navigateTo(previousPage);
+};
 
   /* ===================== GOOGLE LOGIN ===================== */
   const handleGoogleResponse = async (response: any) => {
@@ -145,7 +219,7 @@ export default function Login() {
       setLoading(true);
 
       const res = await axios.post(
-        `${BASE_URL}/users/google-login`,
+        `${BASE_URL}/api/users/google-login`,
         { gid_token: idToken }
       );
 
@@ -157,11 +231,17 @@ export default function Login() {
         data.data?.token ||
         data.user?.token;
 
+      // handleLoginSuccess(token, data.user, {
+      //   balance_available: data.balance_available ?? 0,
+      //   balance_pending: data.balance_pending ?? 0,
+      //   lifetime_earnings: data.lifetime_earnings ?? 0,
+      // });
+
       handleLoginSuccess(token, data.user, {
-        balance_available: data.balance_available ?? 0,
-        balance_pending: data.balance_pending ?? 0,
-        lifetime_earnings: data.lifetime_earnings ?? 0,
-      });
+  balance_available: data.balance_available ?? 0,
+  balance_pending: data.balance_pending ?? 0,
+  lifetime_earnings: data.lifetime_earnings ?? 0,
+}, data.grasa_subscription);
     } catch {
       setError("Google login failed");
     } finally {
@@ -177,7 +257,7 @@ export default function Login() {
 
     try {
       const res = await axios.post(
-        `${BASE_URL}/users/login`,
+        `${BASE_URL}/api/users/login`,
         formData
       );
 
@@ -189,11 +269,17 @@ export default function Login() {
         data.data?.token ||
         data.user?.token;
 
+      // handleLoginSuccess(token, data.user, {
+      //   balance_available: data.balance_available,
+      //   balance_pending: data.balance_pending,
+      //   lifetime_earnings: data.lifetime_earnings,
+      // });
+
       handleLoginSuccess(token, data.user, {
-        balance_available: data.balance_available,
-        balance_pending: data.balance_pending,
-        lifetime_earnings: data.lifetime_earnings,
-      });
+  balance_available: data.balance_available,
+  balance_pending: data.balance_pending,
+  lifetime_earnings: data.lifetime_earnings,
+}, data.grasa_subscription);
     } catch {
       setError("Invalid email or password");
     } finally {

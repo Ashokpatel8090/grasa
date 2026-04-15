@@ -3,6 +3,9 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
+import { BASE_URL } from "@/components/config/api";
+
+
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
@@ -18,7 +21,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await fetch(
-        `https://medicaps.cloud/auth/forget-password?email=${encodeURIComponent(email)}`,
+      `${BASE_URL}/auth/forget-password?email=${encodeURIComponent(email)}`,
         {
           method: "POST",
           headers: {

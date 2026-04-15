@@ -251,7 +251,7 @@ const generateFooterSchema = () => {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "GRASA SUPER FOODS BEVERAGES PVT LTD",
+    "name": "GRASA MILLETS & FOODS PVT LTD",
     "url": domain,
     "logo": logoUrl,
     "contactPoint": [
@@ -305,7 +305,7 @@ const generateFooterSchema = () => {
 
 const socialLinks = [
   { href: "https://www.facebook.com/profile.php?id=61583618278901", Icon: FaFacebook, color: "#1877F2", label: "Facebook" },
-  { href: "https://www.instagram.com/grasa.medicaps.official/", Icon: FaInstagram, color: "#dc1d5c", label: "Instagram" },
+  { href: "https://www.instagram.com/grasa_official/", Icon: FaInstagram, color: "#dc1d5c", label: "Instagram" },
   { href: "https://www.linkedin.com/company/medicaps-medical-comprehensive-awareness-prevention-and-treatment-support/posts/?feedView=all", Icon: FaLinkedin, color: "#0A66C2", label: "LinkedIn" },
   { href: "https://wa.me/919870263399", Icon: FaWhatsapp, color: "#25D366", label: "WhatsApp" },
 ]

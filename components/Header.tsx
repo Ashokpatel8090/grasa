@@ -8,14 +8,23 @@ import { useCart } from "@/components/grasa/CartContext";
 import {
   FiMenu,
   FiX,
-  FiUser,
   FiShoppingCart,
 } from "react-icons/fi";
+
+/* ===================== COOKIE HELPER ===================== */
+const getCookie = (name: string) => {
+  if (typeof document === "undefined") return null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(";").shift() || null;
+  return null;
+};
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [subStatus, setSubStatus] = useState("normal"); // --- Subscription State ---
   
   // --- Longevity Test State ---
   const [hasStoredResult, setHasStoredResult] = useState(false);
@@ -31,14 +40,25 @@ export default function Header() {
   useEffect(() => {
     setMounted(true);
 
-    const checkAuth = () => {
-      const cookies = document.cookie.split("; ");
-      const token = cookies.find((row) => row.startsWith("token="));
+    const checkAuthAndSub = () => {
+      const token = getCookie("token");
       setIsLoggedIn(!!token);
+
+      // Fetch subscription status directly from the cookie saved during login
+      if (token) {
+        const status = getCookie("subscription_status");
+        if (status === "active") {
+          setSubStatus("pro");
+        } else {
+          setSubStatus("normal");
+        }
+      } else {
+        setSubStatus("normal");
+      }
     };
 
-    checkAuth();
-    window.addEventListener("focus", checkAuth);
+    checkAuthAndSub();
+    window.addEventListener("focus", checkAuthAndSub);
 
     const saved = localStorage.getItem('grasa_longevity_result');
     if (saved) {
@@ -54,15 +74,24 @@ export default function Header() {
       }
     }
 
-    return () => window.removeEventListener("focus", checkAuth);
+    return () => window.removeEventListener("focus", checkAuthAndSub);
   }, []);
 
   const handleLogout = () => {
+    // Clear Auth Cookies
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "user_role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    
+    // Clear Subscription Cookies
+    document.cookie = "grasa_subscription=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "subscription_status=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "subscription_plan_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "subscription_expiry=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "subscription_cancel_at_cycle_end=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     setIsLoggedIn(false);
+    setSubStatus("normal");
     setUserDropdownOpen(false);
     router.push("/login");
   };
@@ -93,9 +122,10 @@ export default function Header() {
                   if (hasStoredResult) {
                     localStorage.removeItem('grasa_longevity_result');
                   }
+                  // localStorage.removeItem('grasa_longevity_result');
                   router.push("/longevity-test");
                 }}
-              className={`hidden md:block bg-[#1b1b1b] text-white border border-[#1b1b1b] cursor-pointer rounded-full px-6 py-2.5 text-xs font-bold tracking-wider uppercase hover:bg-[#C5D82D] hover:text-[#1b1b1b] hover:border-[#C5D82D] transition-all duration-300 hover:shadow-[0_0_15px_rgba(197,216,45,0.3)] hover:-translate-y-0.5 ${!mounted ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                className={`hidden md:block bg-[#1b1b1b] text-white border border-[#1b1b1b] cursor-pointer rounded-full px-6 py-2.5 text-xs font-bold tracking-wider uppercase hover:bg-[#C5D82D] hover:text-[#1b1b1b] hover:border-[#C5D82D] transition-all duration-300 hover:shadow-[0_0_15px_rgba(197,216,45,0.3)] hover:-translate-y-0.5 ${!mounted ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
             >
               {hasStoredResult ? "Retake Longevity Test ™" : "Take The Longevity Test ™"}
             </button>
@@ -115,10 +145,34 @@ export default function Header() {
 
             {/* USER ICON + DROPDOWN */}
             <div className="relative flex items-center justify-center">
-              <FiUser
-                className="text-[#1b1b1b] w-10 h-10 flex items-center justify-center font-bold cursor-pointer bg-gray-400 hover:bg-gray-300 transition-colors rounded-full p-2"
+              
+              {/* Premium Ring & Hover Animations */}
+              <div 
+                className={`relative cursor-pointer rounded-full transition-all duration-300 ease-out hover:scale-105 ${
+                  isLoggedIn && subStatus === "pro" 
+                    ? "p-[3px] bg-gradient-to-tr from-[#C5D82D] via-[#e3f45b] to-[#C5D82D] shadow-[0_0_15px_rgba(197,216,45,0.5)] hover:shadow-[0_0_25px_rgba(197,216,45,0.7)]" 
+                    : "p-[2px] bg-gray-200 hover:bg-gray-300 shadow-sm hover:shadow-md" 
+                }`}
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-              />
+              >
+                {/* Actual Avatar Background */}
+                <div className={`rounded-full w-9 h-9 flex items-center justify-center transition-colors duration-300 ${
+                  isLoggedIn && subStatus === "pro" ? "bg-[#1b1b1b]" : "bg-white"
+                }`}>
+                  
+                  {/* Uploaded Flat Icon */}
+                  <svg 
+                    viewBox="0 0 24 24" 
+                    fill="currentColor"
+                    className={`w-[18px] h-[18px] transition-colors duration-300 ${
+                      isLoggedIn && subStatus === "pro" ? "text-[#C5D82D]" : "text-gray-700"
+                    }`}
+                  >
+                    <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z" />
+                  </svg>
+
+                </div>
+              </div>
 
               {userDropdownOpen && (
                 <>
@@ -152,7 +206,9 @@ export default function Header() {
                           </div>
                           <div>
                             <p className="text-[13px] font-medium text-[#1b1b1b] leading-tight m-0">My Account</p>
-                            <p className="text-[11px] text-gray-800 mt-0.5 m-0">Welcome back!</p>
+                            <p className="text-[11px] text-gray-800 mt-0.5 m-0">
+                               Welcome back! {subStatus === "pro" && <span className="text-[#C5D82D] font-bold">(PRO)</span>}
+                            </p>
                           </div>
                         </div>
 
@@ -411,15 +467,3 @@ export default function Header() {
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-

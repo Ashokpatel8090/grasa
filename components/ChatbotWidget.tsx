@@ -298,10 +298,10 @@ export default function ChatbotWidget() {
         {open && (
           <div className="w-[90vw] sm:w-[400px] h-[600px] max-h-[85vh] bg-[#f4f4f2] rounded-3xl shadow-2xl border border-[#d6d1c4] flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300">
             {/* Header */}
-            <div className="bg-[#1b1b1b] p-5 flex justify-between items-center text-white">
+            <div className="bg-[#1b1b1b] p-3 flex justify-between items-center text-white">
               <div className="flex items-center gap-3">
                 <div className="bg-white p-1 rounded-xl backdrop-blur-sm">
-                  <Image src="/logo.png" alt="logo" width={30} height={30}  />
+                  <Image src="/logo.png" alt="logo" width={45} height={45}  />
                 </div>
                 <div>
                   <h3 className="font-bold text-lg leading-tight text-white">GRASA AI</h3>

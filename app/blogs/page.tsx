@@ -43,11 +43,11 @@ export default function BlogsListing() {
       }}
     />
    
-    <main className="min-h-screen bg-[#ebecdf] px-4 py-12">
-      <div className="max-w-7xl mx-auto">
+    <main className="min-h-screen bg-[#ebecdf] px-4 py-6">
+      <div className="md:max-w-[96%] mx-auto">
         <h1 className="text-4xl font-bold mb-10 text-[#1b1b1b] text-center">GRASA Wellness Blogs</h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {blogs.map((blog) => (
             <article 
               key={blog.slug} 
@@ -67,7 +67,7 @@ export default function BlogsListing() {
               </div>
               
               <div className="p-6">
-                <h2 className="text-xl font-bold mb-3 text-[#1b1b1b] group-hover:text-[#5c5c5c] transition-colors line-clamp-2">
+                <h2 className="text-xl font-bold mb-3 text-[#1b1b1b] group-hover:text-[#000000] transition-colors line-clamp-2">
                   <Link href={`/blogs/${blog.slug}`}>
                     {blog.title}
                   </Link>

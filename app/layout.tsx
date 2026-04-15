@@ -1,52 +1,3 @@
-// import "./globals.css";
-// import Header from "@/components/Header";
-// import Footer from "@/components/Footer";
-// import ChatbotWrapper from "@/components/ChatbotWrapper";
-// import { Geist } from "next/font/google";
-// import { cn } from "@/lib/utils";
-// import { CartProvider } from "@/components/grasa/CartContext";
-
-// const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-
-// export const metadata = {
-//   title: "GRASA ",
-//   description: "Science Led Gut Health Solution",
-//   icons: {
-//     icon: "/favicon.ico",
-//   },
-// };
-
-// export default function RootLayout({
-//   children,
-// }: {
-//   children: React.ReactNode;
-// }) {
-//   return (
-//     <html lang="en" className={cn("font-sans", geist.variable)}>
-//       <body className="bg-white antialiased text-slate-900">
-//         <CartProvider>
-
-//           <Header />
-
-//           <main className="pt-[72px]">
-//             {children}
-//           </main>
-
-//           <Footer />
-
-//           {/* ✅ Global Chatbot */}
-//           <ChatbotWrapper />
-
-//         </CartProvider>
-//       </body>
-//     </html>
-//   );
-// }
-
-
-
-
-
 
 import "./globals.css";
 import Header from "@/components/Header";
@@ -62,8 +13,11 @@ export const metadata = {
   title: "GRASA",
   description: "Science Led Gut Health Solution",
   icons: {
-    icon: "/favicon.ico",
-  },
+  icon: [
+    { url: "/logo.png", type: "image/png" },
+    { url: "/favicon.ico" },
+  ],
+},
 };
 
 export default function RootLayout({
@@ -91,6 +45,11 @@ export default function RootLayout({
       
       {/* ✅ ADD THIS HEAD */}
       <head>
+
+        {/* ✅ Favicon FIX */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

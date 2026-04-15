@@ -13,7 +13,7 @@ const generatePrivacyPolicySchema = () => {
       {
         "@type": "Organization",
         "@id": `${domain}/#organization`,
-        "name": "GRASA SUPER FOODS BEVERAGES PVT LTD",
+        "name": "GRASA MILLETS & FOODS PVT LTD",
         "url": domain,
         "logo": {
           "@type": "ImageObject",
@@ -40,7 +40,7 @@ const generatePrivacyPolicySchema = () => {
         "@type": "WebPage",
         "@id": `${domain}/privacy-policy#webpage`,
         "url": `${domain}/privacy-policy`,
-        "name": "Privacy Policy - GrasaFoods",
+        "name": "Privacy Policy - GrasaMillets",
         "description": "Privacy policy outlining data collection, usage, and compliance with DPDP, GDPR and CCPA.",
         "inLanguage": "en",
         "isPartOf": {
@@ -97,7 +97,7 @@ export default function PrivacyPolicy() {
               <Shield className="w-8 h-8 text-[#1b1b1b]" />
             </div>
             <h1 className="text-4xl font-bold text-[#1b1b1b] mb-2">Privacy Policy</h1>
-            <p className="font-[poppins] font-bold text-xl text-[#1b1b1b]">GRASAFOODS</p>
+            <p className="font-[poppins] font-bold text-xl text-[#1b1b1b]">GRASAMILLETS</p>
             <div className="flex items-center justify-center gap-6 mt-4 text-sm text-[#5c5c5c]">
               <span>Effective Date: June 12, 2025</span>
               <span>Last Updated: Oct 8, 2025</span>
@@ -109,7 +109,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-2xl font-bold text-[#1b1b1b] mb-2">1. Introduction</h2>
               <p className="text-[#5c5c5c] leading-relaxed">
-                GrasaFoods is committed to protecting your privacy.
+                GrasaMillets is committed to protecting your privacy.
                 This Privacy Policy describes how we collect, use, share, and safeguard your personal data
                 in accordance with the Digital Personal Data Protection Act (DPDP) 2023, Information Technology
                 Act 2000, GDPR, and CCPA.
@@ -119,7 +119,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-2xl font-bold text-[#1b1b1b] mb-2">2. User Consent</h2>
               <p className="text-[#5c5c5c] leading-relaxed">
-                By registering on or using GrasaFoods, you explicitly consent to the collection, processing,
+                By registering on or using GrasaMillets, you explicitly consent to the collection, processing,
                 and sharing of your data as outlined in this policy. You may withdraw your consent at any
                 time by contacting us at <a href="mailto:info@grasafoods.com" className="text-[#1b1b1b] font-semibold hover:underline">info@grasafoods.com</a> or
                 via the app settings.
@@ -292,7 +292,7 @@ export default function PrivacyPolicy() {
           </div>
 
           <footer className="text-center mt-8 pb-4 font-medium text-[#5c5c5c] text-sm">
-          <p>© 2026 GRASA MILLETS & FOODS PVT. LTD. All rights reserved.</p>
+          <p>© 2026 GRASA MILLETS & FOODS PVT LTD. All rights reserved.</p>
         </footer>
           
         </div>

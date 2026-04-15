@@ -1,5 +1,6 @@
 
 import ConsultationSection from "@/components/ConsultationSection";
+import FAQComponent from "@/components/faq";
 import HeroSection from "@/components/HeroSection";
 import LongevityCheck from "@/components/LongevityCheck";
 import ProductsGrid from "@/components/ProductsGrid";
@@ -249,13 +250,13 @@ export default function Home() {
 
   return (
     <>
-    <Script
-    id="homepage-schema"
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify(schemaData),
-    }}
-  />
+      <Script
+        id="homepage-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schemaData),
+        }}
+      />
 
       <HeroSection />
       <ScienceSection />
@@ -266,6 +267,7 @@ export default function Home() {
       <RegimenPlans />
       <Testimonials />
       <ConsultationSection/>
+      <FAQComponent />
     </>
   );
 }

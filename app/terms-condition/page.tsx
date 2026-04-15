@@ -12,7 +12,7 @@ const generateTermsSchema = () => {
       {
         "@type": "Organization",
         "@id": `${domain}/#organization`,
-        "name": "GRASA SUPER FOODS BEVERAGES PVT. LTD.",
+        "name": "GRASA MILLETS & FOODS PVT LTD",
         "url": domain,
         "logo": {
           "@type": "ImageObject",
@@ -51,8 +51,8 @@ const generateTermsSchema = () => {
         "@type": "WebPage",
         "@id": `${domain}/terms-condition#webpage`,
         "url": `${domain}/terms-condition`,
-        "name": "Terms and Conditions - GrasaFoods",
-        "description": "Legal terms governing the use of GrasaFoods website, products, and services.",
+        "name": "Terms and Conditions - GrasaMillets",
+        "description": "Legal terms governing the use of GrasaMillets website, products, and services.",
         "inLanguage": "en",
 
         "isPartOf": {
@@ -99,7 +99,7 @@ export default function Terms() {
               <FileText className="w-8 h-8 text-[#1b1b1b]" />
             </div>
             <h1 className="text-4xl font-bold text-[#1b1b1b] mb-2">Terms & Conditions</h1>
-            <p className="font-[poppins] font-bold text-xl text-[#1b1b1b]">GRASAFOODS</p>
+            <p className="font-[poppins] font-bold text-xl text-[#1b1b1b]">GRASAMILLETS</p>
             <div className="flex items-center justify-center gap-6 mt-4 text-sm text-[#5c5c5c]">
               <span>Effective Date: June 12, 2025</span>
               <span>Last Updated: Oct 8, 2025</span>
@@ -111,7 +111,7 @@ export default function Terms() {
             <section>
               <h2 className="text-2xl font-bold text-[#1b1b1b] mb-2">1. Acceptance</h2>
               <p className="text-[#5c5c5c] leading-relaxed">
-                By using GrasaFoods, you agree to comply with these Terms and our Privacy Policy.
+                By using GrasaMillets, you agree to comply with these Terms and our Privacy Policy.
                 If you do not agree, do not use the web.
               </p>
             </section>
@@ -119,7 +119,7 @@ export default function Terms() {
             <section>
               <h2 className="text-2xl font-bold text-[#1b1b1b] mb-2">2. Services Offered</h2>
               <p className="text-[#5c5c5c] mb-3">
-                GRASA SUPER FOODS BEVERAGES PVT. LTD. (“GRASA”) offers premium health and nutrition products including millet-based foods, functional beverages, and wellness subscriptions under its GrasaFoods SuperLife and related programs.
+                GRASA MILLETS & FOODS PVT LTD. (“GRASA”) offers premium health and nutrition products including millet-based foods, functional beverages, and wellness subscriptions under its GrasaMillets SuperLife and related programs.
                 All products are manufactured and packaged in compliance with applicable FSSAI standards.
               </p>
 
@@ -148,7 +148,7 @@ export default function Terms() {
             <section>
               <h2 className="text-2xl font-bold text-[#1b1b1b] mb-2">4. Data Ownership</h2>
               <p className="text-[#5c5c5c] leading-relaxed">
-                You retain ownership of your data. By using the app, you grant GrasaFoods a limited, revocable
+                You retain ownership of your data. By using the app, you grant GrasaMillets a limited, revocable
                 license to use your data for improving services and compliance.
               </p>
             </section>
@@ -166,7 +166,7 @@ export default function Terms() {
             <section>
               <h2 className="text-2xl font-bold text-[#1b1b1b] mb-2">6. Intellectual Property</h2>
               <p className="text-[#5c5c5c] leading-relaxed">
-                All web content, trademarks, logos, and software are property of GRASA SUPER FOODS BEVERAGES PVT. LTD.
+                All web content, trademarks, logos, and software are property of GRASA MILLETS & FOODS PVT LTD.
                 Unauthorized use is strictly prohibited.
               </p>
             </section>
@@ -190,7 +190,7 @@ export default function Terms() {
             <section>
               <h2 className="text-2xl font-bold text-[#1b1b1b] mb-2">9. Termination</h2>
               <p className="text-[#5c5c5c] leading-relaxed">
-                GrasaFoods may suspend or terminate your access if you violate the terms, or if your actions
+                GrasaMillets may suspend or terminate your access if you violate the terms, or if your actions
                 threaten the security and integrity of the platform.
               </p>
             </section>
@@ -245,3 +245,11 @@ export default function Terms() {
     </>
   );
 }
+
+
+
+
+
+
+
+

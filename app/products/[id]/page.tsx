@@ -8,6 +8,7 @@ import { FiPlus, FiMinus } from "react-icons/fi";
 import ProductReviews from "@/components/grasa/ProductReviews";
 import toast, { Toaster } from "react-hot-toast";
 import Script from "next/script";
+import { BASE_URL } from "@/components/config/api";
 
 // ---------------- TYPES ----------------
 interface NutritionalFacts {
@@ -55,8 +56,8 @@ export default function ProductDetails({ params }: Props) {
       try {
         const resolvedParams = await params;
         const res = await fetch(
-          `https://medicaps.cloud/millets/products/${resolvedParams.id}`
-        );
+            `${BASE_URL}/millets/products/${resolvedParams.id}`
+          );
         const data = await res.json();
         setProduct(data);
       } catch (error) {
@@ -70,7 +71,16 @@ export default function ProductDetails({ params }: Props) {
     fetchProduct();
   }, [params]);
 
-  if (loading) return <div className="text-center py-20">Loading Product...</div>;
+  if (loading) return (
+    <>
+      <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-[#C5D82D] mb-4"></div>
+        <p className="text-base sm:text-lg font-medium text-zinc-700 text-center">
+          Loading ...
+        </p>
+      </div>
+    </>
+  )
   if (!product) return <div className="text-center py-20">Product not found.</div>;
 
   const nutrition = product.nutritional_info_json;

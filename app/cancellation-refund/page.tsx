@@ -14,7 +14,7 @@ const generateRefundSchema = () => {
       {
         "@type": "Organization",
         "@id": `${domain}/#organization`,
-        "name": "GRASA SUPER FOODS BEVERAGES PVT. LTD.",
+        "name": "GRASA MILLETS & FOODS PVT LTD",
         "url": domain,
         "logo": {
           "@type": "ImageObject",
@@ -38,8 +38,8 @@ const generateRefundSchema = () => {
         "@type": "WebPage",
         "@id": `${domain}/refund-policy#webpage`,
         "url": `${domain}/refund-policy`,
-        "name": "Refund, Cancellation & Delivery Policy - GrasaFoods",
-        "description": "Policy covering refunds, cancellations, and delivery timelines for GrasaFoods products and services.",
+        "name": "Refund, Cancellation & Delivery Policy - GrasaMillets",
+        "description": "Policy covering refunds, cancellations, and delivery timelines for GrasaMillets products and services.",
         "inLanguage": "en",
 
         "isPartOf": {
@@ -57,7 +57,7 @@ const generateRefundSchema = () => {
         "mainEntity": {
           "@type": "Article",
           "name": "Refund, Cancellation & Delivery Policy",
-          "description": "Details about refund eligibility, cancellation window, and shipping timelines for GrasaFoods.",
+          "description": "Details about refund eligibility, cancellation window, and shipping timelines for GrasaMillets.",
 
           "hasPart": [
             {
@@ -111,7 +111,7 @@ export default function RefundCancellationPolicy() {
           </h1>
 
           <p className="font-[poppins] font-bold text-xl text-[#1b1b1b]">
-            GRASAFOODS
+            GRASAMILLETS
           </p>
 
           {/* Dates */}
@@ -164,6 +164,19 @@ export default function RefundCancellationPolicy() {
               delivery timelines will be communicated at the time of purchase.
             </p>
           </section>
+
+          <section>
+  <h2 className="text-2xl font-bold text-[#1b1b1b] mb-3">
+    4. Subscription Cancellation Policy
+  </h2>
+  <p className="text-[#5c5c5c] leading-relaxed">
+    Once a subscription is purchased, it cannot be canceled for the current billing period.
+    At the time of purchase, auto-pay (auto-renewal) is enabled by default. You can disable
+    auto-pay anytime by visiting your profile settings. Disabling auto-pay will ensure that
+    you are not charged for the next billing cycle. No refunds will be issued once a payment
+    has been successfully made, under any circumstances.
+  </p>
+</section>
 
         </div>
 

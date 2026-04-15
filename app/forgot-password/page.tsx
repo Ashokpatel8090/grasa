@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 
-import { BASE_URL } from "@/lib/api";
+import { BASE_URL } from "@/components/config/api";
 
 
 export default function ForgotPasswordPage() {
@@ -27,7 +27,7 @@ export default function ForgotPasswordPage() {
 
     try {
       const res = await axios.post(
-  `${BASE_URL}/forget-password?email=${encodeURIComponent(email)}`
+  `${BASE_URL}/api/forget-password?email=${encodeURIComponent(email)}`
 );
 
       setMessage(res.data.message || "Password reset email sent successfully!");

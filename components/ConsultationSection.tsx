@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, Salad, ClipboardList, Clock, Check } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { BASE_URL } from "@/components/config/api";
+
+
 
 export default function ConsultationSection() {
   const [formData, setFormData] = useState({
@@ -47,7 +50,7 @@ export default function ConsultationSection() {
     setStatus("loading");
 
     try {
-      const response = await fetch("https://medicaps.cloud/nt/ctbook", {
+      const response = await fetch(`${BASE_URL}/nt/ctbook`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
