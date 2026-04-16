@@ -191,7 +191,7 @@ export default function PrivacyPolicy() {
                 <li>Right to object to data processing.</li>
               </ul>
               <p className="text-[#5c5c5c] mt-3">
-                To exercise these rights, email <a href="mailto:support@grasamillets.com" className="text-[#1b1b1b] font-semibold hover:underline">support@grasamillets.com</a>
+                To exercise these rights, email <a href="mailto:support@grasafoods.com" className="text-[#1b1b1b] font-semibold hover:underline">support@grasafoods.com</a>
               </p>
             </section>
 

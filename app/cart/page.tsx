@@ -230,11 +230,11 @@ export default function CartPage() {
                       {/* Content */}
                       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
                         <div
-                          onClick={() => router.push(`/products/${item.product_id}`)}
-                          style={{ fontSize: 15, fontWeight: 600, color: "#1b1b1b", marginBottom: 4, lineHeight: 1.4, cursor: "pointer" }}
-                        >
-                          {item.name}
-                        </div>
+  onClick={() => router.push(`/products/${item.product_id}`)}
+  className="text-[15px] font-semibold text-[#1b1b1b] mb-1 leading-[1.4] cursor-pointer inline-block hover:text-blue-600 border-b-2 border-transparent "
+>
+  {item.name}
+</div>
 
                         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
                           <div style={{ fontSize: 16, fontWeight: 700, color: "#1b1b1b" }}>₹{item.effective_price}</div>
