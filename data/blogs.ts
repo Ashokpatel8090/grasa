@@ -686,12 +686,20 @@ export const blogs: BlogPost[] = [
     readTime: 9,
     tags: ["PCOS", "gut health", "hormones", "fermented foods", "microbiome"],
     relatedBlogs: ["pre-diabetic-diet-india-what-to-eat", "gut-health-thyroid-connection-india"],
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop",
-    sidebarImages: [
-      // "https://images.unsplash.com/photo-1584308666744-24d5f0152208?q=80&w=870&auto=format&fit=crop",
-      // "https://images.unsplash.com/photo-1576091160399-02f1a5b6a081?q=80&w=870&auto=format&fit=crop",
-      // "https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=870&auto=format&fit=crop"
-    ],
+
+    // image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop",
+    // sidebarImages: [
+    //   "https://images.unsplash.com/photo-1584308666744-24d5f0152208?q=80&w=870&auto=format&fit=crop",
+    //   "https://images.unsplash.com/photo-1576091160399-02f1a5b6a081?q=80&w=870&auto=format&fit=crop",
+    //   "https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=870&auto=format&fit=crop"
+    // ],
+    image: "/blogs/8.jpg",
+
+sidebarImages: [
+  "/blogs/6.png",
+  // "/blogs/3.jpg",
+  // "/blogs/4.jpg", 
+],
     content: `
       <p><strong>If you have PCOS, you have probably been told to eat low glycemic index foods, avoid sugar, exercise regularly, and manage stress.</strong> You are probably doing most of these things. And you are probably still frustrated.</p>
       <p>Here is something most doctors do not have time to explain in a 15-minute consultation: <strong>your gut microbiome may be the missing piece.</strong></p>
@@ -750,11 +758,11 @@ export const blogs: BlogPost[] = [
     readTime: 11,
     tags: ["pre-diabetes", "diet", "metabolic health", "gut health", "blood sugar"],
     relatedBlogs: ["sourdough-vs-multigrain-vs-whole-wheat-bread-india", "what-to-feed-diabetic-parents-india"],
-    image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop",
+    image: "/blogs/7.jpg",
     sidebarImages: [
-      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=870&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=870&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1547521064-7cc38c2f37d1?q=80&w=870&auto=format&fit=crop"
+      // "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=870&auto=format&fit=crop",
+      // "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=870&auto=format&fit=crop",
+      // "https://images.unsplash.com/photo-1547521064-7cc38c2f37d1?q=80&w=870&auto=format&fit=crop"
     ],
     content: `
       <p>HbA1c between 5.7 and 6.4. Fasting glucose slightly elevated. Your doctor said the words “pre-diabetic” and handed you a diet advice sheet. You left the clinic feeling a combination of fear, confusion, and mild disbelief.</p>
@@ -829,11 +837,12 @@ export const blogs: BlogPost[] = [
     readTime: 10,
     tags: ["sourdough", "bread", "blood sugar", "whole wheat", "glycemic index"],
     relatedBlogs: ["pre-diabetic-diet-india-what-to-eat", "gut-health-thyroid-connection-india"],
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop",
+    image: "/blogs/12.jpg",
     sidebarImages: [
-      "https://images.unsplash.com/photo-1582053273967-8a6e3c34ce00?q=80&w=870&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1624452613344-78fb3d0f84cc?q=80&w=870&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=870&auto=format&fit=crop"
+      "/blogs/1.jpg"
+      // "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=870&auto=format&fit=crop",
+      // "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=870&auto=format&fit=crop",
+      // "https://images.unsplash.com/photo-1547521064-7cc38c2f37d1?q=80&w=870&auto=format&fit=crop"
     ],
     content: `
       <p>Walk into any premium supermarket in Delhi NCR and you will find breads labelled multigrain, whole wheat, seeded, ancient grain, low GI, and more. The packaging looks serious. The prices suggest health. But what is actually happening to your blood sugar when you eat them?</p>
@@ -921,10 +930,10 @@ export const blogs: BlogPost[] = [
     readTime: 8,
     tags: ["thyroid", "gut health", "hashimoto's", "hypothyroidism", "metabolism"],
     relatedBlogs: ["pcos-gut-connection-hormones-india", "pre-diabetic-diet-india-what-to-eat"],
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2072&auto=format&fit=crop",
+    image: "/blogs/3.jpg",
     sidebarImages: [
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=870&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1527489377706-5bf97e608852?q=80&w=870&auto=format&fit=crop"
+      // "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=870&auto=format&fit=crop",
+      // "https://images.unsplash.com/photo-1527489377706-5bf97e608852?q=80&w=870&auto=format&fit=crop"
     ],
     content: `
       <p><strong>Hypothyroidism is one of the most diagnosed conditions in urban India — particularly in women.</strong> An estimated 42 million Indians live with thyroid disorders. Most of them are on levothyroxine and told to take it on an empty stomach, avoid certain foods, and get their TSH checked every 6 months.</p>
@@ -984,10 +993,10 @@ export const blogs: BlogPost[] = [
     readTime: 12,
     tags: ["diabetes", "parents", "Indian food", "diet guide", "family health"],
     relatedBlogs: ["pre-diabetic-diet-india-what-to-eat", "gut-health-thyroid-connection-india"],
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2072&auto=format&fit=crop",
+    image: "/blogs/11.jpg",
     sidebarImages: [
-      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=870&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?q=80&w=870&auto=format&fit=crop"
+      // "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=870&auto=format&fit=crop",
+      // "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?q=80&w=870&auto=format&fit=crop"
     ],
     content: `
       <p>If one of your parents has recently been diagnosed with Type 2 diabetes — or is managing it long-term — you have probably gone through your own version of this experience: feeling worried, searching for answers, getting conflicting information, and eventually trying to quietly change what is cooked at home without starting a daily argument.</p>
@@ -1046,9 +1055,9 @@ export const blogs: BlogPost[] = [
     readTime: 9,
     tags: ["bloating", "gut health", "urban india", "fermented foods"],
     relatedBlogs: ["gut-health-and-skin-connection-india", "pre-diabetic-diet-india-what-to-eat"],
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2072&auto=format&fit=crop",
+    image: "/blogs/14.png",
     sidebarImages: [
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=870&auto=format&fit=crop"
+      // "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=870&auto=format&fit=crop"
     ],
     content: `
       <p>Bloating after meals. A stomach that looks fine in the morning and distended by afternoon. Gas that arrives without warning. The feeling that no matter what you eat, your gut has an opinion about it.</p>
@@ -1108,9 +1117,9 @@ export const blogs: BlogPost[] = [
     readTime: 8,
     tags: ["gut-skin axis", "acne", "eczema", "fermented foods"],
     relatedBlogs: ["why-always-bloated-india-gut-health", "pcos-gut-connection-hormones-india"],
-    image: "https://images.unsplash.com/photo-1576091160399-02f1a5b6a081?q=80&w=2072&auto=format&fit=crop",
+    image: "/blogs/15.png",
     sidebarImages: [
-      "https://images.unsplash.com/photo-1584308666744-24d5f0152208?q=80&w=870&auto=format&fit=crop"
+      // "https://images.unsplash.com/photo-1584308666744-24d5f0152208?q=80&w=870&auto=format&fit=crop"
     ],
     content: `
       <p>If you have spent significant money on skincare — serums, prescription retinoids, dermatologist visits, fancy cleansers — and your skin is still not where you want it to be, there is a question worth asking: have you addressed your gut?</p>
@@ -1150,9 +1159,9 @@ export const blogs: BlogPost[] = [
     readTime: 7,
     tags: ["sourdough", "fermentation", "artisanal bread", "Delhi NCR"],
     relatedBlogs: ["sourdough-vs-multigrain-vs-whole-wheat-bread-india"],
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop",
+    image: "/blogs/1.jpg",
     sidebarImages: [
-      "https://images.unsplash.com/photo-1582053273967-8a6e3c34ce00?q=80&w=870&auto=format&fit=crop"
+      // "https://images.unsplash.com/photo-1582053273967-8a6e3c34ce00?q=80&w=870&auto=format&fit=crop"
     ],
     content: `
       <p>There is a lot of bread in Delhi NCR that calls itself sourdough. It is in premium supermarkets, in gourmet bakery chains, on quick commerce apps. Most of it is made with commercial yeast and a shortcut fermentation process. It tastes vaguely tangy. But it is not the same thing.</p>
@@ -1191,9 +1200,9 @@ export const blogs: BlogPost[] = [
     readTime: 10,
     tags: ["SCFA", "vagus nerve", "inflammation", "fermented food"],
     relatedBlogs: ["why-always-bloated-india-gut-health", "gut-health-thyroid-connection-india"],
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2072&auto=format&fit=crop",
+    image: "/blogs/4.jpg",
     sidebarImages: [
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=870&auto=format&fit=crop"
+      // "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=870&auto=format&fit=crop"
     ],
     content: `
       <p>Most health content tells you what to eat. Very little explains why — at the level of what is actually happening in your cells. This post is for those who want to understand the mechanism, not just follow the advice.</p>
@@ -1246,7 +1255,7 @@ export const blogs: BlogPost[] = [
     readTime: 7,
     tags: ["Delhi NCR", "gut health food", "fermented food", "delivery"],
     relatedBlogs: ["sourdough-vs-multigrain-vs-whole-wheat-bread-india"],
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop",
+image: "/blogs/2.jpg",
     sidebarImages: [
       "https://images.unsplash.com/photo-1584308666744-24d5f0152208?q=80&w=870&auto=format&fit=crop"
     ],
@@ -1297,7 +1306,7 @@ export const blogs: BlogPost[] = [
     readTime: 9,
     tags: ["clinical evidence", "fermented food", "doctors", "metabolic syndrome"],
     relatedBlogs: ["gut-health-thyroid-connection-india", "pcos-gut-connection-hormones-india"],
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2072&auto=format&fit=crop",
+    image: "/blogs/13.png",
     sidebarImages: [
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=870&auto=format&fit=crop"
     ],

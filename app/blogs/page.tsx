@@ -59,11 +59,11 @@ export default function BlogsListing() {
                   alt={blog.title} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4">
+                {/* <div className="absolute top-4 left-4">
                   <span className="bg-[#C5D82D]/95 backdrop-blur-sm text-[#1b1b1b] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
                     {blog.category}
                   </span>
-                </div>
+                </div> */}
               </div>
               
               <div className="p-6">
