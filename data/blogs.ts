@@ -1161,6 +1161,7 @@ sidebarImages: [
     relatedBlogs: ["sourdough-vs-multigrain-vs-whole-wheat-bread-india"],
     image: "/blogs/1.jpg",
     sidebarImages: [
+      "/blogs/16.png"
       // "https://images.unsplash.com/photo-1582053273967-8a6e3c34ce00?q=80&w=870&auto=format&fit=crop"
     ],
     content: `

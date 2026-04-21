@@ -164,7 +164,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-semibold text-md text-[#1b1b1b]">Head Office</p>
                   <p className="text-gray-600 text-sm mt-1">
-                    GRASA MILLETS & FOODS Pvt. Ltd.
+                    GRASA Millets & Foods Pvt. Ltd. New Delhi
                     <br />
                     New Delhi, India
                   </p>

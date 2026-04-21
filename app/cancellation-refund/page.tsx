@@ -14,7 +14,7 @@ const generateRefundSchema = () => {
       {
         "@type": "Organization",
         "@id": `${domain}/#organization`,
-        "name": "GRASA MILLETS & FOODS PVT LTD",
+        "name": "GRASA Millets & Foods Pvt. Ltd. New Delhi",
         "url": domain,
         "logo": {
           "@type": "ImageObject",
@@ -182,7 +182,7 @@ export default function RefundCancellationPolicy() {
 
         {/* Footer */}
         <footer className="text-center mt-8 pb-4 font-medium text-[#5c5c5c] text-sm">
-          <p>© 2026 GRASA MILLETS & FOODS PVT. LTD. All rights reserved.</p>
+          <p>© 2026 GRASA Millets & Foods Pvt. Ltd. New Delhi. All rights reserved.</p>
         </footer>
 
       </div>

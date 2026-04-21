@@ -7,6 +7,7 @@ import ProductsGrid from "@/components/ProductsGrid";
 import RegimenPlans from "@/components/RegimenPlans";
 import RegimenSection from "@/components/RegimenSection";
 import ScienceSection from "@/components/ScienceSection";
+import SuccessStoriesCarousel from "@/components/SuccessStories";
 import Testimonials from "@/components/testimonials";
 import Script from "next/script";
 
@@ -259,6 +260,7 @@ export default function Home() {
       />
 
       <HeroSection />
+      <SuccessStoriesCarousel />
       <ScienceSection />
       <LongevityCheck/>
 

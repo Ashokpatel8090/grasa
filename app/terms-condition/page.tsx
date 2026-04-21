@@ -12,7 +12,7 @@ const generateTermsSchema = () => {
       {
         "@type": "Organization",
         "@id": `${domain}/#organization`,
-        "name": "GRASA MILLETS & FOODS PVT LTD",
+        "name": "GRASA Millets & Foods Pvt. Ltd. New Delhi",
         "url": domain,
         "logo": {
           "@type": "ImageObject",
@@ -119,7 +119,7 @@ export default function Terms() {
             <section>
               <h2 className="text-2xl font-bold text-[#1b1b1b] mb-2">2. Services Offered</h2>
               <p className="text-[#5c5c5c] mb-3">
-                GRASA MILLETS & FOODS PVT LTD. (“GRASA”) offers premium health and nutrition products including millet-based foods, functional beverages, and wellness subscriptions under its GrasaMillets SuperLife and related programs.
+                GRASA Millets & Foods Pvt. Ltd. New Delhi. (GRASA) offers premium health and nutrition products including millet-based foods, functional beverages, and wellness subscriptions under its GrasaMillets SuperLife and related programs.
                 All products are manufactured and packaged in compliance with applicable FSSAI standards.
               </p>
 
@@ -166,7 +166,7 @@ export default function Terms() {
             <section>
               <h2 className="text-2xl font-bold text-[#1b1b1b] mb-2">6. Intellectual Property</h2>
               <p className="text-[#5c5c5c] leading-relaxed">
-                All web content, trademarks, logos, and software are property of GRASA MILLETS & FOODS PVT LTD.
+                All web content, trademarks, logos, and software are property of GRASA Millets & Foods Pvt. Ltd. New Delhi.
                 Unauthorized use is strictly prohibited.
               </p>
             </section>
@@ -237,7 +237,7 @@ export default function Terms() {
           </div>
 
           <footer className="text-center mt-8 pb-4 font-medium text-[#5c5c5c] text-sm">
-          <p>© 2026 GRASA MILLETS & FOODS PVT. LTD. All rights reserved.</p>
+          <p>© 2026 GRASA Millets & Foods Pvt. Ltd. New Delhi. All rights reserved.</p>
         </footer>
           
         </div>

@@ -241,7 +241,7 @@
 "use client"
 
 import Link from "next/link"
-import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa"
+import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaYoutube } from "react-icons/fa"
 
 // --- JSON-LD Schema Generation ---
 const generateFooterSchema = () => {
@@ -251,7 +251,7 @@ const generateFooterSchema = () => {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "GRASA MILLETS & FOODS PVT LTD",
+    "name": "GRASA Millets & Foods Pvt. Ltd. New Delhi",
     "url": domain,
     "logo": logoUrl,
     "contactPoint": [
@@ -275,7 +275,8 @@ const generateFooterSchema = () => {
       "https://www.instagram.com/grasa.medicaps.official/",
       "https://www.facebook.com/profile.php?id=61583618278901",
       "https://www.linkedin.com/company/medicaps-medical-comprehensive-awareness-prevention-and-treatment-support/posts/?feedView=all",
-      "https://wa.me/919870263399"
+      "https://wa.me/919870263399",
+      "https://www.youtube.com/@grasamillets/shorts"
     ]
   }
 
@@ -308,6 +309,7 @@ const socialLinks = [
   { href: "https://www.instagram.com/grasa_official/", Icon: FaInstagram, color: "#dc1d5c", label: "Instagram" },
   { href: "https://www.linkedin.com/company/medicaps-medical-comprehensive-awareness-prevention-and-treatment-support/posts/?feedView=all", Icon: FaLinkedin, color: "#0A66C2", label: "LinkedIn" },
   { href: "https://wa.me/919870263399", Icon: FaWhatsapp, color: "#25D366", label: "WhatsApp" },
+  { href: "https://www.youtube.com/@grasamillets/shorts", Icon: FaYoutube, color: "#FF0000", label: "YouTube" }
 ]
 
 export default function Footer() {
@@ -375,7 +377,7 @@ export default function Footer() {
 
               <div className="space-y-3 text-[15px] pt-2">
                 <p className="font-bold text-[#1b1b1b]">
-                   GRASA MILLETS & FOODS PVT LTD
+                   GRASA Millets & Foods Pvt. Ltd. New Delhi
                 </p>
                 <p>
                   <a href="tel:9870263399" className="hover:text-[#849411] transition-colors flex items-center gap-2 font-medium group">
@@ -476,7 +478,7 @@ export default function Footer() {
           {/* Bottom Section: Copyright */}
           <div className="mt-8 pt-8 border-t border-[#d6d1c4] flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
             <p className="text-sm font-medium">
-              © {year} GRASA MILLETS & FOODS PVT. LTD. All rights reserved.
+              © {year} GRASA Millets & Foods Pvt. Ltd. New Delhi. All rights reserved.
             </p>
             <p className="text-xs font-bold uppercase tracking-wider text-[#d6d1c4]">
               Precision Nutrition • Delhi NCR
