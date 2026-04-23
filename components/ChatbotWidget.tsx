@@ -265,7 +265,7 @@ export default function ChatbotWidget() {
             className="group relative flex items-center transition-all duration-300 hover:scale-104 active:scale-95 outline-none"
           >
             <div className="hidden lg:flex flex-col justify-center bg-[#f4f4f2] border border-[#d6d1c4] h-16 pl-8 pr-16 rounded-full shadow-lg -mr-12 transition-all">
-              <span className="text-[10px] leading-none uppercase tracking-wider text-[#5c5c5c] font-bold mb-1 block">
+              <span className="text-[10px] leading-none uppercase tracking-wider text-[#5c5c5c] font-bold mb-1 block ">
                 Live Chat
               </span>
               <div className="flex items-center min-w-[200px]">

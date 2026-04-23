@@ -11,7 +11,12 @@ const generateBlogsSchema = () => {
     "name": "GRASA Wellness Blogs",
     "url": `${domain}/blogs`,
     "description": "Explore wellness blogs by GRASA covering gut health, millets nutrition, metabolic health, and lifestyle improvement.",
-
+    "publisher": {
+      "@type": "Organization",
+      "name": "Grasa",
+      "alternateName": "Grasa Millets",
+      "url": domain
+    },
     "mainEntity": {
       "@type": "ItemList",
       "itemListElement": blogs.map((blog, index) => ({
@@ -22,7 +27,14 @@ const generateBlogsSchema = () => {
         "image": blog.image,
         "author": {
           "@type": "Organization",
-          "name": blog.author || "Grasa"
+          "name": blog.author || "Grasa",
+          "url": domain
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Grasa",
+          "alternateName": "Grasa Millets",
+          "url": domain
         },
         "datePublished": blog.date,
         "url": `${domain}/blogs/${blog.slug}`
@@ -59,11 +71,6 @@ export default function BlogsListing() {
                   alt={blog.title} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                {/* <div className="absolute top-4 left-4">
-                  <span className="bg-[#C5D82D]/95 backdrop-blur-sm text-[#1b1b1b] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
-                    {blog.category}
-                  </span>
-                </div> */}
               </div>
               
               <div className="p-6">

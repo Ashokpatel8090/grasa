@@ -12,32 +12,23 @@ export async function generateStaticParams() {
 
 const generateBlogSchema = (blog: BlogPost) => {
   const domain = "https://www.grasamillets.com";
+  
+  // Dynamically generates the exact URL for the current blog post
+  const currentUrl = `${domain}/blogs/${blog.slug}`;
 
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": currentUrl
+    },
     "headline": blog.title,
     "description": blog.excerpt,
     "image": blog.image,
-    "author": {
-      "@type": "Organization",
-      "name": blog.author || "Grasa"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Grasa",
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${domain}/logo.png`
-      }
-    },
+    "url": currentUrl,
     "datePublished": blog.date,
-    "dateModified": blog.date,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `${domain}/blogs/${blog.slug}`
-    },
-    "url": `${domain}/blogs/${blog.slug}`,
+    "dateModified": blog.date, // Best practice: update this dynamically if your CMS tracks edit dates
     "articleSection": blog.category,
     "keywords": [
       "gut health",
@@ -45,7 +36,24 @@ const generateBlogSchema = (blog: BlogPost) => {
       "PCOS diet",
       "metabolic health",
       "Grasa nutrition"
-    ]
+    ],
+    "author": {
+      "@type": "Organization",
+      "@id": `${domain}/#organization`, // Links the author to your master brand entity
+      "name": blog.author || "Grasa",
+      "url": domain
+    },
+    "publisher": {
+      "@type": "Organization",
+      "@id": `${domain}/#organization`, // Links the publisher to your master brand entity
+      "name": "Grasa",
+      "alternateName": ["Grasa Millets", "GRASA", "Grasa Wellness", "Grasa Nutrition"],
+      "url": domain,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${domain}/logo.png`
+      }
+    }
   };
 };
 

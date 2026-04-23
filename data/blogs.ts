@@ -1,523 +1,3 @@
-// export interface BlogPost {
-//   title: string;
-//   slug: string;
-//   excerpt: string;
-//   content: string;
-//   image: string;
-//   sidebarImages?: string[];
-//   date: string;
-//   author: string;
-//   category: string;
-//   readTime?: number;
-//   tags?: string[];
-//   relatedBlogs?: string[];
-// }
-
-// // 1. Create a wrapper function that keeps the styling consistent
-// const generateCTA = (innerContent: string) => `
-// <div class="my-10 p-8 bg-[#ebecdf] rounded-2xl border-2 border-[#C5D82D] max-w-5xl mx-auto text-center shadow-lg hover:shadow-xl transition-shadow">
-//   ${innerContent}
-// </div>
-// `;
-
-// // 2. Define the exact specific content for the PCOS blog
-// const pcosCTA = generateCTA(`
-//   <h2 class="text-[#0f172a] font-bold text-lg md:text-xl leading-relaxed">
-//     Try the <span class="text-[#8ca21f]">GRASA Gut Correction Programme</span>.
-//   </h2>
-//   <p class="mt-3 text-[#0f172a] text-base">
-//     GRASA makes fermented atta and sourdough bread in small batches in Delhi NCR. Specifically designed for metabolic and gut health.
-//   </p>
-//   <p class="mt-3 text-[#0f172a] text-base">
-//     Order on <span class="font-semibold text-[#8ca21f]">grasamillets.com</span> 
-//     or WhatsApp us at <span class="font-semibold text-[#8ca21f]">+91 9870263399</span>.
-//   </p>
-// `);
-
-// // 3. Define the exact specific content for the Pre-Diabetic blog
-// const preDiabeticCTA = generateCTA(`
-//   <h2 class="text-[#0f172a] font-bold text-lg md:text-xl leading-relaxed">
-//     GRASA makes fermented atta and sourdough bread in small batches in Delhi NCR.
-//   </h2>
-//   <p class="mt-3 text-[#0f172a] text-base">
-//     Specifically designed for metabolic health. Order the <span class="font-semibold text-[#8ca21f]">Gut Correction Programme</span> on <span class="font-semibold text-[#8ca21f]">grasamillets.com</span>.
-//   </p>
-// `);
-
-// // 4. Define the exact specific content for the Sourdough vs Multigrain blog
-// const trueSourdoughCTA = generateCTA(`
-//   <h2 class="text-[#0f172a] font-bold text-lg md:text-xl leading-relaxed">
-//     Experience true, 24-hour slow-fermented sourdough.
-//   </h2>
-//   <p class="mt-3 text-[#0f172a] text-base">
-//     GRASA bakes authentic sourdough in small batches in Delhi NCR, strictly without commercial yeast. 
-//   </p>
-//   <p class="mt-3 text-[#0f172a] text-base">
-//     Order on <span class="font-semibold text-[#8ca21f]">grasamillets.com</span> 
-//     or WhatsApp us at <span class="font-semibold text-[#8ca21f]">+91 9870263399</span>.
-//   </p>
-// `);
-
-// const thyroidCTA = generateCTA(`
-//   <h2 class="text-[#0f172a] font-bold text-lg md:text-xl leading-relaxed">
-//     GRASA fermented atta and sourdough bread — made for gut health, designed for daily life in Delhi NCR.
-//   </h2>
-//   <p class="mt-3 text-[#0f172a] text-base">
-//     Order on <span class="font-semibold text-[#8ca21f]">grasamillets.com</span>
-//   </p>
-// `);
-
-// const diabeticParentsCTA = generateCTA(`
-//   <p class="text-[#0f172a] text-base font-semibold leading-relaxed">
-//     The GRASA Family Gut Correction Programme — fermented atta, sourdough bread & cookies. The gift your parents will use every single day. | Order on grasamillets.com or WhatsApp
-//   </p>
-// `);
-
-// // 5. Inject them into your blogs
-// export const blogs: BlogPost[] = [
-//   {
-//     title: "THE PCOS-GUT CONNECTION: WHY YOUR HORMONES CANNOT HEAL WITHOUT FIXING THIS FIRST",
-//     slug: "pcos-gut-connection-hormones-india",
-//     excerpt: "Discover why the gut microbiome is the missing piece in PCOS management and how fermented foods like sourdough can help.",
-//     date: "March 11, 2026",
-//     author: "GRASA Team",
-//     category: "Women's Health",
-//     readTime: 8,
-//     tags: ["PCOS", "gut health", "hormones", "fermented foods", "microbiome"],
-//     relatedBlogs: ["pre-diabetic-diet-india-what-to-eat", "gut-health-thyroid-connection-india"],
-//     image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop",
-//     sidebarImages: [
-//       "https://images.unsplash.com/photo-1584308666744-24d5f0152208?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1576091160399-02f1a5b6a081?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=870&auto=format&fit=crop"
-//     ],
-//     content: `
-//       <p>If you have PCOS, you have probably been told to eat low glycemic index foods, avoid sugar, exercise regularly, and manage stress. You are probably doing most of these things. And you are probably still frustrated.</p>
-
-//       <p>Here is something most doctors do not have time to explain in a 15-minute consultation: <strong>your gut microbiome may be the missing piece.</strong></p>
-
-//       <h2>What Is the Gut-PCOS Connection?</h2>
-
-//       <p>Research published in the Journal of Clinical Endocrinology and Metabolism has found that women with PCOS have significantly different gut microbiome compositions compared to women without it. Specifically, they have lower levels of beneficial bacteria like Lactobacillus and Bifidobacterium, and higher levels of inflammatory bacterial strains.</p>
-//       <p>Why does this matter? Because your gut bacteria do not just digest food. They are involved in metabolising estrogen, regulating insulin sensitivity, producing short-chain fatty acids (SCFAs) that reduce systemic inflammation, and communicating with your brain through the vagus nerve. When your gut is imbalanced — a state called dysbiosis — each of these processes is disrupted. Your body struggles to clear excess estrogen efficiently. Insulin resistance worsens. Systemic inflammation rises. And your PCOS symptoms intensify.</p> 
-
-//       <h2>The Estrogen-Gut Loop</h2>
-
-//       <p>There is a specific collection of gut bacteria called the estrobolome — bacteria that produce an enzyme called beta-glucuronidase, which helps metabolise estrogen. When your estrobolome is healthy, your body processes estrogen efficiently. When it is not, estrogen recirculates in your bloodstream at elevated levels.</p>
-//       <p>Elevated estrogen relative to progesterone is a known driver of PCOS symptoms — irregular cycles, weight gain around the hips and belly, acne, and mood fluctuations. Healing your gut does not replace your PCOS treatment. But emerging research strongly suggests it may be one of the most powerful levers you are currently not pulling.</p>
-
-//       <h2>What Does Fermented Food Actually Do?</h2>
-
-//       <p>Fermented foods — particularly those made through traditional slow fermentation processes — introduce beneficial live bacteria directly into your gut. But more importantly, the fermentation process itself transforms the food in ways that matter clinically.</p>
-
-//       <p>When grain is fermented with Lactobacillus cultures — the way traditional sourdough is made — several things happen:</p>
-
-//       <ul>
-//         <li>Phytic acid, which blocks mineral absorption, is broken down. Your body absorbs iron, zinc, and magnesium more efficiently.</li>
-//         <li>The glycemic index of the grain drops significantly.</li>
-//         <li>SCFA production increases which reduces gut inflammation.</li>
-//       </ul>
-
-//       <h2>What This Means for Your PCOS Diet</h2>
-
-//       <p>You do not need to overhaul your entire diet. You need to introduce foods that actively support your gut microbiome as daily staples — not as supplements to remember to take, but as things you eat anyway. Replacing your regular bread and atta with properly fermented alternatives is the most frictionless way to start introducing these benefits. Not because it is a magical cure — but because it makes the food you are already eating work harder for your hormones.</p>
-
-//       <h2>What the Research Says</h2>
-
-//       <p>A 2021 study in <strong>Cell</strong> found that a high-fermented-food diet significantly increased microbiome diversity and decreased markers of immune activation — both of which are relevant for PCOS management. Women who consumed fermented foods daily for 10 weeks showed measurable improvements in inflammatory markers.</p>
-
-//       <p>A 2022 review in <strong>Nutrients</strong> specifically examined the gut-PCOS relationship and concluded that targeting the gut microbiome through dietary intervention represents a promising complementary approach to standard PCOS management.</p>
-
-//       <h2>The Practical Starting Point</h2>
-
-//       <p>If you have PCOS and you are in Delhi NCR, here is the simplest starting point: replace the bread and atta in your kitchen with properly fermented alternatives. Not gluten-free, not multigrain, not millet-based — specifically slow fermented through live cultures.</p>
-
-//       <p>At <strong>GRASA</strong>, our sourdough bread and fermented atta are made in small batches using traditional slow fermentation with active Lactobacillus cultures. No shortcuts. No commercial yeast. No additives. Every batch is made the way fermented grain is supposed to be made.</p>
-
-//       <p>It is not a PCOS treatment. But it is the daily gut support your hormones have been waiting for.</p>
-
-//       ${pcosCTA}
-
-//       <h2>Frequently Asked Questions</h2>
-
-//       <h3>Is sourdough bread good for PCOS?</h3>
-//       <p>Properly fermented sourdough bread — made with slow fermentation and live cultures, not commercial yeast shortcuts — has a lower glycemic index than regular bread and introduces beneficial bacteria that support gut microbiome diversity. This is relevant for PCOS management because gut health directly influences estrogen metabolism and insulin sensitivity.</p>
-
-//       <h3>Can fermented food help with PCOS symptoms?</h3>
-//       <p>Research suggests that improving gut microbiome diversity through fermented foods can reduce systemic inflammation, improve estrogen metabolism, and support insulin sensitivity — all of which are key factors in PCOS symptom management. It is most effective as part of a broader dietary and medical approach.</p>
-
-//       <h3>What is the best atta for PCOS patients in India?</h3>
-//       <p>Fermented atta — atta made through a traditional slow fermentation process — is preferable to regular atta for PCOS patients because the fermentation reduces glycemic response, improves mineral bioavailability, and introduces SCFAs that support gut health.</p>
-//     `,
-//   },
-//   {
-//     title: "YOU GOT A PRE-DIABETIC REPORT. HERE IS EXACTLY WHAT TO EAT NOW.",
-//     slug: "pre-diabetic-diet-india-what-to-eat",
-//     excerpt: "A pre-diabetic diagnosis is not a life sentence. The right food changes can reverse it. Here is a clear, practical Indian diet plan based on gut science — not generic advice.",
-//     date: "April 10, 2026",
-//     author: "GRASA Team",
-//     category: "Metabolic Health",
-//     readTime: 10,
-//     tags: ["pre-diabetes", "diet", "metabolic health", "gut health", "blood sugar"],
-//     relatedBlogs: ["sourdough-vs-multigrain-vs-whole-wheat-bread-india", "what-to-feed-diabetic-parents-india"],
-//     image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop",
-//     sidebarImages: [
-//       "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1547521064-7cc38c2f37d1?q=80&w=870&auto=format&fit=crop"
-//     ],
-//     content: `
-//       <p>HbA1c between 5.7 and 6.4. Fasting glucose slightly elevated. Your doctor said the words "pre-diabetic" and handed you a diet advice sheet. You left the clinic feeling a combination of fear, confusion, and mild disbelief.</p>
-      
-//       <p>You are not alone. India has over 136 million people in the pre-diabetic range. Urban Delhi NCR has one of the highest prevalence rates in the country — driven by chronic stress, sedentary work, ultra-processed food, and air quality that directly affects metabolic function.</p>
-
-//       <p>The good news — and this is genuinely good news — is that pre-diabetes is the only stage of this metabolic progression where food can make a decisive difference. This is your window. Let us use it correctly.</p>
-
-//       <h2>What Pre-Diabetes Actually Means</h2>
-//       <p>Your cells have become less responsive to insulin. When you eat carbohydrates, your blood glucose rises and your pancreas releases insulin to bring it down. In pre-diabetes, the cells are resisting that insulin signal — so glucose stays elevated longer than it should.</p>
-      
-//       <p>The standard advice is to reduce carbohydrates and increase exercise. This is correct but incomplete. What it misses is the role of your gut microbiome in insulin sensitivity.</p>
-
-//       <h2>The Gut-Diabetes Connection Most Doctors Skip</h2>
-//       <p>A landmark 2019 study in <strong>Nature Medicine</strong> found that the gut microbiome composition is directly linked to insulin resistance. Specifically, people with higher levels of SCFA-producing gut bacteria had significantly better insulin sensitivity than those with depleted gut microbiomes.</p>
-      
-//       <p>SCFAs — short-chain fatty acids produced when gut bacteria ferment dietary fibre — do several things that matter for pre-diabetes management:</p>
-//       <ul>
-//         <li>They improve the sensitivity of muscle cells to insulin signals.</li>
-//         <li>They reduce liver inflammation, directly relevant for fatty liver — which co-occurs with pre-diabetes in approximately 60% of cases.</li>
-//         <li>They slow gastric emptying, which reduces the post-meal glucose spike.</li>
-//         <li>They communicate with the pancreas through the gut-brain axis, supporting better insulin secretion timing.</li>
-//       </ul>
-
-//       <p>This means that eating foods that actively feed and diversify your gut bacteria is not a nice-to-have for pre-diabetes management. It is a clinical priority.</p>
-
-//       <h2>The Problem With Standard Indian Bread and Atta</h2>
-//       <p>The typical roti made with commercially milled, unfermented atta has a glycemic index of approximately 62-70. It digests quickly, causing a rapid glucose spike. For a pre-diabetic, every roti at every meal is a glucose stress event.</p>
-      
-//       <p>This does not mean stop eating rotis. This is India. Rotis are not going away. What it means is that the atta itself can be transformed through fermentation to behave differently in your body.</p>
-
-//       <p>When atta is slowly fermented with live Lactobacillus cultures before use, three things happen:</p>
-//       <ul>
-//         <li>The glycemic index drops by approximately 25-30% compared to unfermented atta — because fermentation partially breaks down the starch structure.</li>
-//         <li>Phytic acid — which blocks mineral absorption and contributes to nutritional deficiency — is significantly reduced.</li>
-//         <li>The fermentation process produces beneficial bacteria and organic acids that, when consumed, directly support gut microbiome diversity.</li>
-//       </ul>
-
-//       <h2>What the Pre-Diabetic Diet in India Should Actually Look Like</h2>
-//       <p>Here is a practical framework — not a calorie-counted meal plan, but a principle-based approach that works with Indian food culture:</p>
-
-//       <h3>Principle 1: Replace, Do Not Eliminate</h3>
-//       <p>Do not try to remove carbohydrates from your diet entirely. This creates stress, reduces adherence, and is unnecessary. Instead, replace high-glycemic staples with lower-glycemic fermented alternatives. Regular atta roti becomes fermented atta roti. White bread becomes properly fermented sourdough bread. This single substitution, made daily, compounds over weeks and months.</p>
-
-//       <h3>Principle 2: Eat for Your Gut First</h3>
-//       <p>Every meal should contain something that feeds your gut bacteria. This means fibre from vegetables, resistant starch from cooled cooked rice or potatoes, and fermented foods. Your gut bacteria convert this into the SCFAs that improve your insulin sensitivity.</p>
-
-//       <h3>Principle 3: Protein at Every Meal</h3>
-//       <p>Protein slows glucose absorption and reduces the glycemic impact of the meal. Dal, paneer, eggs, curd — at least one source of protein at every main meal.</p>
-
-//       <h3>Principle 4: The Sequence Matters</h3>
-//       <p>Research shows that eating fibre and protein before carbohydrates in a meal significantly reduces the post-meal glucose spike — by up to 37% in some studies. Start your meal with salad or a small bowl of dal before the roti. This one habit change requires no dietary sacrifice.</p>
-
-//       <h2>The Role of Sourdough Bread in Pre-Diabetes Management</h2>
-//       <p>Sourdough made through proper slow fermentation — not the commercial yeast shortcuts sold in most bakeries — has a demonstrated lower glycemic response compared to standard whole wheat bread. A 2008 study in Acta Diabetologica and subsequent research has consistently found that the organic acids produced during sourdough fermentation slow starch digestion and reduce the insulin demand of a meal.</p>
-      
-//       <p>For a pre-diabetic who eats bread at breakfast — which describes millions of urban Indian households — this substitution alone can meaningfully reduce the daily glucose stress load.</p>
-
-//       <h2>What to Do Starting Tomorrow</h2>
-//       <p>You do not need a new diet app, a new gym membership, or an expensive supplement protocol. You need to make the food you already eat work better for your metabolic health.</p>
-
-//       <p>Start with two substitutions: your breakfast bread and your kitchen atta. Make them fermented. Do it for 30 days. Check your fasting glucose at the end. Let the data speak.</p>
-
-//       ${preDiabeticCTA}
-
-//       <h2>Frequently Asked Questions</h2>
-      
-//       <h3>Is sourdough bread good for diabetics in India?</h3>
-//       <p>Properly fermented sourdough bread — made with slow fermentation, not commercial yeast — has a meaningfully lower glycemic index than standard whole wheat bread. This makes it a better choice for pre-diabetics and diabetics who cannot or will not eliminate bread from their diet.</p>
-
-//       <h3>What is the best atta for pre-diabetic patients?</h3>
-//       <p>Fermented atta — specifically atta that has undergone slow lacto-fermentation with live cultures — has a lower glycemic response than standard atta because the fermentation process partially breaks down the starch structure and reduces phytic acid content.</p>
-
-//       <h3>Can gut health affect blood sugar?</h3>
-//       <p>Yes. Research consistently shows that gut microbiome composition directly influences insulin sensitivity. Higher levels of SCFA-producing gut bacteria correlate with better blood sugar regulation. Eating fermented foods that support gut microbiome diversity is a clinically relevant strategy for pre-diabetes management.</p>
-//   `
-//   },
-//   {
-//     title: "SOURDOUGH VS MULTIGRAIN VS WHOLE WHEAT: WHICH BREAD IS ACTUALLY BETTER FOR YOUR BLOOD SUGAR?",
-//     slug: "sourdough-vs-multigrain-vs-whole-wheat-bread-india",
-//     excerpt: "Not all 'healthy' bread is the same. Here is the science of what different breads actually do to your blood glucose — and which one wins for metabolic health in India.",
-//     date: "April 11, 2026",
-//     author: "GRASA Team",
-//     category: "Metabolic Health",
-//     readTime: 9,
-//     tags: ["sourdough", "bread", "blood sugar", "whole wheat", "glycemic index"],
-//     relatedBlogs: ["pre-diabetic-diet-india-what-to-eat", "gut-health-thyroid-connection-india"],
-//     image: "https://www.grasamillets.com/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdaunsn0z7%2Fimage%2Fupload%2Fv1763203708%2Fmedicaps%2Fmillet_products%2Ffile_ljra0q.png&w=1080&q=75",
-//     sidebarImages: [
-//       "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1582053273967-8a6e3c34ce00?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1624452613344-78fb3d0f84cc?q=80&w=870&auto=format&fit=crop"
-//     ],
-//     content: `
-//       <p>Walk into any premium supermarket in Delhi NCR and you will find breads labelled multigrain, whole wheat, seeded, ancient grain, low GI, and more. The packaging looks serious. The prices suggest health. But what is actually happening to your blood sugar when you eat them?</p>
-      
-//       <p>This post cuts through the packaging claims and looks at what the research actually says about different bread types — specifically in the context of Indian metabolic health concerns like pre-diabetes, PCOS, and fatty liver.</p>
-
-//       <h2>The Glycemic Index: What It Means and Why It Matters</h2>
-//       <p>The Glycemic Index (GI) measures how quickly a food raises your blood glucose compared to pure glucose (GI of 100). Foods below 55 are considered low GI. Between 56-69 is medium. Above 70 is high.</p>
-      
-//       <p>For pre-diabetics, PCOS patients managing insulin resistance, and anyone with metabolic concerns, lower GI foods are preferable because they cause a slower, steadier glucose rise — reducing the insulin demand on your pancreas and minimising the glucose spikes that cause metabolic stress over time.</p>
-
-//       <h2>The Bread Comparison — What the Research Shows</h2>
-      
-//       <div class="overflow-x-auto my-8">
-//         <table class="min-w-full bg-[#f4f4f2] border border-[#d6d1c4] text-left rounded-xl overflow-hidden">
-//           <thead class="bg-[#ebecdf]">
-//             <tr>
-//               <th class="py-4 px-4 border-b border-[#d6d1c4] font-bold text-[#1b1b1b]">BREAD TYPE</th>
-//               <th class="py-4 px-4 border-b border-[#d6d1c4] font-bold text-[#1b1b1b]">APPROX. GI</th>
-//               <th class="py-4 px-4 border-b border-[#d6d1c4] font-bold text-[#1b1b1b]">WHAT MAKES IT THIS WAY</th>
-//               <th class="py-4 px-4 border-b border-[#d6d1c4] font-bold text-[#1b1b1b]">VERDICT FOR METABOLIC HEALTH</th>
-//             </tr>
-//           </thead>
-//           <tbody class="text-[#5c5c5c] text-sm md:text-base">
-//             <tr class="hover:bg-[#ebecdf]/50 transition-colors">
-//               <td class="py-4 px-4 border-b border-[#d6d1c4] font-bold text-[#1b1b1b]">White Bread (standard)</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4] font-semibold">70–75</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4]">Refined flour, no fermentation, rapid starch digestion.</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4]">High glucose spike. Avoid for metabolic concerns.</td>
-//             </tr>
-//             <tr class="hover:bg-[#ebecdf]/50 transition-colors">
-//               <td class="py-4 px-4 border-b border-[#d6d1c4] font-bold text-[#1b1b1b]">Whole Wheat Bread (commercial)</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4] font-semibold">65–69</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4]">Whole grain adds some fibre but no fermentation. Starch still digests quickly.</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4]">Marginally better. Still causes significant glucose rise.</td>
-//             </tr>
-//             <tr class="hover:bg-[#ebecdf]/50 transition-colors">
-//               <td class="py-4 px-4 border-b border-[#d6d1c4] font-bold text-[#1b1b1b]">Multigrain Bread (commercial)</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4] font-semibold">62–68</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4]">Multiple grains but typically no fermentation. GI depends entirely on grain type and processing.</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4]">Packaging often overstates health benefit. Similar to whole wheat in glucose impact.</td>
-//             </tr>
-//             <tr class="hover:bg-[#ebecdf]/50 transition-colors">
-//               <td class="py-4 px-4 border-b border-[#d6d1c4] font-bold text-[#1b1b1b]">Commercial "Sourdough"</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4] font-semibold">60–65</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4]">Often made with added commercial yeast and very short fermentation. Not true sourdough.</td>
-//               <td class="py-4 px-4 border-b border-[#d6d1c4]">Slightly better than whole wheat. But most commercial sourdough is not properly fermented.</td>
-//             </tr>
-//             <tr class="bg-[#ebecdf]/30 hover:bg-[#ebecdf]/80 transition-colors">
-//               <td class="py-4 px-4 font-bold text-[#1b1b1b]">True Slow-Fermented Sourdough</td>
-//               <td class="py-4 px-4 font-semibold text-[#8ca21f]">48–54</td>
-//               <td class="py-4 px-4">Long fermentation with live cultures produces organic acids that slow starch digestion significantly.</td>
-//               <td class="py-4 px-4 font-bold text-[#8ca21f]">Meaningfully lower glucose response. Supports gut health. Best bread option for metabolic health.</td>
-//             </tr>
-//           </tbody>
-//         </table>
-//       </div>
-
-//       <h3>Why Most "Sourdough" in Indian Markets Is Not Really Sourdough</h3>
-//       <p>This is the critical point that most bread marketing glosses over. True sourdough fermentation requires:</p>
-//       <ul>
-//         <li>A live starter — a mixture of wild yeast and Lactobacillus bacteria that has been cultivated and maintained over time.</li>
-//         <li>A long fermentation period — typically 12-24 hours minimum. This is what produces the organic acids (lactic and acetic acid) that lower the glycemic index and improve digestibility.</li>
-//         <li>No commercial yeast added to speed up the process.</li>
-//       </ul>
-
-//       <p>Most commercially produced "sourdough" bread in India is made with commercial yeast and a small amount of starter — with a fermentation period of 2-4 hours. This is fast bread. It looks like sourdough and tastes vaguely like sourdough. But it does not deliver the metabolic benefits of true slow fermentation.</p>
-      
-//       <p>The way to identify true sourdough: ask how long the fermentation takes. If the answer is less than 12 hours, it is not delivering the full metabolic benefit. True artisan sourdough takes 18-24 hours minimum.</p>
-
-//       <h2>What About Millet Bread and Gluten-Free Alternatives?</h2>
-//       <p>Millet breads have become popular in urban India. They are nutritious in many ways — higher protein, higher fibre, and culturally familiar. However, their glycemic index varies significantly by millet type and preparation method. Jowar (sorghum) has a GI of approximately 55-70 depending on preparation. Bajra (pearl millet) ranges from 55-65.</p>
-      
-//       <p>The key difference: millet breads do not inherently undergo fermentation unless specifically made that way. A slow-fermented millet sourdough would theoretically offer both benefits. But most millet breads available in the Indian market are not fermented — they are just made with different grain.</p>
-
-//       <h2>The Practical Verdict for Delhi NCR Households</h2>
-//       <p>If you or someone in your family is managing pre-diabetes, PCOS, fatty liver, or simply wants to reduce the metabolic load of daily bread consumption — the choice is clear. True slow-fermented sourdough, made with live cultures and proper fermentation time, is significantly better than any commercially produced alternative.</p>
-      
-//       <p>The challenge is finding it. Most bakeries — even premium ones — use commercial yeast. Most supermarket sourdough is not true sourdough. The real thing is made in small batches, by people who are serious about the process.</p>
-
-//       ${trueSourdoughCTA}
-//     `
-//   },
-
-//   {
-//     title: "GUT HEALTH AND THYROID: THE CONNECTION YOUR DOCTOR MAY NOT HAVE HAD TIME TO EXPLAIN",
-//     slug: "gut-health-thyroid-connection-india",
-//     excerpt: "Millions of Indians take thyroid medication daily but still feel exhausted, bloated and foggy. The missing piece is often the gut. Here is the science.",
-//     date: "April 12, 2026",
-//     author: "GRASA Team",
-//     category: "Metabolic Health",
-//     readTime: 7,
-//     tags: ["thyroid", "gut health", "hashimoto's", "hypothyroidism", "metabolism"],
-//     relatedBlogs: ["pcos-gut-connection-hormones-india", "pre-diabetic-diet-india-what-to-eat"],
-//     image: "https://thesurgicalclinics.com/wp-content/uploads/2022/01/thyroid-gland-illustration-anatomy-e1726586021393.jpg",
-//     sidebarImages: [
-//       "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1527489377706-5bf97e608852?q=80&w=870&auto=format&fit=crop"
-//     ],
-//     content: `
-
-//       <p><strong>Hypothyroidism is one of the most diagnosed conditions in urban India — particularly in women.</strong> An estimated 42 million Indians live with thyroid disorders. Most of them are on levothyroxine and told to take it on an empty stomach, avoid certain foods, and get their TSH checked every 6 months.</p>
-
-//       <p>What most are not told: <strong>the gut plays a central role in thyroid function</strong> — from the absorption of thyroid medication to the conversion of T4 into the active T3 hormone. If your gut is not in good health, your thyroid treatment may be working at significantly reduced efficiency.</p>
-
-//       <h2>How the Gut Affects Thyroid Function — The Three Mechanisms</h2>
-
-//       <h3>Mechanism 1: Medication Absorption</h3>
-//       <p>Levothyroxine absorption occurs primarily in the small intestine. The state of your gut lining — whether it is inflamed, permeable, or colonised by bacteria that interfere with absorption — directly affects how much of your medication actually reaches your bloodstream.</p>
-
-//       <p>Studies have shown that gut dysbiosis can reduce levothyroxine absorption by up to 30%, meaning many patients are functionally under-medicated despite technically correct dosing.</p>
-
-//       <h3>Mechanism 2: T4 to T3 Conversion</h3>
-//       <p>The thyroid gland primarily produces T4 — the inactive form of the hormone. T4 must be converted to T3, the active form, to have its effect on metabolism, energy, and cognitive function.</p>
-
-//       <p>This conversion happens in multiple tissues — but approximately 20% of it depends on gut bacteria. Specifically, gut bacteria produce an enzyme called intestinal sulfatase that facilitates T3 conversion. When the gut microbiome is depleted, this conversion pathway is impaired.</p>
-
-//       <h3>Mechanism 3: Immune Regulation</h3>
-//       <p>Approximately 80% of the immune system resides in the gut. Hashimoto's thyroiditis — the most common cause of hypothyroidism in India — is an autoimmune condition where the immune system attacks thyroid tissue.</p>
-
-//       <p>The gut microbiome plays a central role in immune regulation. A gut with high bacterial diversity and low inflammatory bacteria is associated with more regulated immune responses and reduced autoimmune activity.</p>
-
-//       <h2>Signs Your Thyroid and Gut May Both Need Attention</h2>
-
-//       <ul>
-//         <li>You are on thyroid medication but still feel exhausted and foggy</li>
-//         <li>Your TSH levels are "normal" but your symptoms persist</li>
-//         <li>You experience chronic bloating, constipation, or irregular digestion</li>
-//         <li>You have multiple food sensitivities or reactions</li>
-//         <li>Your thyroid dosage has needed frequent adjustments</li>
-//       </ul>
-
-//       <h2>What Fermented Foods Do for Thyroid Patients</h2>
-
-//       <p>Fermented foods that introduce live Lactobacillus cultures into the gut serve thyroid health in three practical ways:</p>
-
-//       <ul>
-//         <li>They increase gut bacteria diversity, supporting the T4-to-T3 conversion pathway.</li>
-//         <li>They strengthen the gut lining, reducing intestinal permeability that can trigger or worsen autoimmune responses in Hashimoto's.</li>
-//         <li>They reduce the inflammatory bacterial strains associated with increased intestinal permeability and compromised medication absorption.</li>
-//       </ul>
-
-//       <p>Importantly, for thyroid patients, fermented grains are preferable to raw cruciferous vegetables (like broccoli or kale smoothies) as a gut health intervention — because raw goitrogens in some vegetables can interfere with thyroid function when consumed in large quantities.</p>
-
-//       <h2>Practical Dietary Guidance for Thyroid Patients in India</h2>
-
-//       <p>You do not need to change everything. Small, consistent changes to daily staples matter more than dramatic dietary overhauls that last two weeks.</p>
-
-//       <ul>
-//         <li>Replace regular atta with fermented atta in your daily roti. The fermentation process improves mineral bioavailability — particularly selenium and zinc, which are cofactors in thyroid hormone synthesis.</li>
-//         <li>Introduce properly fermented sourdough bread if bread is part of your breakfast routine. The lower glycemic response reduces cortisol spikes that stress thyroid function.</li>
-//         <li>Eat your levothyroxine as directed — and then consider what you eat 30-60 minutes later. A breakfast with fermented grain and adequate protein is a better follow-up than a high-fibre smoothie that may affect medication absorption.</li>
-//       </ul>
-
-//       <p><em>Note: Dietary changes for thyroid health should be discussed with your endocrinologist. GRASA products are designed to complement, not replace, your thyroid treatment.</em></p>
-
-//       ${thyroidCTA}
-
-//       <p><strong>GRASA fermented atta and sourdough bread — made for gut health, designed for daily life in Delhi NCR.</strong> | grasamillets.com</p>
-
-//     `
-//   },
-
-//   {
-//     title: "WHAT TO FEED YOUR PARENTS WITH DIABETES: A COMPLETE INDIAN FOOD GUIDE",
-//     slug: "what-to-feed-diabetic-parents-india",
-//     excerpt: "If your parents have diabetes and you are trying to help them eat better — this is the most practical guide you will find. Real Indian food. Real science. No impossible restrictions.",
-//     date: "April 13, 2026",
-//     author: "GRASA Team",
-//     category: "Metabolic Health",
-//     readTime: 11,
-//     tags: ["diabetes", "parents", "Indian food", "diet guide", "family health"],
-//     relatedBlogs: ["pre-diabetic-diet-india-what-to-eat", "gut-health-thyroid-connection-india"],
-//     image: "https://asianheartinstitute.org/wp-content/uploads/2024/06/Diet-Chart-for-Diabetic.jpg",
-//     sidebarImages: [
-//       "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=870&auto=format&fit=crop",
-//       "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?q=80&w=870&auto=format&fit=crop"
-//     ],
-//     content: `
-
-//       <p>If one of your parents has recently been diagnosed with Type 2 diabetes — or is managing it long-term — you have probably gone through your own version of this experience: feeling worried, searching for answers, getting conflicting information, and eventually trying to quietly change what is cooked at home without starting a daily argument.</p>
-
-//       <p>This guide is for you. Not for the person with diabetes — for the adult child who is trying to help, who is navigating this from a distance or from the same kitchen, and who wants practical answers that actually work within a real Indian household.</p>
-
-//       <h2>The First Thing to Understand: You Cannot Change Everything</h2>
-
-//       <p>The biggest mistake well-meaning family members make is trying to revolutionise a 60-year-old's food habits overnight. They remove rice. They replace all rotis with salads. They buy sugar-free everything.</p>
-
-//       <p>This does not work. Not because your parent is difficult — but because food is deeply tied to identity, culture, routine, and pleasure. Removing it creates resistance, stress, and a feeling of deprivation that often makes compliance worse, not better.</p>
-
-//       <p>The approach that actually works: <strong>substitution, not elimination.</strong> Replace the high-glycemic staples with lower-glycemic alternatives that look, taste, and function identically in the kitchen.</p>
-
-//       <h2>The Staples That Matter Most — And What to Replace Them With</h2>
-
-//       <h3>Atta (Wheat Flour)</h3>
-//       <p>Regular commercially milled atta has a glycemic index of approximately 62–70. Your parents are probably eating 4–6 rotis daily. Each roti is a glucose event. The accumulation matters.</p>
-
-//       <p>Replace it with slowly fermented atta — atta that has been prepared through lacto-fermentation with live cultures. The fermentation process reduces the glycemic index by approximately 25–30%, reduces phytic acid that blocks mineral absorption, and introduces gut-beneficial bacteria that improve the metabolic response to every meal.</p>
-
-//       <p>The roti made from fermented atta looks and tastes identical. Your parent will not know the difference — and that is the point.</p>
-
-//       <h3>Bread (if consumed at breakfast)</h3>
-//       <p>Many urban North Indian households now have bread at breakfast. Standard white or even whole wheat bread is high glycemic and has no gut benefit.</p>
-
-//       <p>True slow-fermented sourdough bread — not the commercial sourdough in supermarkets, but properly made artisan sourdough with 18–24 hour fermentation — has a measurably lower glycemic response and introduces beneficial bacteria.</p>
-
-//       <h3>Rice</h3>
-//       <p>You do not need to remove rice. Cook it, cool it completely, and reheat before serving. Cooling cooked rice converts a portion of its digestible starch into resistant starch, which the gut bacteria ferment into SCFAs instead of it being absorbed as glucose.</p>
-
-//       <p>This simple technique can reduce the glycemic impact of rice by 10–15%.</p>
-
-//       <h2>Building a Day of Eating That Actually Works</h2>
-
-//       <h3>Breakfast:</h3>
-//       <p>True sourdough bread with eggs or paneer + a small bowl of curd. The protein and fat slow glucose absorption. The fermented bread introduces gut bacteria. The curd adds probiotics.</p>
-
-//       <h3>Lunch:</h3>
-//       <p>Start with a small bowl of dal or vegetables before the rotis. Research shows eating protein and fibre before carbohydrates reduces post-meal glucose spikes by up to 37%.</p>
-
-//       <p>Two fermented atta rotis. A vegetable. Curd if desired.</p>
-
-//       <h3>Dinner:</h3>
-//       <p>Keep it lighter than lunch. Fermented atta roti with dal and a cooked vegetable. If rice is served, use the cooled-and-reheated method.</p>
-
-//       <h3>Snacks:</h3>
-//       <p>The most dangerous blood sugar time for many diabetics is mid-morning and mid-afternoon when they reach for biscuits or namkeen.</p>
-
-//       <p>Replace with a small portion of fermented cookies — lower glycemic, with gut benefit — or a handful of soaked nuts.</p>
-
-//       <h2>The Gut Connection for Diabetic Patients</h2>
-
-//       <p>Research published in <strong>Cell Metabolism (2019)</strong> found that gut microbiome diversity is a strong independent predictor of blood sugar control — even more predictive than dietary fat or carbohydrate intake alone in some analyses.</p>
-
-//       <p>Diabetic patients with diverse, healthy gut microbiomes managed their glucose significantly better than those with depleted microbiomes following the same diet.</p>
-
-//       <p>This means feeding the gut bacteria of your diabetic parent is not a supplementary concern. It is a primary one.</p>
-
-//       <h2>One Simple Rule for the Gifting Moment</h2>
-
-//       <p>If you live separately from your parents and are trying to improve their food without daily supervision — the best intervention is to change what arrives in their kitchen, not to give them a list of what not to eat.</p>
-
-//       <p>A monthly supply of fermented atta and sourdough bread, delivered to their door, requires zero behaviour change from them.</p>
-
-//       <p>The atta replaces what is already there. The bread replaces what is already being eaten. The gut benefit accumulates silently and consistently.</p>
-
-//       ${diabeticParentsCTA}
-
-//     `
-//   }
-// ];
-
-
-
-
-
-
-
-
-
 export interface BlogPost {
   title: string;
   slug: string;
@@ -677,6 +157,483 @@ const gutResetCTA = generateCTA(`
 // 3. FULL BLOG DATA — Every post uses the COMPLETE original content (no reduction) + premium enhancements + extra engaging intro paragraphs where it adds value without changing facts
 export const blogs: BlogPost[] = [
   {
+    title: "Millets vs Wheat: Which Is Better for Digestion? [cite: 2]",
+    slug: "millets-vs-wheat-digestion",
+    excerpt: "If you often feel bloated, sluggish, or heavy after meals, the problem might not be how much you eat — it could be what you eat. [cite: 3]",
+    date: "April 23, 2026",
+    author: "The GRASA Nutrition Team [cite: 56]",
+    category: "Nutrition & Digestive Health [cite: 1]",
+    readTime: 6,
+    tags: ["millets", "wheat", "digestion", "gut health", "bloating", "gluten-free"],
+    image: "/blogs/17.png",
+    sidebarImages: [
+      "/blogs/18.png",
+    ],
+    content: `
+      <p>If you often feel bloated, sluggish, or heavy after meals, the problem might not be how much you eat — it could be what you eat. [cite: 3]</p>
+      <p>Wheat has been the backbone of the Indian diet for decades, but millets — the ancient grains our grandparents grew up eating — are making a powerful comeback. [cite: 4] And for good reason. [cite: 5]</p>
+      <p>In this article, we break down the key differences between millets and wheat, especially when it comes to digestion, gut health, and how you feel after meals. [cite: 6]</p>
+
+      <h2>What Makes Digestion 'Good' or 'Bad'? [cite: 7]</h2>
+      <p>Your digestive system works best when it receives food that it can break down slowly, absorb efficiently, and pass through without inflammation. [cite: 8]</p>
+      <p>Good digestion means: [cite: 9]</p>
+      <ul>
+        <li>No bloating or gas after meals [cite: 10]</li>
+        <li>Steady energy (no post-lunch crashes) [cite: 11]</li>
+        <li>Regular bowel movements [cite: 12]</li>
+        <li>No acid reflux or heaviness [cite: 13]</li>
+      </ul>
+      <p>Both millets and wheat affect all of these — but in very different ways. [cite: 14]</p>
+
+      <h2>Wheat and Digestion: The Problem [cite: 15]</h2>
+      <h3>1. Gluten [cite: 16]</h3>
+      <p>Wheat contains gluten — a protein that many people's digestive systems struggle to process. [cite: 17] Even without full celiac disease, a significant number of people experience 'non-celiac gluten sensitivity', which can cause bloating, loose stools, brain fog, and fatigue. [cite: 18]</p>
+      
+      <h3>2. High Glycemic Index [cite: 19]</h3>
+      <p>Modern wheat flour (maida or even atta from hybrid wheat) has a high glycemic index (GI of 70+). [cite: 20] This means it breaks down quickly, causes blood sugar spikes, and triggers an insulin response — leaving you hungry again soon after eating. [cite: 21]</p>
+      
+      <h3>3. Phytic Acid [cite: 22]</h3>
+      <p>Wheat contains phytic acid, which can bind to minerals like iron, zinc, and magnesium — reducing how much your body actually absorbs from food. [cite: 23]</p>
+
+      <h2>Millets and Digestion: The Advantage [cite: 24]</h2>
+      <h3>1. Gluten-Free [cite: 25]</h3>
+      <p>All millets — jowar, bajra, ragi, foxtail, and others — are naturally gluten-free. [cite: 26] This means they are far gentler on the gut lining, especially for people with IBS, acid reflux, or general digestive sensitivity. [cite: 27]</p>
+      
+      <h3>2. High Dietary Fibre [cite: 28]</h3>
+      <p>Millets are rich in both soluble and insoluble fibre. Soluble fibre feeds good gut bacteria and slows sugar absorption. [cite: 29] Insoluble fibre adds bulk to stools and promotes regular bowel movements. [cite: 30] Together, they create the ideal environment for a healthy gut microbiome. [cite: 31]</p>
+      
+      <h3>3. Low to Medium Glycemic Index [cite: 32]</h3>
+      <p>Most millets have a GI between 50–65, compared to wheat's 70+. [cite: 33] This means slower digestion, more stable blood sugar, and longer-lasting energy — which is why many people on a millet-based diet report not feeling hungry for hours after eating. [cite: 34]</p>
+      
+      <h3>4. Prebiotic Properties [cite: 35]</h3>
+      <p>Millets contain compounds that act as prebiotics — they feed beneficial gut bacteria like Lactobacillus and Bifidobacterium. [cite: 36] A healthier gut microbiome is directly linked to reduced bloating, better immunity, and even improved mood. [cite: 37]</p>
+
+      <h2>Millets vs Wheat: Head-to-Head Comparison [cite: 38]</h2>
+      <div class="overflow-x-auto my-8">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#ebecdf] border-b-2 border-[#C5D82D]">
+              <th class="p-3 font-bold text-[#0f172a]">Factor [cite: 39]</th>
+              <th class="p-3 font-bold text-[#0f172a]">Wheat (Atta) [cite: 39]</th>
+              <th class="p-3 font-bold text-[#0f172a]">Millets [cite: 39]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Gluten [cite: 39]</td>
+              <td class="p-3">Contains gluten [cite: 39]</td>
+              <td class="p-3">Completely gluten-free [cite: 39]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Glycemic Index [cite: 39]</td>
+              <td class="p-3">High (70+) [cite: 39]</td>
+              <td class="p-3">Low to medium (50–65) [cite: 39]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Fibre Content [cite: 39]</td>
+              <td class="p-3">Moderate [cite: 39]</td>
+              <td class="p-3">High [cite: 39]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Gut Microbiome [cite: 39]</td>
+              <td class="p-3">Neutral to negative [cite: 39]</td>
+              <td class="p-3">Supports good bacteria [cite: 39]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Blood Sugar Impact [cite: 39]</td>
+              <td class="p-3">Spikes quickly [cite: 39]</td>
+              <td class="p-3">Slow, steady release [cite: 39]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Mineral Absorption [cite: 39]</td>
+              <td class="p-3">Blocked by phytic acid [cite: 39]</td>
+              <td class="p-3">Better bioavailability [cite: 39]</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold">Post-meal Energy [cite: 39]</td>
+              <td class="p-3">Crash within 2 hours [cite: 39]</td>
+              <td class="p-3">Sustained energy [cite: 39]</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Who Should Switch to Millets? [cite: 40]</h2>
+      <p>Millets are especially beneficial for people who: [cite: 41]</p>
+      <ul>
+        <li>Feel bloated or gassy after meals regularly [cite: 42]</li>
+        <li>Have been diagnosed with IBS, acid reflux, or digestive sensitivity [cite: 43]</li>
+        <li>Want to manage blood sugar or reduce diabetes risk [cite: 44]</li>
+        <li>Experience post-meal fatigue or energy crashes [cite: 45]</li>
+        <li>Are trying to lose weight sustainably [cite: 46]</li>
+        <li>Have a family history of diabetes or heart disease [cite: 47]</li>
+      </ul>
+
+      \${bloatedCTA}
+
+      <h2>How GRASA Makes the Switch Easy [cite: 48]</h2>
+      <p>Switching from wheat to millets doesn't mean giving up your rotis or your favourite foods. [cite: 49] At GRASA, we prepare ancient Indian grains into everyday foods — atta, flatbreads, snack bars, and more — that look and taste familiar, but work very differently inside your body. [cite: 50]</p>
+      <p>Our nutritionist team personalises your food plan based on your health goals, so you're not just eating healthy — you're eating right for your body. [cite: 51]</p>
+
+      <h2>The Bottom Line [cite: 52]</h2>
+      <p>Wheat isn't poison. But for many Indians — especially those with digestive issues, blood sugar concerns, or chronic fatigue — millets offer a meaningfully better alternative. [cite: 53] They digest slower, feed your gut better, and give you more stable energy throughout the day. [cite: 54]</p>
+      <p>Your grandparents ate jowar rotis and bajra khichdi for a reason. It's time to go back to what works. [cite: 55]</p>
+      
+      \${delhiNcrCTA}
+    `
+  },
+  {
+    title: "Best Foods for Blood Sugar Control in India [cite: 58]",
+    slug: "best-foods-blood-sugar-control-india",
+    excerpt: "India is now the diabetes capital of the world. Over 100 million Indians live with diabetes, and an estimated 136 million are in the 'pre-diabetic' zone — at risk but not yet diagnosed. [cite: 59]",
+    date: "April 23, 2026",
+    author: "The GRASA Nutrition Team [cite: 131]",
+    category: "Blood Sugar & Nutrition [cite: 57]",
+    readTime: 8,
+    tags: ["blood sugar", "diabetes", "prediabetes", "Indian diet", "millets", "insulin sensitivity"],
+    image: "/blogs/19.png",
+    sidebarImages: [
+      "/blogs/20.png",
+    ],
+    content: `
+      <p>India is now the diabetes capital of the world. Over 100 million Indians live with diabetes, and an estimated 136 million are in the 'pre-diabetic' zone — at risk but not yet diagnosed. [cite: 59] The scariest part? Most of them don't know yet. [cite: 60]</p>
+      <p>But here's what the research consistently shows: food is the most powerful tool for managing blood sugar. [cite: 61] Not just which foods you eat, but how they're prepared, when you eat them, and how they interact with each other. [cite: 62]</p>
+      <p>This guide focuses specifically on foods that work within the Indian diet and lifestyle — foods that are easy to find, affordable, and backed by evidence. [cite: 63]</p>
+
+      <h2>Why Blood Sugar Control Matters (Even If You're Not Diabetic) [cite: 64]</h2>
+      <p>Blood sugar instability affects far more people than those with a diabetes diagnosis. [cite: 65] If you experience any of the following, your blood sugar may be fluctuating too much: [cite: 66]</p>
+      <ul>
+        <li>Energy crashes after meals [cite: 67]</li>
+        <li>Craving sweets 1–2 hours after eating [cite: 68]</li>
+        <li>Feeling hungry very quickly after a full meal [cite: 69]</li>
+        <li>Difficulty concentrating in the afternoon [cite: 70]</li>
+        <li>Weight gain around the belly [cite: 71]</li>
+        <li>Poor sleep quality [cite: 72]</li>
+      </ul>
+      <p>Stabilising blood sugar solves all of these — often within weeks. [cite: 73]</p>
+
+      <h2>The 10 Best Foods for Blood Sugar Control in India [cite: 74]</h2>
+      
+      <h3>1. Millets (Jowar, Bajra, Ragi, Foxtail) [cite: 75]</h3>
+      <p>This is the single most powerful dietary change an Indian can make for blood sugar control. [cite: 76] Millets have a low-to-medium glycemic index (50–65 vs. wheat's 70+), are rich in dietary fibre, and contain magnesium — a mineral that improves insulin sensitivity. [cite: 77] Ragi in particular is exceptional for managing post-meal glucose spikes. [cite: 78]</p>
+      
+      <h3>2. Methi (Fenugreek) [cite: 79]</h3>
+      <p>Methi seeds contain soluble fibre and a compound called 4-hydroxyisoleucine, which directly stimulates insulin secretion. [cite: 80] Soaking 1 teaspoon of methi seeds overnight and drinking the water in the morning is a proven traditional remedy now backed by clinical studies. [cite: 81]</p>
+
+      <h3>3. Karela (Bitter Gourd) [cite: 82]</h3>
+      <p>Karela contains at least three active compounds that act similarly to insulin — helping cells absorb glucose. [cite: 83] It's one of the few vegetables with direct anti-diabetic properties. [cite: 84] Regular consumption (as juice or cooked vegetable) has been shown to lower HbA1c levels. [cite: 85]</p>
+
+      <h3>4. Amla (Indian Gooseberry) [cite: 86]</h3>
+      <p>Amla is extraordinarily rich in Vitamin C and polyphenols that reduce oxidative stress — a key driver of insulin resistance. [cite: 87] Studies show that consuming amla daily can significantly reduce fasting blood sugar and improve lipid profiles. [cite: 88]</p>
+
+      <h3>5. Turmeric [cite: 89]</h3>
+      <p>Curcumin, the active compound in turmeric, has strong anti-inflammatory properties. [cite: 90] Chronic low-grade inflammation is a major driver of Type 2 diabetes. [cite: 91] Adding turmeric to meals — especially with black pepper (which enhances absorption) — is one of the simplest things you can do. [cite: 92]</p>
+
+      <h3>6. Cinnamon (Dalchini) [cite: 93]</h3>
+      <p>Cinnamon improves insulin sensitivity and slows gastric emptying, which reduces post-meal glucose spikes. [cite: 94] Half a teaspoon daily, added to chai, oats, or warm water, can make a measurable difference over time. [cite: 95]</p>
+
+      <h3>7. Legumes (Dal, Rajma, Chana) [cite: 96]</h3>
+      <p>All lentils and legumes have a very low glycemic index and are rich in both protein and soluble fibre. [cite: 97] They slow digestion, reduce post-meal spikes, and keep you full for longer. [cite: 98] Including dal at every meal is one of the most evidence-backed dietary habits for blood sugar control. [cite: 99]</p>
+
+      <h3>8. Leafy Greens (Palak, Methi, Sarson) [cite: 100]</h3>
+      <p>Green leafy vegetables are low in carbohydrates and high in magnesium, folate, and antioxidants. [cite: 101] They can be eaten in large quantities without affecting blood sugar. [cite: 102] The goal should be at least one serving of green leafy vegetables at lunch and dinner. [cite: 103]</p>
+
+      <h3>9. Nuts and Seeds (Almonds, Walnuts, Flaxseeds, Chia) [cite: 104]</h3>
+      <p>These foods are rich in healthy fats, protein, and fibre — all of which slow glucose absorption. [cite: 105] A small handful of almonds before a meal has been shown to reduce post-meal blood sugar in multiple studies. [cite: 106] Flaxseeds are particularly useful as they're cheap, easily available, and can be added to any meal. [cite: 107]</p>
+
+      <h3>10. Fermented Foods (Curd, Idli, Dosa, Kanji) [cite: 108]</h3>
+      <p>Fermented foods improve gut microbiome diversity, which is directly linked to better insulin sensitivity. [cite: 109] Traditional Indian fermented foods — especially homemade curd — are excellent daily additions. [cite: 110] The gut-blood sugar connection is one of the most exciting areas of current medical research. [cite: 111]</p>
+
+      <h2>Foods to Reduce or Avoid [cite: 112]</h2>
+      <div class="overflow-x-auto my-8">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#ebecdf] border-b-2 border-[#C5D82D]">
+              <th class="p-3 font-bold text-[#0f172a]">Food [cite: 113]</th>
+              <th class="p-3 font-bold text-[#0f172a]">Why It's Harmful [cite: 113]</th>
+              <th class="p-3 font-bold text-[#0f172a]">Better Alternative [cite: 113]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">White rice (large portions) [cite: 113]</td>
+              <td class="p-3">Very high GI, spikes glucose fast [cite: 113]</td>
+              <td class="p-3">Small portions with dal + vegetable [cite: 113]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Maida (refined flour) [cite: 113]</td>
+              <td class="p-3">Stripped of fibre, digests instantly [cite: 113]</td>
+              <td class="p-3">Millet atta or whole wheat [cite: 113]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Packaged biscuits & snacks [cite: 113]</td>
+              <td class="p-3">Hidden sugar + refined carbs [cite: 113]</td>
+              <td class="p-3">Millet snack bars, roasted chana [cite: 113]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Sweetened chai (3+ cups) [cite: 113]</td>
+              <td class="p-3">Constant glucose stimulation [cite: 113]</td>
+              <td class="p-3">Unsweetened or herbal teas [cite: 113]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Fruit juices [cite: 113]</td>
+              <td class="p-3">Sugar without fibre [cite: 113]</td>
+              <td class="p-3">Whole fruit instead [cite: 113]</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold">White bread [cite: 113]</td>
+              <td class="p-3">High GI, low nutrition [cite: 113]</td>
+              <td class="p-3">Millet or multigrain bread [cite: 113]</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      \${preDiabeticCTA}
+
+      <h2>The Indian Plate for Blood Sugar Control [cite: 114]</h2>
+      <p>A balanced Indian meal for blood sugar management should look like this: [cite: 115]</p>
+      <ul>
+        <li><strong>50% of the plate:</strong> Non-starchy vegetables (sabzi, salad, greens) [cite: 116]</li>
+        <li><strong>25% of the plate:</strong> Protein (dal, legumes, curd, paneer, eggs, fish) [cite: 117]</li>
+        <li><strong>25% of the plate:</strong> Complex carbohydrates (millet roti, small portion of rice) [cite: 118]</li>
+        <li><strong>Fat:</strong> Small amounts of ghee or cold-pressed oils (helps slow glucose absorption) [cite: 119]</li>
+      </ul>
+      <p>Eating in this proportion — without calorie counting — naturally stabilises blood sugar and supports gradual, sustainable weight loss. [cite: 120]</p>
+
+      <h2>How GRASA Supports Blood Sugar Control [cite: 121]</h2>
+      <p>GRASA's food programme is built around the exact principles described in this article. [cite: 122] Our millet-based foods — atta, flatbreads, snack bars — are designed to replace the high-GI staples in your diet without asking you to change everything about how you eat. [cite: 123] Our nutritionist team works with each person individually. If you have existing blood sugar issues, we track your response and adjust your plan. [cite: 124] Many of our members see measurable improvements in fasting glucose within 6–8 weeks. [cite: 125]</p>
+
+      \${diabeticParentsCTA}
+
+      <h2>The Takeaway [cite: 126]</h2>
+      <p>Blood sugar control doesn't require medication, extreme diets, or giving up Indian food. [cite: 127] It requires understanding which traditional Indian foods already work — and bringing them back to the centre of your plate. [cite: 128] Millets, methi, amla, dal, and curd have been part of the Indian diet for thousands of years. [cite: 129] They were always the answer. We just forgot. [cite: 130]</p>
+    `
+  },
+  {
+    title: "Jowar vs Bajra vs Ragi: What's the Difference? [cite: 133]",
+    slug: "jowar-vs-bajra-vs-ragi-difference",
+    excerpt: "Walk into any health store or browse any nutrition website today and you'll see millets everywhere. [cite: 134] But 'millets' is actually an umbrella term for a large family of ancient grains... [cite: 135]",
+    date: "April 23, 2026",
+    author: "The GRASA Nutrition Team [cite: 208]",
+    category: "Ancient Grains Guide [cite: 132]",
+    readTime: 7,
+    tags: ["jowar", "bajra", "ragi", "millets", "ancient grains", "gluten-free"],
+    image: "/blogs/21.png",
+    sidebarImages: [
+      "/blogs/22.png",
+    ],
+    content: `
+      <p>Walk into any health store or browse any nutrition website today and you'll see millets everywhere. [cite: 134] But 'millets' is actually an umbrella term for a large family of ancient grains — and each one has a distinct nutritional profile, taste, texture, and best use. [cite: 135]</p>
+      <p>If you're trying to figure out which millet is right for you, this guide breaks down the three most popular and widely available millets in India: Jowar (Sorghum), Bajra (Pearl Millet), and Ragi (Finger Millet). [cite: 136]</p>
+
+      <h2>Quick Overview [cite: 137]</h2>
+      <div class="overflow-x-auto my-8">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#ebecdf] border-b-2 border-[#C5D82D]">
+              <th class="p-3 font-bold text-[#0f172a]"> [cite: 138]</th>
+              <th class="p-3 font-bold text-[#0f172a]">Jowar [cite: 138]</th>
+              <th class="p-3 font-bold text-[#0f172a]">Bajra [cite: 138]</th>
+              <th class="p-3 font-bold text-[#0f172a]">Ragi [cite: 138]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Hindi Name [cite: 138]</td>
+              <td class="p-3">Jowar [cite: 138]</td>
+              <td class="p-3">Bajra [cite: 138]</td>
+              <td class="p-3">Ragi / Nachni [cite: 138]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">English Name [cite: 138]</td>
+              <td class="p-3">Sorghum [cite: 138]</td>
+              <td class="p-3">Pearl Millet [cite: 138]</td>
+              <td class="p-3">Finger Millet [cite: 138]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Colour [cite: 138]</td>
+              <td class="p-3">White/cream [cite: 138]</td>
+              <td class="p-3">Grey-yellow [cite: 138]</td>
+              <td class="p-3">Dark brown/red [cite: 138]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Taste [cite: 138]</td>
+              <td class="p-3">Mild, neutral [cite: 138]</td>
+              <td class="p-3">Earthy, slightly bitter [cite: 138]</td>
+              <td class="p-3">Nutty, slightly sweet [cite: 138]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Best Season [cite: 138]</td>
+              <td class="p-3">Year-round [cite: 138]</td>
+              <td class="p-3">Winter [cite: 138]</td>
+              <td class="p-3">Year-round [cite: 138]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Protein (per 100g) [cite: 138]</td>
+              <td class="p-3">10.4g [cite: 138]</td>
+              <td class="p-3">11.6g [cite: 138]</td>
+              <td class="p-3">7.3g [cite: 138]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Calcium (per 100g) [cite: 138]</td>
+              <td class="p-3">25mg [cite: 138]</td>
+              <td class="p-3">42mg [cite: 138]</td>
+              <td class="p-3">364mg [cite: 138]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Iron (per 100g) [cite: 138]</td>
+              <td class="p-3">4.1mg [cite: 138]</td>
+              <td class="p-3">8mg [cite: 138]</td>
+              <td class="p-3">3.9mg [cite: 138]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Glycemic Index [cite: 138]</td>
+              <td class="p-3">~62 [cite: 138]</td>
+              <td class="p-3">~54 [cite: 138]</td>
+              <td class="p-3">~68 [cite: 138]</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold">Gluten-Free [cite: 138]</td>
+              <td class="p-3">Yes [cite: 138]</td>
+              <td class="p-3">Yes [cite: 138]</td>
+              <td class="p-3">Yes [cite: 138]</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Jowar (Sorghum) — The All-Rounder [cite: 139]</h2>
+      <h3>What makes it special? [cite: 140]</h3>
+      <p>Jowar is one of the most versatile millets and the easiest to incorporate into a modern diet. [cite: 141] It has a mild, neutral flavour — making it suitable for people who find the stronger taste of bajra off-putting. [cite: 142] Jowar atta makes soft rotis that closely resemble wheat rotis in texture. [cite: 143]</p>
+      
+      <h3>Key nutritional benefits: [cite: 144]</h3>
+      <ul>
+        <li>Rich in antioxidants — jowar contains tannins and polyphenols that reduce oxidative stress [cite: 145]</li>
+        <li>Good source of B vitamins — supports energy metabolism and nervous system health [cite: 146]</li>
+        <li>High in phosphorus — important for bone health and cellular energy [cite: 147]</li>
+        <li>Contains 3-Deoxyanthocyanidins — compounds with potential anti-cancer properties [cite: 148]</li>
+      </ul>
+
+      <h3>Best for: [cite: 149]</h3>
+      <ul>
+        <li>People new to millets (easiest transition from wheat) [cite: 150]</li>
+        <li>Those with digestive sensitivity or IBS [cite: 151]</li>
+        <li>Everyday rotis, bhakri, porridge, or even dosas [cite: 152]</li>
+      </ul>
+      <p><strong>Caution:</strong> Jowar has a slightly higher GI than bajra (~62), so people with serious blood sugar concerns may benefit from combining it with bajra or ragi rather than using jowar alone. [cite: 153, 154]</p>
+
+      <h2>Bajra (Pearl Millet) — The Warming Powerhouse [cite: 155]</h2>
+      <h3>What makes it special? [cite: 156]</h3>
+      <p>Bajra is nature's answer to cold winters and physical labour. [cite: 157] It's the most energy-dense of the three millets, and traditionally consumed in winter months across Rajasthan, Gujarat, and Punjab. [cite: 158] Bajra has a distinctly earthy, strong flavour that takes some getting used to — but its nutritional density is unmatched. [cite: 159]</p>
+      
+      <h3>Key nutritional benefits: [cite: 160]</h3>
+      <ul>
+        <li>Highest protein content of the three millets (~11.6g per 100g) [cite: 161]</li>
+        <li>Richest in iron — important for anaemia prevention, especially in women [cite: 162]</li>
+        <li>Excellent source of magnesium — which improves insulin sensitivity and heart health [cite: 163]</li>
+        <li>Contains zinc — crucial for immune function and wound healing [cite: 164]</li>
+        <li>Lowest glycemic index (~54) — the best option for blood sugar management [cite: 165]</li>
+      </ul>
+
+      <h3>Best for: [cite: 166]</h3>
+      <ul>
+        <li>Women (especially those with iron-deficiency anaemia) [cite: 167]</li>
+        <li>People managing diabetes or prediabetes [cite: 168]</li>
+        <li>Those with high cholesterol or heart health concerns [cite: 169]</li>
+        <li>Active individuals or those doing physical work [cite: 170]</li>
+      </ul>
+      <p><strong>Caution:</strong> Bajra is considered 'heaty' in Ayurveda and should be consumed in moderation during summer months. [cite: 171, 172] It also has a strong flavour, so mixing it with jowar atta (50/50) is a good way to ease into it. [cite: 173]</p>
+
+      <h2>Ragi (Finger Millet) — The Calcium Champion [cite: 174]</h2>
+      <h3>What makes it special? [cite: 175]</h3>
+      <p>Ragi is truly one of nature's most extraordinary foods. It contains more calcium than milk — 364mg per 100g vs approximately 120mg in milk. [cite: 176] For a country where osteoporosis and bone health are growing concerns, ragi deserves far more attention than it receives. [cite: 177]</p>
+      
+      <h3>Key nutritional benefits: [cite: 178]</h3>
+      <ul>
+        <li>Highest calcium content of any grain — essential for bones, teeth, and muscle function [cite: 179]</li>
+        <li>Rich in essential amino acids — particularly methionine, which is rare in plant foods [cite: 180]</li>
+        <li>High in dietary fibre — one of the best millets for gut health and satiety [cite: 181]</li>
+        <li>Contains tryptophan — which the body converts to serotonin, supporting mood and sleep [cite: 182]</li>
+        <li>Naturally cooling — traditionally used in South India during summer [cite: 183]</li>
+      </ul>
+
+      <h3>Best for: [cite: 184]</h3>
+      <ul>
+        <li>Children and teenagers (bone development) [cite: 185]</li>
+        <li>Post-menopausal women (bone density protection) [cite: 186]</li>
+        <li>People with anxiety, poor sleep, or mood issues [cite: 187]</li>
+        <li>Infants and toddlers (ragi porridge is a traditional first food) [cite: 188]</li>
+        <li>Weight management (extremely high satiety value) [cite: 189]</li>
+      </ul>
+      <p><strong>Caution:</strong> Ragi has a slightly higher GI than jowar or bajra (~68), so people with advanced diabetes should monitor portions. [cite: 190, 191] However, its high fibre content largely offsets the GI impact in practice. [cite: 192]</p>
+
+      <h2>Which Millet Is Right for You? [cite: 193]</h2>
+      <div class="overflow-x-auto my-8">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#ebecdf] border-b-2 border-[#C5D82D]">
+              <th class="p-3 font-bold text-[#0f172a]">Your Goal [cite: 194]</th>
+              <th class="p-3 font-bold text-[#0f172a]">Best Millet [cite: 194]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Transition from wheat easily [cite: 194]</td>
+              <td class="p-3">Jowar [cite: 194]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Manage blood sugar / diabetes [cite: 194]</td>
+              <td class="p-3">Bajra [cite: 194]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Improve bone health / calcium [cite: 194]</td>
+              <td class="p-3">Ragi [cite: 194]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Treat iron deficiency / anaemia [cite: 194]</td>
+              <td class="p-3">Bajra [cite: 194]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Lose weight & reduce hunger [cite: 194]</td>
+              <td class="p-3">Ragi [cite: 194]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Improve gut health & digestion [cite: 194]</td>
+              <td class="p-3">Jowar or Ragi [cite: 194]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Increase energy & physical stamina [cite: 194]</td>
+              <td class="p-3">Bajra [cite: 194]</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-semibold">Children's nutrition [cite: 194]</td>
+              <td class="p-3">Ragi [cite: 194]</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold">General everyday eating [cite: 194]</td>
+              <td class="p-3">Mix of all three [cite: 194]</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      \${bestAttaCTA}
+
+      <h2>Can You Mix Them? [cite: 195]</h2>
+      <p>Absolutely — and you should. At GRASA, our atta blends combine jowar, bajra, ragi, and other ancient grains in proportions that are designed for your specific health goals. [cite: 196] Mixing millets gives you a broader nutritional profile and makes the transition from wheat flour far more sustainable. [cite: 197]</p>
+      <p>A simple starting blend: 40% jowar + 40% bajra + 20% ragi. [cite: 198] This gives you a neutral taste from jowar, protein and iron from bajra, and calcium from ragi — all in one roti. [cite: 199]</p>
+
+      <h2>How GRASA Uses These Millets [cite: 200]</h2>
+      <p>All GRASA products are built on these three millets — along with other ancient grains like foxtail millet, little millet, and barnyard millet. [cite: 201] Our grains are sourced directly from farmers, processed minimally to preserve nutrients, and delivered fresh to your home three times a week. [cite: 202] Our nutritionist team determines which blend is right for your body, your health goals, and your lifestyle — and updates your plan as your body responds. [cite: 203]</p>
+
+      \${gutResetCTA}
+
+      <h2>Final Word [cite: 204]</h2>
+      <p>Jowar, bajra, and ragi are not interchangeable. Each has unique strengths, and knowing which one serves your needs can make a significant difference to your health outcomes. [cite: 205] But here's the most important thing: any of the three is significantly better than refined wheat flour for most people. [cite: 206] The best millet is the one you'll actually eat consistently. Start there. [cite: 207]</p>
+    `
+  },
+  {
     title: "THE PCOS-GUT CONNECTION: WHY YOUR HORMONES CANNOT HEAL WITHOUT FIXING THIS FIRST",
     slug: "pcos-gut-connection-hormones-india",
     excerpt: "If you have PCOS and feel like you are doing everything right but nothing is working — your gut microbiome may be why. Here is the science, and what to do about it.",
@@ -687,18 +644,11 @@ export const blogs: BlogPost[] = [
     tags: ["PCOS", "gut health", "hormones", "fermented foods", "microbiome"],
     relatedBlogs: ["pre-diabetic-diet-india-what-to-eat", "gut-health-thyroid-connection-india"],
 
-    // image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop",
-    // sidebarImages: [
-    //   "https://images.unsplash.com/photo-1584308666744-24d5f0152208?q=80&w=870&auto=format&fit=crop",
-    //   "https://images.unsplash.com/photo-1576091160399-02f1a5b6a081?q=80&w=870&auto=format&fit=crop",
-    //   "https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=870&auto=format&fit=crop"
-    // ],
+    
     image: "/blogs/8.jpg",
 
 sidebarImages: [
   "/blogs/6.png",
-  // "/blogs/3.jpg",
-  // "/blogs/4.jpg", 
 ],
     content: `
       <p><strong>If you have PCOS, you have probably been told to eat low glycemic index foods, avoid sugar, exercise regularly, and manage stress.</strong> You are probably doing most of these things. And you are probably still frustrated.</p>
@@ -1258,7 +1208,7 @@ sidebarImages: [
     relatedBlogs: ["sourdough-vs-multigrain-vs-whole-wheat-bread-india"],
 image: "/blogs/2.jpg",
     sidebarImages: [
-      "https://images.unsplash.com/photo-1584308666744-24d5f0152208?q=80&w=870&auto=format&fit=crop"
+      // "https://images.unsplash.com/photo-1584308666744-24d5f0152208?q=80&w=870&auto=format&fit=crop"
     ],
     content: `
       <p>Delhi NCR is one of the most health-conscious urban markets in India — and also one of the most metabolically stressed. The same city that has premium organic supermarkets in Vasant Vihar also has the highest rates of lifestyle disease in the country. The demand for genuinely gut-beneficial options is enormous. The supply of truly science-backed options is limited.</p>

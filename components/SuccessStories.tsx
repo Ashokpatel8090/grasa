@@ -22,6 +22,10 @@ const storiesData: SuccessStory[] = [
     id: "3",
     videoUrl: "https://res.cloudinary.com/daunsn0z7/video/upload/v1776768869/medicaps/social_video/dj88xe4cijmdzpjhxkbu.mp4",
   },
+  {
+    id: "4",
+    videoUrl: "https://res.cloudinary.com/do3gnmt7p/video/upload/v1776943575/medicaps/social_video/xso1w7trmrbpt3myiew1.mp4",
+  },
 ];
 
 export default function SuccessStoriesCarousel() {
@@ -158,7 +162,7 @@ export default function SuccessStoriesCarousel() {
               className="flex-shrink-0 w-[85%] sm:w-[260px] bg-[#f8f9fa] rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.08)] snap-center flex flex-col transition-all duration-300"
             >
               {/* Video */}
-              <div className="relative h-[280px] sm:h-[380px] w-full bg-black overflow-hidden">
+              <div className="relative h-[320px] sm:h-[400px] w-full bg-black overflow-hidden">
                 <video
                   ref={(el) => (videoRefs.current[index] = el)}
                   src={story.videoUrl}
