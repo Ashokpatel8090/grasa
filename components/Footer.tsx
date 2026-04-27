@@ -286,6 +286,7 @@ const generateFooterSchema = () => {
     { href: "/partner", label: "Partner" },
     { href: "/privacy-policy", label: "Privacy & Policy" },
     { href: "/terms-condition", label: "Terms & Conditions" },
+    // { href: "/about", label: "About Us" },
     { href: "/contact", label: "Contact Us" },
   ]
 
@@ -339,8 +340,8 @@ export default function Footer() {
       { href: "/privacy-policy", label: "Privacy & Policy" },
       { href: "/terms-condition", label: "Terms & Conditions" },
       { href: "/cancellation-refund", label: "Cancellation & Refund Policy" },
+      { href: "/about", label: "About Us" },
       { href: "/contact", label: "Contact Us" },
-      
     ],
   }
 

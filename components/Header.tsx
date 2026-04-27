@@ -355,8 +355,21 @@ export default function Header() {
 
           <span className="text-[#5c5c5c] font-bold tracking-wider uppercase text-xs mb-2 block">Navigation</span>
 
-          {/* Recommended Plan */}
+
+          {/* Products */}
           <div
+            className="bg-[#E8C96A] p-4 rounded-2xl cursor-pointer hover:bg-[#ebecdf] hover:border-[#1b1b1b] border border-transparent flex items-center justify-between group transition-all"
+            onClick={() => {
+              setOpen(false);
+              router.push("/consultations");
+            }}
+          >
+            <span className="font-bold text-[#1b1b1b]">Consultations</span>
+            <span className="text-[#000000] group-hover:text-[#1b1b1b] group-hover:translate-x-1 font-bold transition-all">→</span>
+          </div>
+
+          {/* Recommended Plan */}
+          {/* <div
             className="bg-[#f4f4f2] p-4 rounded-2xl cursor-pointer hover:bg-[#ebecdf] hover:border-[#1b1b1b] border border-transparent flex items-center justify-between group transition-all"
             onClick={() => {
               setOpen(false);
@@ -374,7 +387,35 @@ export default function Header() {
           >
             <span className="font-bold text-[#1b1b1b]">My Recommended Plan</span>
             <span className="text-[#d6d1c4] group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
-          </div>
+          </div> */}
+
+          <div
+  className="bg-[#C5D82D] p-4 rounded-2xl cursor-pointer 
+  border-2 border-[#C5D82D] 
+  hover:bg-[#ebecdf] hover:border-[#1b1b1b] 
+  flex items-center justify-between group transition-all duration-300"
+  onClick={() => {
+    setOpen(false);
+    if (pathname === "/") {
+      const section = document.getElementById("regimen-plans");
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    } else {
+      router.push("/#regimen-plans");
+    }
+  }}
+>
+  <span className="font-bold text-[#1b1b1b]">
+    My Recommended Plan
+  </span>
+
+  <span className="text-[#000000] font-extrabold group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">
+    →
+  </span>
+</div>
 
           {/* Products */}
           <div
@@ -385,7 +426,7 @@ export default function Header() {
             }}
           >
             <span className="font-bold text-[#1b1b1b]">Products</span>
-            <span className="text-[#d6d1c4] group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
+            <span className="text-[#000000] font-extrabold group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
           </div>
 
           {/* Blog */}
@@ -397,12 +438,23 @@ export default function Header() {
             }}
           >
             <span className="font-bold text-[#1b1b1b]">Journal & Blog</span>
-            <span className="text-[#d6d1c4] group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
+            <span className="text-[#000000] font-extrabold group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
           </div>
 
           <div className="h-px bg-[#d6d1c4] my-6"></div>
 
           <span className="text-[#5c5c5c] font-bold tracking-wider uppercase text-xs mb-2 block">About GRASA</span>
+
+          <div
+            className="bg-[#f4f4f2] p-4 rounded-2xl cursor-pointer hover:bg-[#ebecdf] hover:border-[#1b1b1b] border border-transparent flex items-center justify-between group transition-all"
+            onClick={() => {
+              setOpen(false);
+              router.push("/about");
+            }}
+          >
+            <span className="font-bold text-[#1b1b1b]">About Us</span>
+            <span className="text-[#000000] font-extrabold group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
+          </div>
 
           {/* Vision & Mission */}
           <div
@@ -413,7 +465,7 @@ export default function Header() {
             }}
           >
             <span className="font-bold text-[#1b1b1b]">Our Vision & Mission</span>
-            <span className="text-[#d6d1c4] group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
+            <span className="text-[#000000] font-extrabold group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
           </div>
 
           {/* Science */}
@@ -425,7 +477,7 @@ export default function Header() {
             }}
           >
             <span className="font-bold text-[#1b1b1b]">The Science</span>
-            <span className="text-[#d6d1c4] group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
+            <span className="text-[#000000] font-extrabold group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
           </div>
 
           <div className="h-px bg-[#d6d1c4] my-6"></div>
@@ -438,7 +490,7 @@ export default function Header() {
             className="flex items-center justify-between bg-white border border-[#d6d1c4] p-4 rounded-2xl cursor-pointer hover:border-[#1b1b1b] text-[#1b1b1b] group transition-all shadow-sm"
           >
             <span className="font-bold">Call Us Now 📞</span>
-            <span className="text-[#d6d1c4] group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
+            <span className="text-[#000000] font-extrabold group-hover:text-[#1b1b1b] group-hover:translate-x-1 transition-all">→</span>
           </a>
 
           {/* WhatsApp */}
@@ -449,7 +501,7 @@ export default function Header() {
             className="flex items-center justify-between bg-white border border-[#d6d1c4] p-4 rounded-2xl cursor-pointer hover:border-[#25D366] hover:text-[#25D366] text-[#1b1b1b] group transition-all shadow-sm"
           >
             <span className="font-bold">Chat on WhatsApp</span>
-            <span className="text-[#d6d1c4] group-hover:text-[#25D366] group-hover:translate-x-1 transition-all">→</span>
+            <span className="text-[#000000] font-extrabold group-hover:text-[#25D366] group-hover:translate-x-1 transition-all">→</span>
           </a>
 
           {/* Shop All Products */}
