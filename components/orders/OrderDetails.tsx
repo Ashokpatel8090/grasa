@@ -1,1868 +1,30 @@
 
-// "use client";
-
-// type Product = {
-//   id: number;
-//   name: string;
-//   image: string;
-//   description: string;
-//   category?: string;
-//   mrp?: string;
-//   effective_price?: string;
-//   discount_percent?: string;
-// };
-
-// type ShippingAddress = {
-//   street: string;
-//   city: string;
-//   state: string;
-//   postal_code: string;
-//   country?: string;
-//   landmark?: string;
-// };
-
-// type Item = {
-//   id: number;
-//   quantity: number;
-//   price_at_order: string;
-//   subtotal: string;
-//   taxes?: string;
-//   discount?: string;
-//   paid_amount?: string;
-//   product: Product;
-//   shipping_address: ShippingAddress;
-//   status?: string;
-// };
-
-// type PaymentTransaction = {
-//   id: number;
-//   gateway_txn_id: string;
-//   status: string;
-//   payment_gateway: string;
-//   amount: string;
-// };
-
-// type Order = {
-//   id: number;
-//   order_date: string;
-//   status: string;
-//   total_amount: string;
-//   currency: string;
-//   total_mrp?: string;
-//   offer_discount?: string;
-//   mhc_points?: string;
-//   notes?: string;
-//   payment_transaction?: PaymentTransaction;
-//   items: Item[];
-// };
-
-// export default function OrderDetails({ order }: { order: Order }) {
-//   const item = order.items?.[0];
-//   const product = item?.product;
-//   const address = item?.shipping_address;
-//   console.log(order)
-
-//   return (
-//     <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
-
-//       {/* ORDER HEADER */}
-//       <div className="mb-8 border-b pb-6">
-//         <h1 className="text-3xl font-bold mb-2">
-//           Order #{order.id}
-//         </h1>
-
-//         <div className="flex flex-wrap gap-6 text-gray-600">
-//           <p>
-//             <strong>Status:</strong> {order.status}
-//           </p>
-
-//           <p>
-//             <strong>Date:</strong>{" "}
-//             {new Date(order.order_date).toLocaleDateString()}
-//           </p>
-
-//         </div>
-//       </div>
-
-//       {/* MAIN GRID */}
-//       <div className="grid md:grid-cols-2 gap-12">
-
-//         {/* LEFT SIDE IMAGE (Sticky) */}
-//         <div className="relative">
-
-//           <div className="md:sticky md:top-28">
-
-//             {product?.image && (
-//               <img
-//                 src={product.image}
-//                 alt={product.name}
-//                 className="w-full max-h-[450px] object-contain rounded-lg border"
-//               />
-//             )}
-
-//           </div>
-
-//         </div>
-
-//         {/* RIGHT SIDE CONTENT */}
-//         <div className="space-y-8">
-
-//           {/* PRODUCT INFO */}
-//           <div>
-//             <h2 className="text-2xl font-semibold mb-3">
-//               {product?.name}
-//             </h2>
-
-//             {product?.category && (
-//               <p className="text-gray-500 mb-2">
-//                 Category: {product.category}
-//               </p>
-//             )}
-
-//             {product?.description && (
-//               <p className="text-gray-700 whitespace-pre-line">
-//                 {product.description}
-//               </p>
-//             )}
-//           </div>
-
-//           {/* PRICE INFO */}
-//           <div className="border-t pt-6 space-y-2">
-
-//             <h3 className="text-xl font-semibold">
-//               Pricing
-//             </h3>
-
-//             {product?.mrp && (
-//               <p>
-//                 MRP: ₹{product.mrp}
-//               </p>
-//             )}
-
-//             {product?.effective_price && (
-//               <p>
-//                 Effective Price: ₹{product.effective_price}
-//               </p>
-//             )}
-
-//             {product?.discount_percent && (
-//               <p>
-//                 Discount: {product.discount_percent}%
-//               </p>
-//             )}
-
-//             <p>
-//               Quantity: {item?.quantity}
-//             </p>
-
-//             <p>
-//               Price at Order: ₹{item?.price_at_order}
-//             </p>
-
-//             {item?.subtotal && (
-//               <p>
-//                 Subtotal: ₹{item.subtotal}
-//               </p>
-//             )}
-
-//             {item?.taxes && (
-//               <p>
-//                 Taxes: ₹{item.taxes}
-//               </p>
-//             )}
-
-//             {item?.paid_amount && (
-//               <p className="font-semibold">
-//                 Paid Amount: ₹{item.paid_amount}
-//               </p>
-//             )}
-
-//           </div>
-
-//           {/* SHIPPING ADDRESS */}
-//           {address && (
-//             <div className="border-t pt-6">
-
-//               <h3 className="text-xl font-semibold mb-2">
-//                 Shipping Address
-//               </h3>
-
-//               <p>{address.street}</p>
-
-//               {address.landmark && (
-//                 <p>{address.landmark}</p>
-//               )}
-
-//               <p>
-//                 {address.city}, {address.state}
-//               </p>
-
-//               <p>{address.postal_code}</p>
-
-//               {address.country && (
-//                 <p>{address.country}</p>
-//               )}
-
-//             </div>
-//           )}
-
-          
-
-//           {/* ORDER SUMMARY */}
-//           <div className="border-t pt-6 space-y-2">
-
-//             <h3 className="text-xl font-semibold">
-//               Order Summary
-//             </h3>
-
-//             {order.total_mrp && (
-//               <p>Total MRP: ₹{order.total_mrp}</p>
-//             )}
-
-//             {order.offer_discount && (
-//               <p>
-//                 Offer Discount: ₹{order.offer_discount}
-//               </p>
-//             )}
-
-//             <p className="font-bold text-lg">
-//               Total Paid: ₹{order.total_amount}{" "}
-//               {order.currency}
-//             </p>
-
-//             {order.mhc_points && (
-//               <p>MHC Points: {order.mhc_points}</p>
-//             )}
-
-//             {order.notes && (
-//               <p className="text-gray-600">
-//                 Notes: {order.notes}
-//               </p>
-//             )}
-
-//           </div>
-
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-// "use client";
-
-// import { useState } from "react";
-
-// type Product = {
-//   id: number;
-//   name: string;
-//   image: string;
-//   description: string;
-//   category?: string;
-//   mrp?: string;
-//   effective_price?: string;
-//   discount_percent?: string;
-// };
-
-// type ShippingAddress = {
-//   street: string;
-//   city: string;
-//   state: string;
-//   postal_code: string;
-//   country?: string;
-//   landmark?: string;
-// };
-
-// type ReviewImage = {
-//   url: string;
-//   public_id: string;
-// };
-
-// type Review = {
-//   id: number | null;
-//   rating: number | null;
-//   review_text: string | null;
-//   images?: ReviewImage[];
-// };
-
-// type Item = {
-//   id: number;
-//   quantity: number;
-//   price_at_order: string;
-//   subtotal: string;
-//   taxes?: string;
-//   discount?: string;
-//   paid_amount?: string;
-//   product: Product;
-//   shipping_address: ShippingAddress;
-//   status?: string;
-//   reviews?: Review;
-// };
-
-// type PaymentTransaction = {
-//   id: number;
-//   gateway_txn_id: string;
-//   status: string;
-//   payment_gateway: string;
-//   amount: string;
-// };
-
-// type Order = {
-//   id: number;
-//   order_date: string;
-//   status: string;
-//   total_amount: string;
-//   currency: string;
-//   total_mrp?: string;
-//   offer_discount?: string;
-//   mhc_points?: string;
-//   notes?: string;
-//   payment_transaction?: PaymentTransaction;
-//   items: Item[];
-// };
-
-// export default function OrderDetails({ order }: { order: Order }) {
-//   const item = order.items?.[0];
-//   const product = item?.product;
-//   const address = item?.shipping_address;
-//   const review = item?.reviews;
-
-//   const [showReviewForm, setShowReviewForm] = useState(false);
-//   const [rating, setRating] = useState(0);
-//   const [reviewText, setReviewText] = useState("");
-//   const [images, setImages] = useState<ReviewImage[]>([]);
-//   const [uploading, setUploading] = useState(false);
-
-
-//   console.log(order)
-//   /* IMAGE UPLOAD */
-//   const handleImageUpload = async (file: File) => {
-//     setUploading(true);
-
-//     const formData = new FormData();
-//     formData.append("file", file);
-
-//     const res = await fetch(
-//       "https://medicaps.cloud/product-reviews/upload",
-//       {
-//         method: "POST",
-//         body: formData,
-//       }
-//     );
-
-//     const data = await res.json();
-
-//     setImages((prev) => [...prev, data]);
-//     setUploading(false);
-//   };
-
-//   /* SUBMIT REVIEW */
-//   const submitReview = async () => {
-//     const payload = {
-//       rating,
-//       review_text: reviewText,
-//       order_item_id: item?.id,
-//       images,
-//     };
-
-//     await fetch(
-//       `https://medicaps.cloud/product-reviews/products/${product?.id}/reviews`,
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(payload),
-//       }
-//     );
-
-//     alert("Review submitted!");
-//     location.reload();
-//   };
-
-//   return (
-//     <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
-
-//       {/* HEADER */}
-//       <div className="mb-8 border-b pb-6">
-//         <h1 className="text-3xl font-bold mb-2">
-//           Order #{order.id}
-//         </h1>
-
-//         <div className="flex gap-6 text-gray-600">
-//           <p><strong>Status:</strong> {order.status}</p>
-//           <p>
-//             <strong>Date:</strong>{" "}
-//             {new Date(order.order_date).toLocaleDateString()}
-//           </p>
-//         </div>
-//       </div>
-
-//       <div className="grid md:grid-cols-2 gap-12">
-
-//         {/* PRODUCT IMAGE */}
-//         <div className="md:sticky md:top-28">
-//           {product?.image && (
-//             <img
-//               src={product.image}
-//               alt={product.name}
-//               className="w-full max-h-[450px] object-contain border rounded-lg"
-//             />
-//           )}
-//         </div>
-
-//         {/* RIGHT SIDE */}
-//         <div className="space-y-8">
-
-//           {/* PRODUCT INFO */}
-//           <div>
-//             <h2 className="text-2xl font-semibold mb-2">
-//               {product?.name}
-//             </h2>
-
-//             {product?.description && (
-//               <p className="text-gray-700 whitespace-pre-line">
-//                 {product.description}
-//               </p>
-//             )}
-//           </div>
-
-//           {/* PRICING */}
-//           <div className="border-t pt-6 space-y-1">
-//             <h3 className="text-xl font-semibold">Pricing</h3>
-
-//             <p>MRP: ₹{product?.mrp}</p>
-//             <p>Effective Price: ₹{product?.effective_price}</p>
-//             <p>Quantity: {item?.quantity}</p>
-//             <p>Subtotal: ₹{item?.subtotal}</p>
-//             <p className="font-semibold">
-//               Paid Amount: ₹{item?.paid_amount}
-//             </p>
-//           </div>
-
-//           {/* SHIPPING */}
-//           {address && (
-//             <div className="border-t pt-6">
-//               <h3 className="text-xl font-semibold mb-2">
-//                 Shipping Address
-//               </h3>
-
-//               <p>{address.street}</p>
-//               <p>{address.city}, {address.state}</p>
-//               <p>{address.postal_code}</p>
-//             </div>
-//           )}
-
-//           {/* ORDER SUMMARY */}
-//           <div className="border-t pt-6 space-y-1">
-//             <h3 className="text-xl font-semibold">
-//               Order Summary
-//             </h3>
-
-//             <p>Total MRP: ₹{order.total_mrp}</p>
-//             <p>Discount: ₹{order.offer_discount}</p>
-
-//             <p className="font-bold text-lg">
-//               Total Paid: ₹{order.total_amount} {order.currency}
-//             </p>
-//           </div>
-
-//           {/* REVIEW SECTION */}
-
-//           <div className="border-t pt-6">
-
-//             <h3 className="text-xl font-semibold mb-3">
-//               Product Review
-//             </h3>
-
-//             {/* REVIEW EXISTS */}
-
-//             {review && review.rating !== null ? (
-//               <div className="bg-gray-50 p-4 rounded-lg">
-
-//                 <p className="font-semibold">
-//                   Rating: ⭐ {review.rating}/5
-//                 </p>
-
-//                 <p className="mt-2 text-gray-700">
-//                   {review.review_text}
-//                 </p>
-
-//                 {review.images?.length > 0 && (
-//                   <div className="flex gap-3 mt-3">
-//                     {review.images.map((img, i) => (
-//                       <img
-//                         key={i}
-//                         src={img.url}
-//                         className="w-20 h-20 object-cover rounded"
-//                       />
-//                     ))}
-//                   </div>
-//                 )}
-
-//               </div>
-//             ) : order.status === "Delivered" ? (
-
-//               <button
-//                 onClick={() => setShowReviewForm(true)}
-//                 className="bg-black text-white px-5 py-2 rounded-lg"
-//               >
-//                 Add Review / Feedback
-//               </button>
-
-//             ) : (
-//               <p className="text-gray-500">
-//                 Review available after delivery.
-//               </p>
-//             )}
-
-//             {/* REVIEW FORM */}
-
-//             {showReviewForm && (
-
-//               <div className="mt-6 space-y-4 border p-4 rounded-lg">
-
-//                 <h4 className="font-semibold">
-//                   Write your review
-//                 </h4>
-
-//                 {/* RATING */}
-
-//                 <select
-//                   className="border p-2 rounded w-full"
-//                   value={rating}
-//                   onChange={(e) =>
-//                     setRating(Number(e.target.value))
-//                   }
-//                 >
-//                   <option value={0}>Select Rating</option>
-//                   <option value={5}>⭐⭐⭐⭐⭐</option>
-//                   <option value={4}>⭐⭐⭐⭐</option>
-//                   <option value={3}>⭐⭐⭐</option>
-//                   <option value={2}>⭐⭐</option>
-//                   <option value={1}>⭐</option>
-//                 </select>
-
-//                 {/* TEXT */}
-
-//                 <textarea
-//                   placeholder="Write your feedback..."
-//                   className="border p-3 rounded w-full"
-//                   value={reviewText}
-//                   onChange={(e) =>
-//                     setReviewText(e.target.value)
-//                   }
-//                 />
-
-//                 {/* IMAGE UPLOAD */}
-
-//                 <input
-//                   type="file"
-//                   onChange={(e) =>
-//                     e.target.files &&
-//                     handleImageUpload(e.target.files[0])
-//                   }
-//                 />
-
-//                 {uploading && <p>Uploading...</p>}
-
-//                 {/* PREVIEW */}
-
-//                 <div className="flex gap-2">
-//                   {images.map((img, i) => (
-//                     <img
-//                       key={i}
-//                       src={img.url}
-//                       className="w-16 h-16 rounded"
-//                     />
-//                   ))}
-//                 </div>
-
-//                 {/* SUBMIT */}
-
-//                 <button
-//                   onClick={submitReview}
-//                   className="bg-green-600 text-white px-6 py-2 rounded-lg"
-//                 >
-//                   Submit Review
-//                 </button>
-
-//               </div>
-
-//             )}
-
-//           </div>
-
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-// "use client";
-
-// import { useState } from "react";
-// import {
-//   Package,
-//   Truck,
-//   MapPin,
-//   Receipt,
-//   Star,
-//   UploadCloud,
-//   CheckCircle2,
-//   CalendarDays,
-//   CreditCard,
-// } from "lucide-react";
-
-// // --- TYPES ---
-// type Product = {
-//   id: number;
-//   name: string;
-//   image: string;
-//   description: string;
-//   category?: string;
-//   mrp?: string;
-//   effective_price?: string;
-//   discount_percent?: string;
-// };
-
-// type ShippingAddress = {
-//   street: string;
-//   city: string;
-//   state: string;
-//   postal_code: string;
-//   country?: string;
-//   landmark?: string;
-// };
-
-// type ReviewImage = {
-//   url: string;
-//   public_id: string;
-// };
-
-// type Review = {
-//   id: number | null;
-//   rating: number | null;
-//   review_text: string | null;
-//   images?: ReviewImage[];
-// };
-
-// type Item = {
-//   id: number;
-//   quantity: number;
-//   price_at_order: string;
-//   subtotal: string;
-//   taxes?: string;
-//   discount?: string;
-//   paid_amount?: string;
-//   product: Product;
-//   shipping_address: ShippingAddress;
-//   status?: string;
-//   reviews?: Review;
-// };
-
-// type PaymentTransaction = {
-//   id: number;
-//   gateway_txn_id: string;
-//   status: string;
-//   payment_gateway: string;
-//   amount: string;
-// };
-
-// type Order = {
-//   id: number;
-//   order_date: string;
-//   status: string;
-//   total_amount: string;
-//   currency: string;
-//   total_mrp?: string;
-//   offer_discount?: string;
-//   mhc_points?: string;
-//   notes?: string;
-//   payment_transaction?: PaymentTransaction;
-//   items: Item[];
-// };
-
-// // --- HELPER COMPONENT: Interactive Star Rating ---
-// const StarRating = ({
-//   rating,
-//   setRating,
-// }: {
-//   rating: number;
-//   setRating: (r: number) => void;
-// }) => {
-//   const [hover, setHover] = useState(0);
-//   return (
-//     <div className="flex gap-1">
-//       {[1, 2, 3, 4, 5].map((star) => (
-//         <button
-//           key={star}
-//           type="button"
-//           onClick={() => setRating(star)}
-//           onMouseEnter={() => setHover(star)}
-//           onMouseLeave={() => setHover(0)}
-//           className="focus:outline-none transition-colors duration-200"
-//         >
-//           <Star
-//             className={`w-8 h-8 ${
-//               star <= (hover || rating)
-//                 ? "fill-yellow-400 text-yellow-400"
-//                 : "text-gray-300"
-//             }`}
-//           />
-//         </button>
-//       ))}
-//     </div>
-//   );
-// };
-
-// // --- MAIN COMPONENT ---
-// export default function OrderDetails({ order }: { order: Order }) {
-//   const item = order.items?.[0];
-//   const product = item?.product;
-//   const address = item?.shipping_address;
-//   const review = item?.reviews;
-
-//   const [showReviewForm, setShowReviewForm] = useState(false);
-//   const [rating, setRating] = useState(0);
-//   const [reviewText, setReviewText] = useState("");
-//   const [images, setImages] = useState<ReviewImage[]>([]);
-//   const [uploading, setUploading] = useState(false);
-//   console.log(order)
-
-//   /* IMAGE UPLOAD */
-//   const handleImageUpload = async (file: File) => {
-//     setUploading(true);
-//     const formData = new FormData();
-//     formData.append("file", file);
-
-//     try {
-//       const res = await fetch("https://medicaps.cloud/product-reviews/upload", {
-//         method: "POST",
-//         body: formData,
-//       });
-//       const data = await res.json();
-//       setImages((prev) => [...prev, data]);
-//     } catch (error) {
-//       console.error("Upload failed", error);
-//       alert("Failed to upload image. Please try again.");
-//     } finally {
-//       setUploading(false);
-//     }
-//   };
-
-//   /* SUBMIT REVIEW */
-//   const submitReview = async () => {
-//     if (rating === 0) {
-//       alert("Please select a rating before submitting.");
-//       return;
-//     }
-
-//     const payload = {
-//       rating,
-//       review_text: reviewText,
-//       order_item_id: item?.id,
-//       images,
-//     };
-
-//     try {
-//       await fetch(
-//         `https://medicaps.cloud/product-reviews/products/${product?.id}/reviews`,
-//         {
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify(payload),
-//         }
-//       );
-//       alert("Review submitted successfully!");
-//       location.reload();
-//     } catch (error) {
-//       console.error("Review submission failed", error);
-//       alert("Failed to submit review.");
-//     }
-//   };
-
-//   // Status Color Helper
-//   const getStatusColor = (status: string) => {
-//     switch (status?.toLowerCase()) {
-//       case "delivered":
-//         return "bg-green-100 text-green-800 border-green-200";
-//       case "shipped":
-//         return "bg-blue-100 text-blue-800 border-blue-200";
-//       case "cancelled":
-//         return "bg-red-100 text-red-800 border-red-200";
-//       default:
-//         return "bg-yellow-100 text-yellow-800 border-yellow-200";
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 font-sans text-gray-900">
-//       <div className="max-w-6xl mx-auto space-y-6">
-        
-//         {/* --- HEADER --- */}
-//         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
-//           <div>
-//             <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-//               <Package className="w-8 h-8 text-indigo-600" />
-//               Order #{order.id}
-//             </h1>
-//             <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-gray-600">
-//               <div className="flex items-center gap-1.5">
-//                 <CalendarDays className="w-4 h-4" />
-//                 {new Date(order.order_date).toLocaleDateString("en-US", {
-//                   year: "numeric",
-//                   month: "long",
-//                   day: "numeric",
-//                 })}
-//               </div>
-//               <div className="hidden md:block w-1.5 h-1.5 rounded-full bg-gray-300" />
-//               <div className="flex items-center gap-1.5">
-//                 <CreditCard className="w-4 h-4" />
-//                 {order.payment_transaction?.payment_gateway || "Standard Checkout"}
-//               </div>
-//             </div>
-//           </div>
-//           <div
-//             className={`px-4 py-1.5 rounded-full text-sm font-semibold border ${getStatusColor(
-//               order.status
-//             )} flex items-center gap-2 max-w-max`}
-//           >
-//             {order.status === "Delivered" && <CheckCircle2 className="w-4 h-4" />}
-//             {order.status}
-//           </div>
-//         </div>
-
-//         {/* --- MAIN GRID --- */}
-//         <div className="grid lg:grid-cols-12 gap-6">
-          
-//           {/* LEFT COLUMN: PRODUCT IMAGE (Sticky) */}
-//           <div className="lg:col-span-5">
-//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-6">
-//               {product?.image ? (
-//                 <div className="aspect-square rounded-xl bg-gray-50 flex items-center justify-center p-4">
-//                   <img
-//                     src={product.image}
-//                     alt={product.name}
-//                     className="max-w-full max-h-full object-contain mix-blend-multiply"
-//                   />
-//                 </div>
-//               ) : (
-//                 <div className="aspect-square rounded-xl bg-gray-100 flex items-center justify-center">
-//                   <Package className="w-20 h-20 text-gray-300" />
-//                 </div>
-//               )}
-//               <div className="mt-6">
-//                 <h2 className="text-xl font-bold text-gray-900 leading-tight">
-//                   {product?.name}
-//                 </h2>
-//                 {product?.category && (
-//                   <p className="text-sm text-indigo-600 font-medium mt-1">
-//                     {product.category}
-//                   </p>
-//                 )}
-//                 {product?.description && (
-//                   <p className="mt-4 text-sm text-gray-600 line-clamp-3">
-//                     {product.description}
-//                   </p>
-//                 )}
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* RIGHT COLUMN: DETAILS */}
-//           <div className="lg:col-span-7 space-y-6">
-            
-//             {/* PRICING & SUMMARY CARDS GRID */}
-//             <div className="grid sm:grid-cols-2 gap-6">
-//               {/* Pricing Details */}
-//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-//                 <div className="flex items-center gap-2 mb-4 text-gray-900">
-//                   <Receipt className="w-5 h-5 text-indigo-600" />
-//                   <h3 className="font-bold text-lg">Item Pricing</h3>
-//                 </div>
-//                 <div className="space-y-3 text-sm">
-//                   <div className="flex justify-between text-gray-600">
-//                     <span>MRP (Unit)</span>
-//                     <span className="line-through">₹{product?.mrp}</span>
-//                   </div>
-//                   <div className="flex justify-between text-gray-600">
-//                     <span>Effective Price</span>
-//                     <span>₹{product?.effective_price}</span>
-//                   </div>
-//                   <div className="flex justify-between text-gray-600">
-//                     <span>Quantity</span>
-//                     <span className="font-medium text-gray-900">
-//                       x {item?.quantity}
-//                     </span>
-//                   </div>
-//                   <div className="pt-3 border-t border-gray-100 flex justify-between font-semibold text-base">
-//                     <span>Item Subtotal</span>
-//                     <span>₹{item?.subtotal}</span>
-//                   </div>
-//                 </div>
-//               </div>
-
-//               {/* Order Summary */}
-//               <div className="bg-indigo-50 rounded-2xl p-6 shadow-sm border border-indigo-100">
-//                 <h3 className="font-bold text-lg mb-4 text-indigo-900">
-//                   Order Summary
-//                 </h3>
-//                 <div className="space-y-3 text-sm">
-//                   <div className="flex justify-between text-indigo-800/80">
-//                     <span>Total MRP</span>
-//                     <span>₹{order.total_mrp}</span>
-//                   </div>
-//                   <div className="flex justify-between text-green-700">
-//                     <span>Total Discount</span>
-//                     <span>- ₹{order.offer_discount}</span>
-//                   </div>
-//                   <div className="pt-3 border-t border-indigo-200/60 flex justify-between font-bold text-xl text-indigo-900">
-//                     <span>Total Paid</span>
-//                     <span>
-//                       ₹{order.total_amount} {order.currency}
-//                     </span>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* SHIPPING ADDRESS */}
-//             {address && (
-//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-//                 <div className="flex items-center gap-2 mb-4">
-//                   <Truck className="w-5 h-5 text-indigo-600" />
-//                   <h3 className="font-bold text-lg">Shipping Details</h3>
-//                 </div>
-//                 <div className="flex items-start gap-3 bg-gray-50 rounded-xl p-4">
-//                   <MapPin className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" />
-//                   <div className="text-sm text-gray-700 leading-relaxed">
-//                     <p className="font-medium text-gray-900 mb-1">Delivery Address</p>
-//                     <p>{address.street}</p>
-//                     {address.landmark && <p>Landmark: {address.landmark}</p>}
-//                     <p>
-//                       {address.city}, {address.state} - {address.postal_code}
-//                     </p>
-//                     {address.country && <p>{address.country}</p>}
-//                   </div>
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* REVIEWS SECTION */}
-//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-//               <div className="flex items-center gap-2 mb-6">
-//                 <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-//                 <h3 className="font-bold text-lg">Product Rating & Review</h3>
-//               </div>
-
-//               {/* Existing Review */}
-//               {review && review.rating !== null ? (
-//                 <div className="bg-gray-50 border border-gray-100 rounded-xl p-5">
-//                   <div className="flex items-center gap-1 mb-3">
-//                     {[...Array(5)].map((_, i) => (
-//                       <Star
-//                         key={i}
-//                         className={`w-5 h-5 ${
-//                           i < (review.rating || 0)
-//                             ? "fill-yellow-400 text-yellow-400"
-//                             : "fill-gray-200 text-gray-200"
-//                         }`}
-//                       />
-//                     ))}
-//                     <span className="ml-2 font-medium text-sm text-gray-600">
-//                       {review.rating}/5
-//                     </span>
-//                   </div>
-//                   <p className="text-gray-700 text-sm leading-relaxed mb-4">
-//                     "{review.review_text}"
-//                   </p>
-//                   {review.images && review.images.length > 0 && (
-//                     <div className="flex flex-wrap gap-3">
-//                       {review.images.map((img, i) => (
-//                         <div
-//                           key={i}
-//                           className="w-20 h-20 rounded-lg overflow-hidden border border-gray-200"
-//                         >
-//                           <img
-//                             src={img.url}
-//                             alt="Review upload"
-//                             className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-//                           />
-//                         </div>
-//                       ))}
-//                     </div>
-//                   )}
-//                 </div>
-//               ) : order.status === "Delivered" ? (
-//                 /* Add Review Trigger */
-//                 !showReviewForm ? (
-//                   <button
-//                     onClick={() => setShowReviewForm(true)}
-//                     className="w-full sm:w-auto bg-gray-900 hover:bg-black text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200 shadow-sm"
-//                   >
-//                     Write a Product Review
-//                   </button>
-//                 ) : (
-//                   /* Review Form */
-//                   <div className="animate-in fade-in slide-in-from-top-4 duration-500 space-y-6 bg-gray-50 border border-gray-100 p-6 rounded-xl">
-//                     <h4 className="font-semibold text-gray-900">
-//                       Share your experience
-//                     </h4>
-
-//                     {/* Interactive Star Rating */}
-//                     <div className="space-y-2">
-//                       <label className="text-sm font-medium text-gray-700">
-//                         Rate this product
-//                       </label>
-//                       <StarRating rating={rating} setRating={setRating} />
-//                     </div>
-
-//                     {/* Review Text */}
-//                     <div className="space-y-2">
-//                       <label className="text-sm font-medium text-gray-700">
-//                         Detailed Review
-//                       </label>
-//                       <textarea
-//                         placeholder="What did you like or dislike? What should other shoppers know?"
-//                         className="w-full min-h-[120px] p-4 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all outline-none resize-y text-sm"
-//                         value={reviewText}
-//                         onChange={(e) => setReviewText(e.target.value)}
-//                       />
-//                     </div>
-
-//                     {/* Custom Image Upload */}
-//                     <div className="space-y-3">
-//                       <label className="text-sm font-medium text-gray-700">
-//                         Attach Photos (Optional)
-//                       </label>
-                      
-//                       <div className="flex flex-wrap items-center gap-4">
-//                         {/* Custom Upload Button */}
-//                         <div className="relative">
-//                           <input
-//                             type="file"
-//                             id="file-upload"
-//                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
-//                             disabled={uploading}
-//                             onChange={(e) =>
-//                               e.target.files && handleImageUpload(e.target.files[0])
-//                             }
-//                           />
-//                           <div className="w-24 h-24 border-2 border-dashed border-gray-300 hover:border-indigo-500 rounded-xl flex flex-col items-center justify-center bg-white transition-colors duration-200">
-//                             {uploading ? (
-//                               <span className="text-xs font-medium text-gray-500 animate-pulse">
-//                                 Uploading...
-//                               </span>
-//                             ) : (
-//                               <>
-//                                 <UploadCloud className="w-6 h-6 text-gray-400 mb-1" />
-//                                 <span className="text-xs font-medium text-gray-500">
-//                                   Add Photo
-//                                 </span>
-//                               </>
-//                             )}
-//                           </div>
-//                         </div>
-
-//                         {/* Image Previews */}
-//                         {images.map((img, i) => (
-//                           <div
-//                             key={i}
-//                             className="w-24 h-24 rounded-xl border border-gray-200 overflow-hidden relative group"
-//                           >
-//                             <img
-//                               src={img.url}
-//                               className="w-full h-full object-cover"
-//                               alt="Preview"
-//                             />
-//                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-//                               <CheckCircle2 className="text-white w-6 h-6" />
-//                             </div>
-//                           </div>
-//                         ))}
-//                       </div>
-//                     </div>
-
-//                     {/* Actions */}
-//                     <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
-//                       <button
-//                         onClick={() => setShowReviewForm(false)}
-//                         className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-200 transition-colors"
-//                       >
-//                         Cancel
-//                       </button>
-//                       <button
-//                         onClick={submitReview}
-//                         className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm"
-//                       >
-//                         Submit Review
-//                       </button>
-//                     </div>
-//                   </div>
-//                 )
-//               ) : (
-//                 <div className="bg-gray-50 rounded-xl p-4 text-center">
-//                   <p className="text-gray-500 text-sm">
-//                     You can review this product once it has been delivered.
-//                   </p>
-//                 </div>
-//               )}
-//             </div>
-            
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-// "use client";
-
-// import { useState, useEffect } from "react";
-// import {
-//   Package,
-//   Truck,
-//   MapPin,
-//   Receipt,
-//   Star,
-//   UploadCloud,
-//   CheckCircle2,
-//   CalendarDays,
-//   CreditCard,
-//   XCircle,
-//   AlertTriangle,
-// } from "lucide-react";
-
-// // --- TYPES ---
-// type Product = {
-//   id: number;
-//   name: string;
-//   image?: string;
-//   description: string;
-//   category?: string;
-//   mrp?: string;
-//   effective_price?: string;
-//   discount_percent?: string;
-// };
-
-// type ShippingAddress = {
-//   id?: number;
-//   street: string;
-//   city: string;
-//   state: string;
-//   postal_code?: string;
-//   country?: string;
-//   landmark?: string;
-// };
-
-// type ReviewImage = {
-//   url: string;
-//   public_id: string;
-// };
-
-// type Review = {
-//   id: number | null;
-//   product_id?: number | null;
-//   user_id?: number | null;
-//   order_id?: number | null;
-//   rating: number | null;
-//   review_text?: string | null;
-//   images?: ReviewImage[];
-// };
-
-// type CancellationReason = {
-//   id: number | null;
-//   code: string | null;
-//   description: string | null;
-// };
-
-// type CancelReasonOption = {
-//   id: number;
-//   code: string;
-//   description: string;
-// };
-
-// type Item = {
-//   id: number;
-//   order_id?: number;
-//   quantity: number;
-//   price_at_order: string;
-//   subtotal: string;
-//   taxes?: string;
-//   discount?: string;
-//   paid_amount?: string;
-//   product: Product;
-//   shipping_address?: ShippingAddress;
-//   status?: string;
-//   reviews?: Review;
-//   cancellation_reason?: CancellationReason;
-// };
-
-// type PaymentTransaction = {
-//   id: number;
-//   gateway_txn_id: string;
-//   status: string;
-//   payment_gateway: string;
-//   amount: string;
-// };
-
-// type Order = {
-//   id: number;
-//   user_id?: number;
-//   order_date: string;
-//   status: string;
-//   total_amount: string;
-//   currency: string;
-//   total_mrp?: string;
-//   offer_discount?: string;
-//   discount_amount?: string;
-//   mhc_points?: string;
-//   notes?: string;
-//   payment_transaction?: PaymentTransaction;
-//   items: Item[];
-// };
-
-// // --- HELPER COMPONENT: Interactive Star Rating ---
-// const StarRating = ({
-//   rating,
-//   setRating,
-// }: {
-//   rating: number;
-//   setRating: (r: number) => void;
-// }) => {
-//   const [hover, setHover] = useState(0);
-//   return (
-//     <div className="flex gap-1">
-//       {[1, 2, 3, 4, 5].map((star) => (
-//         <button
-//           key={star}
-//           type="button"
-//           onClick={() => setRating(star)}
-//           onMouseEnter={() => setHover(star)}
-//           onMouseLeave={() => setHover(0)}
-//           className="focus:outline-none transition-colors duration-200"
-//         >
-//           <Star
-//             className={`w-8 h-8 ${
-//               star <= (hover || rating)
-//                 ? "fill-yellow-400 text-yellow-400"
-//                 : "text-gray-300"
-//             }`}
-//           />
-//         </button>
-//       ))}
-//     </div>
-//   );
-// };
-
-// // --- MAIN COMPONENT ---
-// export default function OrderDetails({ order }: { order: Order }) {
-//   const item = order.items?.[0];
-//   const product = item?.product;
-//   const address = item?.shipping_address;
-//   const review = item?.reviews;
-
-//   console.log(order)
-  
-//   // Check if item is cancelled (id is not null)
-//   const isCancelled = item?.cancellation_reason && item.cancellation_reason.id !== null;
-//   // Check if item can be cancelled
-//   const canCancel = order.status?.toLowerCase() !== "delivered" && !isCancelled;
-
-//   // Review States
-//   const [showReviewForm, setShowReviewForm] = useState(false);
-//   const [rating, setRating] = useState(0);
-//   const [reviewText, setReviewText] = useState("");
-//   const [images, setImages] = useState<ReviewImage[]>([]);
-//   const [uploading, setUploading] = useState(false);
-
-//   // Cancellation States
-//   const [showCancelForm, setShowCancelForm] = useState(false);
-//   const [cancelReasons, setCancelReasons] = useState<CancelReasonOption[]>([]);
-//   const [selectedReasonId, setSelectedReasonId] = useState<number | "">("");
-//   const [isCancelling, setIsCancelling] = useState(false);
-
-//   // Helper to get Auth Token from Cookies
-//   const getToken = () => {
-//     if (typeof document === "undefined") return null;
-    
-//     // Change "token" below if your cookie name is different (e.g., "access_token")
-//     const cookieName = "token"; 
-//     const match = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
-    
-//     if (match) {
-//       return match[2];
-//     }
-//     return null;
-//   };
-
-//   /* FETCH CANCELLATION REASONS */
-//   useEffect(() => {
-//     if (showCancelForm && cancelReasons.length === 0) {
-//       const fetchReasons = async () => {
-//         try {
-//           const res = await fetch("https://medicaps.cloud/grasa/shop/cancellation-reasons", {
-//             headers: {
-//               Authorization: `Bearer ${getToken()}`,
-//             },
-//           });
-          
-//           const data = await res.json();
-          
-//           // Defensive check: Ensure we only set the state if it's an array
-//           if (res.ok && Array.isArray(data)) {
-//             setCancelReasons(data);
-//           } else if (res.ok && data && Array.isArray(data.data)) {
-//             // Just in case the API wraps it in a "data" object
-//             setCancelReasons(data.data);
-//           } else {
-//             console.error("Unexpected API response or failed request:", data);
-//             setCancelReasons([]); // Fallback to empty array to prevent map crashes
-//           }
-//         } catch (error) {
-//           console.error("Failed to fetch cancellation reasons", error);
-//           setCancelReasons([]);
-//         }
-//       };
-//       fetchReasons();
-//     }
-//   }, [showCancelForm, cancelReasons.length]);
-
-//   /* SUBMIT CANCELLATION */
-//   const submitCancellation = async () => {
-//     if (!selectedReasonId) {
-//       alert("Please select a cancellation reason.");
-//       return;
-//     }
-
-//     setIsCancelling(true);
-//     const payload = {
-//       cancellation_reason_id: Number(selectedReasonId),
-//     };
-
-//     try {
-//       const res = await fetch(
-//         `https://medicaps.cloud/grasa/shop/admin/orders/${order.id}/items/${item?.id}/cancel`,
-//         {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${getToken()}`,
-//           },
-//           body: JSON.stringify(payload),
-//         }
-//       );
-
-//       if (!res.ok) throw new Error("Cancellation failed");
-
-//       alert("Order item cancelled successfully.");
-//       window.location.reload();
-//     } catch (error) {
-//       console.error("Cancellation failed", error);
-//       alert("Failed to cancel the order. Please try again.");
-//     } finally {
-//       setIsCancelling(false);
-//     }
-//   };
-
-//   /* IMAGE UPLOAD */
-//   const handleImageUpload = async (file: File) => {
-//     setUploading(true);
-//     const formData = new FormData();
-//     formData.append("file", file);
-
-//     try {
-//       const res = await fetch("https://medicaps.cloud/product-reviews/upload", {
-//         method: "POST",
-//         body: formData,
-//       });
-//       const data = await res.json();
-//       setImages((prev) => [...prev, data]);
-//     } catch (error) {
-//       console.error("Upload failed", error);
-//       alert("Failed to upload image. Please try again.");
-//     } finally {
-//       setUploading(false);
-//     }
-//   };
-
-//   /* SUBMIT REVIEW */
-//   const submitReview = async () => {
-//     if (rating === 0) {
-//       alert("Please select a rating before submitting.");
-//       return;
-//     }
-
-//     const payload = {
-//       rating,
-//       review_text: reviewText,
-//       order_item_id: item?.id,
-//       images,
-//     };
-
-//     try {
-//       await fetch(
-//         `https://medicaps.cloud/product-reviews/products/${product?.id}/reviews`,
-//         {
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify(payload),
-//         }
-//       );
-//       alert("Review submitted successfully!");
-//       window.location.reload();
-//     } catch (error) {
-//       console.error("Review submission failed", error);
-//       alert("Failed to submit review.");
-//     }
-//   };
-
-//   // Status Color Helper
-//   const getStatusColor = (status: string) => {
-//     switch (status?.toLowerCase()) {
-//       case "delivered":
-//         return "bg-green-100 text-green-800 border-green-200";
-//       case "shipped":
-//         return "bg-blue-100 text-blue-800 border-blue-200";
-//       case "cancelled":
-//         return "bg-red-100 text-red-800 border-red-200";
-//       default:
-//         return "bg-yellow-100 text-yellow-800 border-yellow-200";
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 font-sans text-gray-900">
-//       <div className="max-w-6xl mx-auto space-y-6">
-        
-//         {/* --- HEADER --- */}
-//         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
-//           <div>
-//             <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-//               <Package className="w-8 h-8 text-indigo-600" />
-//               Order #{order.id}
-//             </h1>
-//             <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-gray-600">
-//               <div className="flex items-center gap-1.5">
-//                 <CalendarDays className="w-4 h-4" />
-//                 {new Date(order.order_date).toLocaleDateString("en-US", {
-//                   year: "numeric",
-//                   month: "long",
-//                   day: "numeric",
-//                 })}
-//               </div>
-//               <div className="hidden md:block w-1.5 h-1.5 rounded-full bg-gray-300" />
-//               <div className="flex items-center gap-1.5">
-//                 <CreditCard className="w-4 h-4" />
-//                 {order.payment_transaction?.payment_gateway || "Standard Checkout"}
-//               </div>
-//             </div>
-//           </div>
-//           <div
-//             className={`px-4 py-1.5 rounded-full text-sm font-semibold border ${getStatusColor(
-//               isCancelled ? "Cancelled" : order.status
-//             )} flex items-center gap-2 max-w-max`}
-//           >
-//             {order.status === "Delivered" && !isCancelled && <CheckCircle2 className="w-4 h-4" />}
-//             {isCancelled && <XCircle className="w-4 h-4" />}
-//             {isCancelled ? "Cancelled" : order.status}
-//           </div>
-//         </div>
-
-//         {/* --- MAIN GRID --- */}
-//         <div className="grid lg:grid-cols-12 gap-6">
-          
-//           {/* LEFT COLUMN: PRODUCT IMAGE (Sticky) */}
-//           <div className="lg:col-span-5">
-//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-6">
-//               {product?.image ? (
-//                 <div className="aspect-square rounded-xl bg-gray-50 flex items-center justify-center p-4">
-//                   <img
-//                     src={product.image}
-//                     alt={product.name}
-//                     className="max-w-full max-h-full object-contain mix-blend-multiply"
-//                   />
-//                 </div>
-//               ) : (
-//                 <div className="aspect-square rounded-xl bg-gray-100 flex items-center justify-center">
-//                   <Package className="w-20 h-20 text-gray-300" />
-//                 </div>
-//               )}
-//               <div className="mt-6">
-//                 <h2 className="text-xl font-bold text-gray-900 leading-tight">
-//                   {product?.name}
-//                 </h2>
-//                 {product?.category && (
-//                   <p className="text-sm text-indigo-600 font-medium mt-1">
-//                     {product.category}
-//                   </p>
-//                 )}
-//                 {product?.description && (
-//                   <p className="mt-4 text-sm text-gray-600 line-clamp-3">
-//                     {product.description}
-//                   </p>
-//                 )}
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* RIGHT COLUMN: DETAILS */}
-//           <div className="lg:col-span-7 space-y-6">
-            
-//             {/* PRICING & SUMMARY CARDS GRID */}
-//             <div className="grid sm:grid-cols-2 gap-6">
-//               {/* Pricing Details */}
-//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-//                 <div className="flex items-center gap-2 mb-4 text-gray-900">
-//                   <Receipt className="w-5 h-5 text-indigo-600" />
-//                   <h3 className="font-bold text-lg">Item Pricing</h3>
-//                 </div>
-//                 <div className="space-y-3 text-sm">
-//                   <div className="flex justify-between text-gray-600">
-//                     <span>MRP (Unit)</span>
-//                     <span className="line-through">₹{product?.mrp}</span>
-//                   </div>
-//                   <div className="flex justify-between text-gray-600">
-//                     <span>Effective Price</span>
-//                     <span>₹{product?.effective_price}</span>
-//                   </div>
-//                   <div className="flex justify-between text-gray-600">
-//                     <span>Quantity</span>
-//                     <span className="font-medium text-gray-900">
-//                       x {item?.quantity}
-//                     </span>
-//                   </div>
-//                   <div className="pt-3 border-t border-gray-100 flex justify-between font-semibold text-base">
-//                     <span>Item Subtotal</span>
-//                     <span>₹{item?.subtotal}</span>
-//                   </div>
-//                 </div>
-//               </div>
-
-//               {/* Order Summary */}
-//               <div className="bg-indigo-50 rounded-2xl p-6 shadow-sm border border-indigo-100">
-//                 <h3 className="font-bold text-lg mb-4 text-indigo-900">
-//                   Order Summary
-//                 </h3>
-//                 <div className="space-y-3 text-sm">
-//                   <div className="flex justify-between text-indigo-800/80">
-//                     <span>Total MRP</span>
-//                     <span>₹{order.total_mrp}</span>
-//                   </div>
-//                   <div className="flex justify-between text-green-700">
-//                     <span>Total Discount</span>
-//                     <span>- ₹{order.offer_discount}</span>
-//                   </div>
-//                   <div className="pt-3 border-t border-indigo-200/60 flex justify-between font-bold text-xl text-indigo-900">
-//                     <span>Total Paid</span>
-//                     <span>
-//                       ₹{order.total_amount} {order.currency}
-//                     </span>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* SHIPPING ADDRESS */}
-//             {address && (
-//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-//                 <div className="flex items-center gap-2 mb-4">
-//                   <Truck className="w-5 h-5 text-indigo-600" />
-//                   <h3 className="font-bold text-lg">Shipping Details</h3>
-//                 </div>
-//                 <div className="flex items-start gap-3 bg-gray-50 rounded-xl p-4">
-//                   <MapPin className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" />
-//                   <div className="text-sm text-gray-700 leading-relaxed">
-//                     <p className="font-medium text-gray-900 mb-1">Delivery Address</p>
-//                     <p>{address.street}</p>
-//                     {address.landmark && <p>Landmark: {address.landmark}</p>}
-//                     <p>
-//                       {address.city}, {address.state}
-//                       {address.postal_code ? ` - ${address.postal_code}` : ""}
-//                     </p>
-//                     {address.country && <p>{address.country}</p>}
-//                   </div>
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* CANCELLATION / ACTIONS SECTION */}
-//             {isCancelled ? (
-//               <div className="bg-red-50 rounded-2xl p-6 shadow-sm border border-red-100 text-red-900">
-//                 <div className="flex items-center gap-2 mb-2">
-//                   <XCircle className="w-6 h-6 text-red-600" />
-//                   <h3 className="font-bold text-lg text-red-800">Item Cancelled</h3>
-//                 </div>
-//                 <p className="text-sm text-red-700">
-//                   <span className="font-medium">Reason: </span>
-//                   {item.cancellation_reason?.description || "Cancelled by user."}
-//                 </p>
-//               </div>
-//             ) : canCancel ? (
-//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-//                 <div className="flex items-center gap-2 mb-6">
-//                   <AlertTriangle className="w-5 h-5 text-orange-500" />
-//                   <h3 className="font-bold text-lg">Order Actions</h3>
-//                 </div>
-
-//                 {!showCancelForm ? (
-//                   <button
-//                     onClick={() => setShowCancelForm(true)}
-//                     className="w-full sm:w-auto bg-white border border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 px-6 py-3 rounded-xl font-medium transition-colors duration-200 shadow-sm"
-//                   >
-//                     Cancel Order Item
-//                   </button>
-//                 ) : (
-//                   <div className="animate-in fade-in duration-500 space-y-4 bg-red-50/50 border border-red-100 p-6 rounded-xl">
-//                     <h4 className="font-semibold text-gray-900">
-//                       Why are you cancelling?
-//                     </h4>
-                    
-//                     <select
-//                       value={selectedReasonId}
-//                       onChange={(e) => setSelectedReasonId(Number(e.target.value))}
-//                       className="w-full p-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none text-sm"
-//                       disabled={isCancelling}
-//                     >
-//                       <option value="" disabled>Select a reason</option>
-//                       {/* Defensive check added here to prevent .map crashes */}
-//                       {Array.isArray(cancelReasons) && cancelReasons.map((reason) => (
-//                         <option key={reason.id} value={reason.id}>
-//                           {reason.description}
-//                         </option>
-//                       ))}
-//                     </select>
-
-//                     <div className="flex items-center justify-end gap-3 pt-4 border-t border-red-100">
-//                       <button
-//                         onClick={() => setShowCancelForm(false)}
-//                         className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-200 transition-colors"
-//                         disabled={isCancelling}
-//                       >
-//                         Nevermind
-//                       </button>
-//                       <button
-//                         onClick={submitCancellation}
-//                         disabled={!selectedReasonId || isCancelling}
-//                         className="bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm"
-//                       >
-//                         {isCancelling ? "Cancelling..." : "Confirm Cancellation"}
-//                       </button>
-//                     </div>
-//                   </div>
-//                 )}
-//               </div>
-//             ) : null}
-
-//             {/* REVIEWS SECTION (Only shown if delivered and not cancelled) */}
-//             {order.status === "Delivered" && !isCancelled && (
-//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-//                 <div className="flex items-center gap-2 mb-6">
-//                   <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-//                   <h3 className="font-bold text-lg">Product Rating & Review</h3>
-//                 </div>
-
-//                 {/* Existing Review */}
-//                 {review && review.rating !== null ? (
-//                   <div className="bg-gray-50 border border-gray-100 rounded-xl p-5">
-//                     <div className="flex items-center gap-1 mb-3">
-//                       {[...Array(5)].map((_, i) => (
-//                         <Star
-//                           key={i}
-//                           className={`w-5 h-5 ${
-//                             i < (review.rating || 0)
-//                               ? "fill-yellow-400 text-yellow-400"
-//                               : "fill-gray-200 text-gray-200"
-//                           }`}
-//                         />
-//                       ))}
-//                       <span className="ml-2 font-medium text-sm text-gray-600">
-//                         {review.rating}/5
-//                       </span>
-//                     </div>
-//                     {review.review_text && (
-//                       <p className="text-gray-700 text-sm leading-relaxed mb-4">
-//                         "{review.review_text}"
-//                       </p>
-//                     )}
-//                     {review.images && review.images.length > 0 && (
-//                       <div className="flex flex-wrap gap-3">
-//                         {review.images.map((img, i) => (
-//                           <div
-//                             key={i}
-//                             className="w-20 h-20 rounded-lg overflow-hidden border border-gray-200"
-//                           >
-//                             <img
-//                               src={img.url}
-//                               alt="Review upload"
-//                               className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-//                             />
-//                           </div>
-//                         ))}
-//                       </div>
-//                     )}
-//                   </div>
-//                 ) : (
-//                   /* Add Review Trigger */
-//                   !showReviewForm ? (
-//                     <button
-//                       onClick={() => setShowReviewForm(true)}
-//                       className="w-full sm:w-auto bg-gray-900 hover:bg-black text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200 shadow-sm"
-//                     >
-//                       Write a Product Review
-//                     </button>
-//                   ) : (
-//                     /* Review Form */
-//                     <div className="animate-in fade-in slide-in-from-top-4 duration-500 space-y-6 bg-gray-50 border border-gray-100 p-6 rounded-xl">
-//                       <h4 className="font-semibold text-gray-900">
-//                         Share your experience
-//                       </h4>
-
-//                       {/* Interactive Star Rating */}
-//                       <div className="space-y-2">
-//                         <label className="text-sm font-medium text-gray-700">
-//                           Rate this product
-//                         </label>
-//                         <StarRating rating={rating} setRating={setRating} />
-//                       </div>
-
-//                       {/* Review Text */}
-//                       <div className="space-y-2">
-//                         <label className="text-sm font-medium text-gray-700">
-//                           Detailed Review
-//                         </label>
-//                         <textarea
-//                           placeholder="What did you like or dislike? What should other shoppers know?"
-//                           className="w-full min-h-[120px] p-4 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all outline-none resize-y text-sm"
-//                           value={reviewText}
-//                           onChange={(e) => setReviewText(e.target.value)}
-//                         />
-//                       </div>
-
-//                       {/* Custom Image Upload */}
-//                       <div className="space-y-3">
-//                         <label className="text-sm font-medium text-gray-700">
-//                           Attach Photos (Optional)
-//                         </label>
-                        
-//                         <div className="flex flex-wrap items-center gap-4">
-//                           {/* Custom Upload Button */}
-//                           <div className="relative">
-//                             <input
-//                               type="file"
-//                               id="file-upload"
-//                               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
-//                               disabled={uploading}
-//                               onChange={(e) =>
-//                                 e.target.files && handleImageUpload(e.target.files[0])
-//                               }
-//                             />
-//                             <div className="w-24 h-24 border-2 border-dashed border-gray-300 hover:border-indigo-500 rounded-xl flex flex-col items-center justify-center bg-white transition-colors duration-200">
-//                               {uploading ? (
-//                                 <span className="text-xs font-medium text-gray-500 animate-pulse">
-//                                   Uploading...
-//                                 </span>
-//                               ) : (
-//                                 <>
-//                                   <UploadCloud className="w-6 h-6 text-gray-400 mb-1" />
-//                                   <span className="text-xs font-medium text-gray-500">
-//                                     Add Photo
-//                                   </span>
-//                                 </>
-//                               )}
-//                             </div>
-//                           </div>
-
-//                           {/* Image Previews */}
-//                           {images.map((img, i) => (
-//                             <div
-//                               key={i}
-//                               className="w-24 h-24 rounded-xl border border-gray-200 overflow-hidden relative group"
-//                             >
-//                               <img
-//                                 src={img.url}
-//                                 className="w-full h-full object-cover"
-//                                 alt="Preview"
-//                               />
-//                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-//                                 <CheckCircle2 className="text-white w-6 h-6" />
-//                               </div>
-//                             </div>
-//                           ))}
-//                         </div>
-//                       </div>
-
-//                       {/* Actions */}
-//                       <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
-//                         <button
-//                           onClick={() => setShowReviewForm(false)}
-//                           className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-200 transition-colors"
-//                         >
-//                           Cancel
-//                         </button>
-//                         <button
-//                           onClick={submitReview}
-//                           className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm"
-//                         >
-//                           Submit Review
-//                         </button>
-//                       </div>
-//                     </div>
-//                   )
-//                 )}
-//               </div>
-//             )}
-            
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
 
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  Package,
-  Truck,
-  MapPin,
-  Receipt,
-  Star,
-  UploadCloud,
-  CheckCircle2,
-  CalendarDays,
-  CreditCard,
-  XCircle,
-  AlertCircle
-} from "lucide-react";
+import { BASE_URL } from "@/components/config/api";
+import { X, Loader2, CheckCircle2, Star, Download, AlertCircle, Edit2 } from "lucide-react";
 
-// --- HELPERS ---
-const getCookie = (name: string) => {
-  if (typeof document === "undefined") return null;
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(";").shift();
-  return null;
+// ── TypeScript Types ──────────────────────────────────────────────────────────
+type ReviewImage = {
+  id?: number;
+  url: string;
+  public_id: string;
 };
 
-// --- TYPES ---
+type Review = {
+  id: number | null;
+  product_id?: number | null;
+  user_id?: number | null;
+  order_id?: number | null;
+  rating: number | null;
+  review_text: string | null;
+  is_verified_purchase?: boolean | null;
+  status?: string | null;
+  images?: ReviewImage[] | null;
+};
+
 type Product = {
   id: number;
   name: string;
@@ -1871,7 +33,6 @@ type Product = {
   category?: string;
   mrp?: string;
   effective_price?: string;
-  discount_percent?: string;
 };
 
 type ShippingAddress = {
@@ -1884,37 +45,15 @@ type ShippingAddress = {
   landmark?: string;
 };
 
-type ReviewImage = {
-  url: string;
-  public_id: string;
-};
-
-type Review = {
-  id: number | null;
-  rating: number | null;
-  review_text: string | null;
-  images?: ReviewImage[];
-};
-
-type CancellationReason = {
-  id: number | null;
-  code: string | null;
-  description: string | null;
-};
-
 type Item = {
   id: number;
   quantity: number;
   price_at_order: string;
   subtotal: string;
-  taxes?: string;
-  discount?: string;
-  paid_amount?: string;
   product: Product;
   shipping_address: ShippingAddress;
   status?: string;
   reviews?: Review;
-  cancellation_reason?: CancellationReason;
 };
 
 type PaymentTransaction = {
@@ -1923,6 +62,13 @@ type PaymentTransaction = {
   status: string;
   payment_gateway: string;
   amount: string;
+  currency?: string;
+};
+
+type CancellationReason = {
+  id: number;
+  code: string;
+  description: string;
 };
 
 type Order = {
@@ -1932,14 +78,32 @@ type Order = {
   total_amount: string;
   currency: string;
   total_mrp?: string;
-  offer_discount?: string;
+  discount_amount?: string;
   mhc_points?: string;
-  notes?: string;
+  offer_discount?: string;
   payment_transaction?: PaymentTransaction;
   items: Item[];
 };
 
-// --- HELPER COMPONENT: Interactive Star Rating ---
+// ── Cookie Utility ────────────────────────────────────────────────────────────
+const getCookie = (name: string): string | null => {
+  if (typeof document === "undefined") return null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(";").shift() ?? null;
+  return null;
+};
+
+// ── Helper Functions ──────────────────────────────────────────────────────────
+const hasValidReview = (review: Review | undefined | null): boolean => {
+  if (!review) return false;
+  return (
+    review.id !== null &&
+    review.rating !== null &&
+    review.rating !== undefined
+  );
+};
+
 const StarRating = ({
   rating,
   setRating,
@@ -1949,7 +113,7 @@ const StarRating = ({
 }) => {
   const [hover, setHover] = useState(0);
   return (
-    <div className="flex gap-1">
+    <div style={{ display: "flex", gap: "6px", marginBottom: "1rem" }}>
       {[1, 2, 3, 4, 5].map((star) => (
         <button
           key={star}
@@ -1957,576 +121,2064 @@ const StarRating = ({
           onClick={() => setRating(star)}
           onMouseEnter={() => setHover(star)}
           onMouseLeave={() => setHover(0)}
-          className="focus:outline-none transition-colors duration-200"
+          style={{
+            background: "none",
+            border: "none",
+            fontSize: "26px",
+            cursor: "pointer",
+            color: star <= (hover || rating) ? "#f0a500" : "#d6d1c4",
+            transition: "color 0.15s, transform 0.1s",
+            padding: "2px",
+            lineHeight: 1,
+            transform: hover === star ? "scale(1.15)" : "scale(1)",
+          }}
         >
-          <Star
-            className={`w-8 h-8 ${
-              star <= (hover || rating)
-                ? "fill-yellow-400 text-yellow-400"
-                : "text-gray-300"
-            }`}
-          />
+          ★
         </button>
       ))}
     </div>
   );
 };
 
-// --- MAIN COMPONENT ---
-export default function OrderDetails({ order }: { order: Order }) {
-  const item = order.items?.[0];
-  const product = item?.product;
-  const address = item?.shipping_address;
-  const review = item?.reviews;
-  const cancellationReason = item?.cancellation_reason;
+// ── Cancel Modal Component ───────────────────────────────────────────────────
+const CancelModal = ({
+  isOpen,
+  onClose,
+  onSuccess,
+  orderId,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+  orderId: number;
+}) => {
+  const [reasons, setReasons] = useState<CancellationReason[]>([]);
+  const [selectedReason, setSelectedReason] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  // Review State
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [reviewText, setReviewText] = useState("");
-  const [images, setImages] = useState<ReviewImage[]>([]);
-  const [uploading, setUploading] = useState(false);
-
-  // Cancellation State
-  const [showCancelForm, setShowCancelForm] = useState(false);
-  const [cancellationReasonsList, setCancellationReasonsList] = useState<CancellationReason[]>([]);
-  const [selectedReasonId, setSelectedReasonId] = useState<number | null>(null);
-  const [isCancelling, setIsCancelling] = useState(false);
-
-  // Time Validation
-  const orderDate = new Date(order.order_date).getTime();
-  const now = new Date().getTime();
-  const hoursSinceOrder = (now - orderDate) / (1000 * 60 * 60);
-  const isWithin24Hours = hoursSinceOrder <= 24;
-  
-  const isCancelled = cancellationReason && cancellationReason.id !== null;
-  const canCancel = !isCancelled && order.status?.toLowerCase() !== "delivered" && isWithin24Hours;
-
-  // Review Visibility Logic
-  const hasExistingReview = review && review.rating !== null;
-  const isDeliveredAndNotCancelled = order.status?.toLowerCase() === "delivered" && !isCancelled;
-  const shouldShowReviewSection = hasExistingReview || isDeliveredAndNotCancelled;
-
-  // Fetch Cancellation Reasons
   useEffect(() => {
-    if (canCancel) {
-      const fetchReasons = async () => {
-        const token = getCookie("token"); 
-        try {
-          const res = await fetch("https://medicaps.cloud/grasa/shop/cancellation-reasons", {
-            headers: {
-              "Authorization": `Bearer ${token}`,
-              "Content-Type": "application/json"
-            }
-          });
-          if (res.ok) {
-            const data = await res.json();
-            setCancellationReasonsList(data);
-          }
-        } catch (error) {
-          console.error("Failed to fetch cancellation reasons:", error);
-        }
-      };
+    if (isOpen && reasons.length === 0) {
       fetchReasons();
     }
-  }, [canCancel]);
+  }, [isOpen]);
 
-  /* IMAGE UPLOAD */
-  const handleImageUpload = async (file: File) => {
-    setUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
+  const fetchReasons = async () => {
+    try {
+      const token = getCookie("token");
+      const res = await fetch(`${BASE_URL}/grasa/shop/cancellation-reasons`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setReasons(data);
+      }
+    } catch (err) {
+      console.error("[v0] Failed to fetch cancellation reasons:", err);
+    }
+  };
+
+  const handleCancel = async () => {
+    if (!selectedReason) {
+      setError("Please select a cancellation reason");
+      return;
+    }
 
     try {
-      const res = await fetch("https://medicaps.cloud/product-reviews/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
-      setImages((prev) => [...prev, data]);
+      setLoading(true);
+      setError("");
+
+      const token = getCookie("token");
+      const res = await fetch(
+        `${BASE_URL}/grasa/shop/orders/${orderId}/cancel`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cancellation_reason_id: selectedReason }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to cancel order");
+      }
+
+      setSuccess(true);
+      setTimeout(() => {
+        onSuccess();
+        onClose();
+      }, 1500);
+    } catch (err) {
+      console.error("[v0] Cancel order error:", err);
+      setError("Failed to cancel order. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: "1rem",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: "12px",
+          padding: "2rem",
+          maxWidth: "400px",
+          width: "100%",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div style={{ marginBottom: "1.5rem" }}>
+          <h2 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700 }}>
+            Cancel Order
+          </h2>
+          <p style={{ margin: "0.5rem 0 0 0", color: "#666", fontSize: "0.9rem" }}>
+            Please select a reason for cancellation
+          </p>
+        </div>
+
+        {success ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "2rem 0",
+            }}
+          >
+            <CheckCircle2 size={48} style={{ color: "#2d6a4f" }} />
+            <p
+              style={{
+                fontSize: "1rem",
+                color: "#2d6a4f",
+                textAlign: "center",
+              }}
+            >
+              Order cancelled successfully!
+            </p>
+          </div>
+        ) : (
+          <>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.75rem",
+                }}
+              >
+                Cancellation Reason
+              </label>
+              <select
+                value={selectedReason || ""}
+                onChange={(e) => setSelectedReason(Number(e.target.value) || null)}
+                style={{
+                  width: "100%",
+                  padding: "0.75rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  fontFamily: "inherit",
+                  appearance: "none",
+                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231b1b1b' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 0.75rem center",
+                  backgroundSize: "1.2em",
+                  paddingRight: "2.5rem",
+                }}
+              >
+                <option value="">Select a reason...</option>
+                {reasons.map((reason) => (
+                  <option key={reason.id} value={reason.id}>
+                    {reason.description}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {error && (
+              <div
+                style={{
+                  background: "#fce8e6",
+                  color: "#d93025",
+                  padding: "0.75rem",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  marginBottom: "1rem",
+                  display: "flex",
+                  gap: "0.5rem",
+                  alignItems: "center",
+                }}
+              >
+                <AlertCircle size={18} />
+                {error}
+              </div>
+            )}
+
+            <div
+              style={{
+                display: "flex",
+                gap: "0.75rem",
+                justifyContent: "flex-end",
+              }}
+            >
+              <button
+                onClick={onClose}
+                disabled={loading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  background: "#fff",
+                  cursor: loading ? "not-allowed" : "pointer",
+                  opacity: loading ? 0.6 : 1,
+                  fontWeight: 600,
+                }}
+              >
+                Keep Order
+              </button>
+              <button
+                onClick={handleCancel}
+                disabled={loading || !selectedReason}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  background: "#d93025",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: loading || !selectedReason ? "not-allowed" : "pointer",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  opacity: loading || !selectedReason ? 0.6 : 1,
+                }}
+              >
+                {loading && (
+                  <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
+                )}
+                {loading ? "Cancelling..." : "Cancel Order"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
+    </div>
+  );
+};
+
+// ── Edit Review Modal Component ──────────────────────────────────────────────
+const EditReviewModal = ({
+  item,
+  review,
+  isOpen,
+  onClose,
+  onSubmitSuccess,
+}: {
+  item: Item | null;
+  review: Review | null;
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmitSuccess: () => void;
+}) => {
+  // Handle null review - return early
+  if (!isOpen || !review || !item) {
+    return null;
+  }
+
+  const [rating, setRating] = useState(review?.rating ? review.rating : 0);
+  const [reviewText, setReviewText] = useState(review?.review_text ? review.review_text : "");
+  const [newImages, setNewImages] = useState<File[]>([]);
+  const [existingImages, setExistingImages] = useState<ReviewImage[]>(
+    review?.images && Array.isArray(review.images) ? review.images : []
+  );
+  const [uploading, setUploading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setNewImages((prev) => [...prev, ...Array.from(e.target.files!)]);
+    }
+  };
+
+  const removeNewImage = (index: number) => {
+    setNewImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const removeExistingImage = (index: number) => {
+    setExistingImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmitEdit = async () => {
+    if (rating === 0) {
+      setSubmitError("Please select a rating");
+      return;
+    }
+
+    if (!reviewText.trim()) {
+      setSubmitError("Please write a review");
+      return;
+    }
+
+    try {
+      setUploading(true);
+      setSubmitError("");
+
+      const token = getCookie("token");
+
+      // Upload new images if any
+      const uploadedNewImages: ReviewImage[] = [];
+
+      for (const file of newImages) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const uploadRes = await fetch(`${BASE_URL}/upload`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+
+        if (uploadRes.ok) {
+          const uploadedData = await uploadRes.json();
+          uploadedNewImages.push({
+            url: uploadedData.url,
+            public_id: uploadedData.public_id,
+          });
+        }
+      }
+
+      // Combine existing and new images
+      const allImages = [...existingImages, ...uploadedNewImages];
+
+      // Validate review has required IDs
+      if (!review?.id) {
+        setSubmitError("Review ID is missing");
+        return;
+      }
+
+      // Submit review update
+      const reviewPayload = {
+        rating,
+        review_text: reviewText,
+        order_item_id: item.id,
+        images: allImages,
+      };
+
+      const reviewRes = await fetch(
+        `${BASE_URL}/product-reviews/products/${item.order_id}/reviews/${review.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reviewPayload),
+        }
+      );
+
+      if (!reviewRes.ok) {
+        throw new Error("Failed to update review");
+      }
+
+      console.log("[v0] Review updated successfully");
+      setSubmitSuccess(true);
+      setTimeout(() => {
+        onSubmitSuccess();
+        onClose();
+      }, 1500);
     } catch (error) {
-      console.error("Upload failed", error);
-      alert("Failed to upload image. Please try again.");
+      console.error("[v0] Review update error:", error);
+      setSubmitError("Failed to update review. Please try again.");
     } finally {
       setUploading(false);
     }
   };
 
-  /* SUBMIT REVIEW */
-  const submitReview = async () => {
-    if (rating === 0) {
-      alert("Please select a rating before submitting.");
-      return;
-    }
+  if (!isOpen) return null;
 
-    const payload = {
-      rating,
-      review_text: reviewText,
-      order_item_id: item?.id,
-      images,
-    };
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: "1rem",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: "12px",
+          padding: "2rem",
+          maxWidth: "500px",
+          width: "100%",
+          maxHeight: "90vh",
+          overflowY: "auto",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <h2 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700 }}>
+            Edit Review
+          </h2>
+          <button
+            onClick={onClose}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <X size={24} />
+          </button>
+        </div>
 
-    try {
-      await fetch(
-        `https://medicaps.cloud/product-reviews/products/${product?.id}/reviews`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
-      alert("Review submitted successfully!");
-      location.reload();
-    } catch (error) {
-      console.error("Review submission failed", error);
-      alert("Failed to submit review.");
+        {submitSuccess ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "2rem 0",
+            }}
+          >
+            <CheckCircle2 size={48} style={{ color: "#2d6a4f" }} />
+            <p
+              style={{
+                fontSize: "1rem",
+                color: "#2d6a4f",
+                textAlign: "center",
+              }}
+            >
+              Review updated successfully!
+            </p>
+          </div>
+        ) : (
+          <>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <p style={{ fontSize: "0.9rem", color: "#666", marginBottom: "0.5rem" }}>
+                {item.product.name}
+              </p>
+              <StarRating rating={rating} setRating={setRating} />
+            </div>
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Your Review
+              </label>
+              <textarea
+                value={reviewText}
+                maxLength={100}
+                onChange={(e) => setReviewText(e.target.value)}
+                placeholder="Share your experience with this product..."
+                style={{
+                  width: "100%",
+                  minHeight: "100px",
+                  padding: "0.75rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  fontFamily: "inherit",
+                  fontSize: "0.9rem",
+                  resize: "vertical",
+                }}
+              />
+              <div
+  style={{
+    textAlign: "right",
+    fontSize: "0.75rem",
+    color: "var(--od-text-light)",
+    marginTop: "0.35rem",
+  }}
+>
+  {reviewText.length}/100
+</div>
+            </div>
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Current Images
+              </label>
+              {existingImages.length > 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    marginBottom: "1rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {existingImages.map((img, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        position: "relative",
+                        width: "60px",
+                        height: "60px",
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                        border: "1px solid #d6d1c4",
+                      }}
+                    >
+                      <img
+                        src={img.url}
+                        alt={`existing-${idx}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <button
+                        onClick={() => removeExistingImage(idx)}
+                        style={{
+                          position: "absolute",
+                          top: "-2px",
+                          right: "-2px",
+                          background: "#d93025",
+                          color: "#fff",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "12px",
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Add More Images (Optional)
+              </label>
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{
+                  padding: "0.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  width: "100%",
+                }}
+              />
+              {newImages.length > 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    marginTop: "0.75rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {newImages.map((img, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        position: "relative",
+                        width: "60px",
+                        height: "60px",
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                        border: "1px solid #d6d1c4",
+                      }}
+                    >
+                      <img
+                        src={URL.createObjectURL(img)}
+                        alt={`new-preview-${idx}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <button
+                        onClick={() => removeNewImage(idx)}
+                        style={{
+                          position: "absolute",
+                          top: "-2px",
+                          right: "-2px",
+                          background: "#d93025",
+                          color: "#fff",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "12px",
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {submitError && (
+              <div
+                style={{
+                  background: "#fce8e6",
+                  color: "#d93025",
+                  padding: "0.75rem",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                {submitError}
+              </div>
+            )}
+
+            <div
+              style={{
+                display: "flex",
+                gap: "0.75rem",
+                justifyContent: "flex-end",
+              }}
+            >
+              <button
+                onClick={onClose}
+                disabled={uploading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  background: "#fff",
+                  cursor: uploading ? "not-allowed" : "pointer",
+                  opacity: uploading ? 0.6 : 1,
+                  fontWeight: 600,
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitEdit}
+                disabled={uploading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  background: "#1b7a4f",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: uploading ? "not-allowed" : "pointer",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  opacity: uploading ? 0.6 : 1,
+                }}
+              >
+                {uploading && (
+                  <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
+                )}
+                {uploading ? "Updating..." : "Update Review"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
+    </div>
+  );
+};
+
+// ── Review Modal Component ────────────────────────────────────────────────────
+const ReviewModal = ({
+  item,
+  isOpen,
+  onClose,
+  onSubmitSuccess,
+}: {
+  item: Item;
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmitSuccess: () => void;
+}) => {
+  const [rating, setRating] = useState(0);
+  const [reviewText, setReviewText] = useState("");
+  const [images, setImages] = useState<File[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImages((prev) => [...prev, ...Array.from(e.target.files!)]);
     }
   };
 
-  /* CANCEL ORDER */
-  const handleCancelOrder = async () => {
-    if (!selectedReasonId) {
-      alert("Please select a reason for cancellation.");
+  const removeImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmitReview = async () => {
+    if (rating === 0) {
+      setSubmitError("Please select a rating");
       return;
     }
 
-    setIsCancelling(true);
-    const token = getCookie("token");
+    if (!reviewText.trim()) {
+      setSubmitError("Please write a review");
+      return;
+    }
 
     try {
-      const response = await fetch(
-        `https://medicaps.cloud/grasa/shop/admin/orders/${order.id}/items/${item?.id}/cancel`,
+      setUploading(true);
+      setSubmitError("");
+
+      const token = getCookie("token");
+
+      // Upload images to your backend or cloudinary
+      const uploadedImages: ReviewImage[] = [];
+
+      for (const file of images) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        // Adjust this endpoint based on your backend
+        const uploadRes = await fetch(`${BASE_URL}/upload`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+
+        if (uploadRes.ok) {
+          const uploadedData = await uploadRes.json();
+          uploadedImages.push({
+            url: uploadedData.url,
+            public_id: uploadedData.public_id,
+          });
+        }
+      }
+
+      // Submit review
+      const reviewPayload = {
+        rating,
+        review_text: reviewText,
+        order_item_id: item.id,
+        images: uploadedImages,
+      };
+
+      const reviewRes = await fetch(
+        `${BASE_URL}/product-reviews/products/${item.product.id}/reviews`,
         {
           method: "POST",
           headers: {
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ cancellation_reason_id: selectedReasonId }),
+          body: JSON.stringify(reviewPayload),
         }
       );
 
-      if (response.ok) {
-        alert("Order item cancelled successfully.");
-        location.reload();
-      } else {
-        const errData = await response.json();
-        alert(`Failed to cancel order: ${errData.message || "Unknown error"}`);
+      if (!reviewRes.ok) {
+        throw new Error("Failed to submit review");
       }
+
+      console.log("[v0] Review submitted successfully");
+      setSubmitSuccess(true);
+      setTimeout(() => {
+        onSubmitSuccess();
+        onClose();
+      }, 1500);
     } catch (error) {
-      console.error("Cancellation failed", error);
-      alert("An error occurred while cancelling the order.");
+      console.error("[v0] Review submission error:", error);
+      setSubmitError("Failed to submit review. Please try again.");
     } finally {
-      setIsCancelling(false);
+      setUploading(false);
     }
   };
 
-  // Status Color Helper
-  const getStatusColor = (status: string, isCancelled: boolean) => {
-    if (isCancelled || status?.toLowerCase() === "cancelled") {
-      return "bg-red-100 text-red-800 border-red-200";
+  if (!isOpen) return null;
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: "1rem",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: "12px",
+          padding: "2rem",
+          maxWidth: "500px",
+          width: "100%",
+          maxHeight: "90vh",
+          overflowY: "auto",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <h2 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700 }}>
+            Write Review
+          </h2>
+          <button
+            onClick={onClose}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        {submitSuccess ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "2rem 0",
+            }}
+          >
+            <CheckCircle2 size={48} style={{ color: "#2d6a4f" }} />
+            <p
+              style={{
+                fontSize: "1rem",
+                color: "#2d6a4f",
+                textAlign: "center",
+              }}
+            >
+              Review submitted successfully!
+            </p>
+          </div>
+        ) : (
+          <>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <p style={{ fontSize: "0.9rem", color: "#666", marginBottom: "0.5rem" }}>
+                {item.product.name}
+              </p>
+              <StarRating rating={rating} setRating={setRating} />
+            </div>
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Your Review
+              </label>
+              <textarea
+                value={reviewText}
+                maxLength={100}
+                onChange={(e) => setReviewText(e.target.value)}
+                placeholder="Share your experience with this product..."
+                style={{
+                  width: "100%",
+                  minHeight: "100px",
+                  padding: "0.75rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  fontFamily: "inherit",
+                  fontSize: "0.9rem",
+                  resize: "vertical",
+                }}
+              />
+              <div
+  style={{
+    textAlign: "right",
+    fontSize: "0.75rem",
+    color: "var(--od-text-light)",
+    marginTop: "0.35rem",
+  }}
+>
+  {reviewText.length}/100
+</div>
+            </div>
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Add Images (Optional)
+              </label>
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{
+                  padding: "0.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  width: "100%",
+                }}
+              />
+              {images.length > 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    marginTop: "0.75rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {images.map((img, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        position: "relative",
+                        width: "60px",
+                        height: "60px",
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                        border: "1px solid #d6d1c4",
+                      }}
+                    >
+                      <img
+                        src={URL.createObjectURL(img)}
+                        alt={`preview-${idx}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <button
+                        onClick={() => removeImage(idx)}
+                        style={{
+                          position: "absolute",
+                          top: "-2px",
+                          right: "-2px",
+                          background: "#d93025",
+                          color: "#fff",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "12px",
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {submitError && (
+              <div
+                style={{
+                  background: "#fce8e6",
+                  color: "#d93025",
+                  padding: "0.75rem",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                {submitError}
+              </div>
+            )}
+
+            <div
+              style={{
+                display: "flex",
+                gap: "0.75rem",
+                justifyContent: "flex-end",
+              }}
+            >
+              <button
+                onClick={onClose}
+                disabled={uploading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  background: "#fff",
+                  cursor: uploading ? "not-allowed" : "pointer",
+                  opacity: uploading ? 0.6 : 1,
+                  fontWeight: 600,
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitReview}
+                disabled={uploading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  background: "#C5D82D",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: uploading ? "not-allowed" : "pointer",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  opacity: uploading ? 0.6 : 1,
+                }}
+              >
+                {uploading && (
+                  <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
+                )}
+                {uploading ? "Submitting..." : "Submit Review"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
+    </div>
+  );
+};
+
+// ── Main OrderDetails Component ───────────────────────────────────────────────
+export default function OrderDetails({ order }: { order: Order }) {
+  const [reviewingItem, setReviewingItem] = useState<Item | null>(null);
+  const [editingReview, setEditingReview] = useState<Review | null>(null);
+  const [editingItem, setEditingItem] = useState<Item | null>(null);
+  const [reviewsUpdated, setReviewsUpdated] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [invoiceLoading, setInvoiceLoading] = useState(false);
+  const [invoiceError, setInvoiceError] = useState("");
+  const [orderStatus, setOrderStatus] = useState(order.status);
+
+  const styles = `
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+    
+    :root {
+      --od-bg:           #ebecdf;
+      --od-bg-card:      #f4f4f2;
+      --od-bg-white:     #ffffff;
+      --od-text-dark:    #1b1b1b;
+      --od-text-mid:     #5c5c5c;
+      --od-text-light:   #8a8a8a;
+      --od-border:       #d6d1c4;
+      --od-green-dark:   #124132;
+      --od-lime:         #C5D82D;
+      --od-red:          #b94040;
+      --od-red-light:    #fdf0f0;
+      --od-red-border:   #e8c5c5;
+      --od-green-ok:     #2d6a4f;
+      --od-green-light:  #edf5f0;
+      --od-green-border: #b4d9c8;
+      --od-amber:        #7a5c00;
+      --od-amber-light:  #fef9e6;
+      --od-amber-border: #e8d49a;
+      --od-blue:         #1a56a0;
+      --od-blue-light:   #eff6ff;
+      --od-blue-border:  #bfdbfe;
     }
-    switch (status?.toLowerCase()) {
-      case "delivered":
-        return "bg-green-100 text-green-800 border-green-200";
-      case "shipped":
-        return "bg-blue-100 text-blue-800 border-blue-200";
-      default:
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+
+    .od-page {
+      min-height: 100vh;
+      background: var(--od-bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--od-text-dark);
+      padding: 2rem 1.25rem 5rem;
+    }
+    .od-container { max-width: 860px; margin: 0 auto; }
+
+    .od-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--od-border);
+    }
+    .od-header-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .od-master-card {
+      background: var(--od-bg-white);
+      border: 1px solid var(--od-border);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .od-section {
+      padding: 1.5rem 1.75rem;
+      border-bottom: 1px solid var(--od-border);
+    }
+    .od-section:last-child { border-bottom: none; }
+
+    .od-section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .od-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .od-product-row {
+      display: flex;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--od-bg-card);
+      align-items: flex-start;
+    }
+    .od-product-row:last-child { border-bottom: none; }
+
+    .od-product-thumb {
+      width: 88px;
+      height: 88px;
+      border-radius: 12px;
+      background: var(--od-bg-card);
+      border: 1px solid var(--od-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .od-product-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 6px;
+    }
+
+    .od-product-body { flex: 1; min-width: 0; }
+    .od-product-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 0 0.3rem;
+    }
+    .od-product-desc {
+      font-size: 12px;
+      color: var(--od-text-mid);
+      margin: 0 0 0.6rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .od-review-section {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--od-border);
+    }
+
+    .od-review-display {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .od-review-btn {
+      padding: 0.5rem 1rem;
+      background: var(--od-lime);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: opacity 0.2s;
+    }
+    .od-review-btn:hover { opacity: 0.9; }
+
+    .od-price-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .od-price-table td {
+      padding: 6px 0;
+      font-size: 13.5px;
+    }
+    .od-price-table td:last-child { text-align: right; font-weight: 500; }
+    .od-price-table td:first-child { color: var(--od-text-mid); }
+
+    .od-summary-banner {
+      background: var(--od-text-dark);
+      border-radius: 14px;
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.1rem;
+    }
+    .od-banner-amount {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--od-lime);
+    }
+
+    .od-address-block {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: var(--od-bg-card);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+    }
+    .od-address-title { font-weight: 600; font-size: 12.5px; margin-bottom: 4px; }
+    .od-address-text { font-size: 12.5px; color: var(--od-text-mid); line-height: 1.7; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  
+  
+    @media (max-width: 768px) {
+  .od-page {
+    padding: 1rem 0.75rem 4rem;
+  }
+
+  .od-section {
+    padding: 1rem;
+  }
+
+  .od-product-row {
+    flex-direction: column;
+  }
+
+  .od-product-thumb {
+    width: 100%;
+    height: 220px;
+  }
+
+  .od-product-thumb img {
+    object-fit: contain;
+  }
+
+  .od-summary-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .od-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .od-header-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .od-product-thumb {
+    height: 180px;
+  }
+
+  .od-banner-amount {
+    font-size: 1.4rem;
+  }
+
+  .od-section-title {
+    font-size: 0.95rem;
+  }
+}
+
+.od-review-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.od-review-left {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.od-review-images {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  max-width: 260px;
+}
+
+.od-review-image-box {
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--od-border);
+  background: #fff;
+}
+
+.od-review-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.od-review-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.od-review-text {
+  font-size: 0.9rem;
+  color: var(--od-text-mid);
+  margin: 0 0 0.7rem;
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+.od-review-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.od-review-rating {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-left: 0.35rem;
+}
+
+.od-review-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.7rem;
+}
+
+.od-review-edit-btn {
+  background: #fff;
+  border: 1px solid var(--od-border);
+  border-radius: 8px;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.od-review-edit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}
+
+.od-review-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .od-review-layout {
+    flex-direction: column;
+  }
+
+  .od-review-left {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .od-review-images {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100%;
+    padding-bottom: 0.3rem;
+  }
+
+  .od-review-image-box {
+    width: 74px;
+    height: 74px;
+    min-width: 74px;
+  }
+
+  .od-review-right {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .od-review-text {
+    margin-top: 0.2rem;
+    font-size: 0.88rem;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .od-review-images {
+    display: grid;
+    grid-template-columns: repeat(3, 74px);
+    overflow-x: auto;
+    gap: 0.55rem;
+    width: 100%;
+  }
+}
+    `;
+
+  
+
+  const getStatusColor = (status: string) => {
+    const s = status?.toLowerCase() || "";
+    if (s.includes("deliver")) return "var(--od-green-ok)";
+    if (s.includes("cancel")) return "var(--od-red)";
+    return "var(--od-amber)";
+  };
+
+  const isOrderDelivered = orderStatus?.toLowerCase().includes("deliver");
+  const isOrderProcessing = orderStatus?.toLowerCase().includes("processing");
+  
+  const getOrderAge = () => {
+    const orderDate = new Date(order.order_date);
+    const now = new Date();
+    const hoursOld = (now.getTime() - orderDate.getTime()) / (1000 * 60 * 60);
+    return hoursOld;
+  };
+
+  const canCancelOrder = isOrderProcessing && getOrderAge() < 24;
+
+  const handleDownloadInvoice = async () => {
+    try {
+      setInvoiceLoading(true);
+      setInvoiceError("");
+
+      const token = getCookie("token");
+      const res = await fetch(
+        `${BASE_URL}/grasa/shop/${order.id}/generate-invoice`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to generate invoice");
+      }
+
+      const data = await res.json();
+      if (data.pdf_url) {
+        // Open PDF in new tab
+        window.open(data.pdf_url, "_blank");
+      }
+    } catch (err) {
+      console.error("[v0] Invoice download error:", err);
+      setInvoiceError("Failed to download invoice");
+    } finally {
+      setInvoiceLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 font-sans text-gray-900">
-      <div className="max-w-6xl mx-auto space-y-6">
-        
-        {/* --- HEADER --- */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="od-page">
+      <style>{styles}</style>
+      <div className="od-container">
+        {/* Header */}
+        <div className="od-header">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-              <Package className="w-8 h-8 text-indigo-600" />
-              Order #{order.id}
-            </h1>
-            <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-gray-600">
-              <div className="flex items-center gap-1.5">
-                <CalendarDays className="w-4 h-4" />
-                {new Date(order.order_date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit"
-                })}
-              </div>
-              <div className="hidden md:block w-1.5 h-1.5 rounded-full bg-gray-300" />
-              <div className="flex items-center gap-1.5">
-                <CreditCard className="w-4 h-4" />
-                {order.payment_transaction?.payment_gateway || "Standard Checkout"}
-              </div>
+            <h1 className="od-header-title">Order #{order.id}</h1>
+            <div
+              style={{
+                fontSize: "0.9rem",
+                color: "var(--od-text-mid)",
+                marginTop: "0.5rem",
+              }}
+            >
+              {new Date(order.order_date).toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
             </div>
           </div>
-          <div
-            className={`px-4 py-1.5 rounded-full text-sm font-semibold border ${getStatusColor(
-              order.status, !!isCancelled
-            )} flex items-center gap-2 max-w-max`}
-          >
-            {order.status === "Delivered" && !isCancelled && <CheckCircle2 className="w-4 h-4" />}
-            {isCancelled && <XCircle className="w-4 h-4" />}
-            {isCancelled ? "Cancelled" : order.status}
+          <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+            {invoiceError && (
+              <div
+                style={{
+                  background: "#fce8e6",
+                  color: "#d93025",
+                  padding: "0.5rem 0.75rem",
+                  borderRadius: "6px",
+                  fontSize: "0.85rem",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {invoiceError}
+              </div>
+            )}
+            <button
+              onClick={handleDownloadInvoice}
+              disabled={invoiceLoading}
+              style={{
+                padding: "0.65rem 1.2rem",
+                background: "var(--od-lime)",
+                border: "none",
+                borderRadius: "8px",
+                fontWeight: 600,
+                fontSize: "0.9rem",
+                cursor: invoiceLoading ? "not-allowed" : "pointer",
+                opacity: invoiceLoading ? 0.6 : 1,
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {invoiceLoading ? (
+                <Loader2 size={18} style={{ animation: "spin 1s linear infinite" }} />
+              ) : (
+                <Download size={18} />
+              )}
+              {invoiceLoading ? "Generating..." : "Download Invoice"}
+            </button>
           </div>
         </div>
 
-        {/* --- MAIN GRID --- */}
-        <div className="grid lg:grid-cols-12 gap-6">
-          
-          {/* LEFT COLUMN: PRODUCT IMAGE (Sticky) */}
-          <div className="lg:col-span-5">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-6">
-              {product?.image ? (
-                <div className="aspect-square rounded-xl bg-gray-50 flex items-center justify-center p-4">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="max-w-full max-h-full object-contain mix-blend-multiply"
-                  />
-                </div>
-              ) : (
-                <div className="aspect-square rounded-xl bg-gray-100 flex items-center justify-center">
-                  <Package className="w-20 h-20 text-gray-300" />
-                </div>
-              )}
-              <div className="mt-6">
-                <h2 className="text-xl font-bold text-gray-900 leading-tight">
-                  {product?.name}
-                </h2>
-                {product?.category && (
-                  <p className="text-sm text-indigo-600 font-medium mt-1">
-                    {product.category}
-                  </p>
-                )}
-                {product?.description && (
-                  <p className="mt-4 text-sm text-gray-600 line-clamp-3">
-                    {product.description}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN: DETAILS */}
-          <div className="lg:col-span-7 space-y-6">
-            
-            {/* CANCELLATION SECTION */}
-            {isCancelled ? (
-              <div className="bg-red-50 border border-red-100 rounded-2xl p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-2 text-red-800">
-                  <XCircle className="w-6 h-6" />
-                  <h3 className="font-bold text-lg">Order Cancelled</h3>
-                </div>
-                <p className="text-red-700 text-sm mb-1">
-                  <span className="font-semibold">Reason:</span> {cancellationReason.description || cancellationReason.code || "No reason provided."}
-                </p>
-              </div>
-            ) : canCancel ? (
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                {!showCancelForm ? (
-                  <div className="flex items-center justify-between flex-wrap gap-4">
-                     <div>
-                       <h3 className="font-bold text-lg text-gray-900 mb-1">Cancel Order</h3>
-                       <p className="text-sm text-gray-500">You can cancel this order within 24 hours of placing it.</p>
-                     </div>
-                     <button
-                        onClick={() => setShowCancelForm(true)}
-                        className="px-5 py-2.5 rounded-xl text-sm font-medium text-red-600 border border-red-200 hover:bg-red-50 transition-colors"
-                      >
-                        Cancel Item
-                      </button>
-                  </div>
-                ) : (
-                  <div className="animate-in fade-in slide-in-from-top-4 duration-500 space-y-4">
-                    <div className="flex items-center gap-2 text-red-600 mb-4">
-                      <AlertCircle className="w-5 h-5" />
-                      <h4 className="font-semibold">Why are you cancelling?</h4>
-                    </div>
-                    
-                    <div className="space-y-3">
-                      {cancellationReasonsList.length > 0 ? (
-                        cancellationReasonsList.map((reason) => (
-                          <label key={reason.id} className="flex items-start gap-3 p-3 border border-gray-100 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                            <input
-                              type="radio"
-                              name="cancel_reason"
-                              value={reason.id || ""}
-                              checked={selectedReasonId === reason.id}
-                              onChange={() => setSelectedReasonId(reason.id)}
-                              className="mt-0.5 text-red-600 focus:ring-red-500"
-                            />
-                            <div>
-                              <p className="text-sm font-medium text-gray-900">{reason.code?.replace(/_/g, ' ')}</p>
-                              <p className="text-xs text-gray-500">{reason.description}</p>
-                            </div>
-                          </label>
-                        ))
-                      ) : (
-                         <p className="text-sm text-gray-500">Loading cancellation reasons...</p>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-end gap-3 pt-4">
-                      <button
-                        onClick={() => setShowCancelForm(false)}
-                        disabled={isCancelling}
-                        className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors"
-                      >
-                        Keep Order
-                      </button>
-                      <button
-                        onClick={handleCancelOrder}
-                        disabled={isCancelling || !selectedReasonId}
-                        className="bg-red-600 hover:bg-red-700 disabled:bg-red-300 disabled:cursor-not-allowed text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm flex items-center gap-2"
-                      >
-                        {isCancelling ? "Cancelling..." : "Confirm Cancellation"}
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : null}
-
-            {/* PRICING & SUMMARY CARDS GRID */}
-            <div className="grid sm:grid-cols-2 gap-6">
-              {/* Pricing Details */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <div className="flex items-center gap-2 mb-4 text-gray-900">
-                  <Receipt className="w-5 h-5 text-indigo-600" />
-                  <h3 className="font-bold text-lg">Item Pricing</h3>
-                </div>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between text-gray-600">
-                    <span>MRP (Unit)</span>
-                    <span className="line-through">₹{product?.mrp}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Effective Price</span>
-                    <span>₹{product?.effective_price}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Quantity</span>
-                    <span className="font-medium text-gray-900">
-                      x {item?.quantity}
-                    </span>
-                  </div>
-                  <div className="pt-3 border-t border-gray-100 flex justify-between font-semibold text-base">
-                    <span>Item Subtotal</span>
-                    <span>₹{item?.subtotal}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Order Summary */}
-              <div className="bg-indigo-50 rounded-2xl p-6 shadow-sm border border-indigo-100">
-                <h3 className="font-bold text-lg mb-4 text-indigo-900">
-                  Order Summary
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between text-indigo-800/80">
-                    <span>Total MRP</span>
-                    <span>₹{order.total_mrp}</span>
-                  </div>
-                  <div className="flex justify-between text-green-700">
-                    <span>Total Discount</span>
-                    <span>- ₹{order.offer_discount}</span>
-                  </div>
-                  <div className="pt-3 border-t border-indigo-200/60 flex justify-between font-bold text-xl text-indigo-900">
-                    <span>Total Paid</span>
-                    <span>
-                      ₹{order.total_amount} {order.currency}
-                    </span>
-                  </div>
-                </div>
-              </div>
+        {/* Master Card */}
+        <div className="od-master-card">
+          {/* Products Section */}
+          <div className="od-section">
+            <div className="od-section-heading">
+              <h2 className="od-section-title">Order Items</h2>
             </div>
 
-            {/* SHIPPING ADDRESS */}
-            {address && (
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <div className="flex items-center gap-2 mb-4">
-                  <Truck className="w-5 h-5 text-indigo-600" />
-                  <h3 className="font-bold text-lg">Shipping Details</h3>
-                </div>
-                <div className="flex items-start gap-3 bg-gray-50 rounded-xl p-4">
-                  <MapPin className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" />
-                  <div className="text-sm text-gray-700 leading-relaxed">
-                    <p className="font-medium text-gray-900 mb-1">Delivery Address</p>
-                    <p>{address.street}</p>
-                    {address.landmark && <p>Landmark: {address.landmark}</p>}
-                    <p>
-                      {address.city}, {address.state} - {address.postal_code}
-                    </p>
-                    {address.country && <p>{address.country}</p>}
-                  </div>
-                </div>
-              </div>
-            )}
+            {order.items.map((item) => {
+              const hasReview = hasValidReview(item.reviews);
+              const review = item.reviews;
 
-            {/* REVIEWS SECTION */}
-            {shouldShowReviewSection && (
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <div className="flex items-center gap-2 mb-6">
-                  <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-                  <h3 className="font-bold text-lg">Product Rating & Review</h3>
-                </div>
-
-                {/* Existing Review */}
-                {hasExistingReview ? (
-                  <div className="bg-gray-50 border border-gray-100 rounded-xl p-5">
-                    <div className="flex items-center gap-1 mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-5 h-5 ${
-                            i < (review.rating || 0)
-                              ? "fill-yellow-400 text-yellow-400"
-                              : "fill-gray-200 text-gray-200"
-                          }`}
-                        />
-                      ))}
-                      <span className="ml-2 font-medium text-sm text-gray-600">
-                        {review.rating}/5
-                      </span>
-                    </div>
-                    <p className="text-gray-700 text-sm leading-relaxed mb-4">
-                      "{review.review_text}"
-                    </p>
-                    {review.images && review.images.length > 0 && (
-                      <div className="flex flex-wrap gap-3">
-                        {review.images.map((img, i) => (
-                          <div
-                            key={i}
-                            className="w-20 h-20 rounded-lg overflow-hidden border border-gray-200"
-                          >
-                            <img
-                              src={img.url}
-                              alt="Review upload"
-                              className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    )}
+              return (
+                <div key={item.id} className="od-product-row">
+                  <div className="od-product-thumb">
+                    <img
+                      src={item.product.image || "/placeholder.png"}
+                      alt={item.product.name}
+                    />
                   </div>
-                ) : (
-                  /* Add Review Trigger & Form (Only shows if Delivered and Not Cancelled) */
-                  !showReviewForm ? (
-                    <button
-                      onClick={() => setShowReviewForm(true)}
-                      className="w-full sm:w-auto bg-gray-900 hover:bg-black text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200 shadow-sm"
+                  <div className="od-product-body">
+                    <h3 className="od-product-name">{item.product.name}</h3>
+                    <p className="od-product-desc">
+                      {item.product.description}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "1rem",
+                        fontSize: "0.9rem",
+                        color: "var(--od-text-mid)",
+                      }}
                     >
-                      Write a Product Review
-                    </button>
-                  ) : (
-                    <div className="animate-in fade-in slide-in-from-top-4 duration-500 space-y-6 bg-gray-50 border border-gray-100 p-6 rounded-xl">
-                      <h4 className="font-semibold text-gray-900">
-                        Share your experience
-                      </h4>
+                      <span>Qty: {item.quantity}</span>
+                      <span>₹{parseFloat(item.price_at_order).toLocaleString()}</span>
+                    </div>
 
-                      {/* Interactive Star Rating */}
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">
-                          Rate this product
-                        </label>
-                        <StarRating rating={rating} setRating={setRating} />
-                      </div>
+                    {/* Review Section */}
+                    <div className="od-review-section">
+                      {hasReview && review && review.id && review.rating !== null ? (
+                        <div
+  className="od-review-card"
+  style={{
+    background: "var(--od-bg-card)",
+    borderRadius: "16px",
+    padding: "1rem",
+    marginTop: "1rem",
+    width: "100%",
+    overflow: "hidden",
+    border: "1px solid rgba(214,209,196,0.7)",
+  }}
+>
+  <div className="od-review-layout">
+    {/* LEFT */}
+    <div className="od-review-left">
+      {/* IMAGES */}
+      {review?.images && review.images.length > 0 && (
+        <div className="od-review-images">
+          {review.images.map((img, idx) => (
+            <div key={idx} className="od-review-image-box">
+              <img
+                src={img.url}
+                alt={`review-${idx}`}
+                className="od-review-image"
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
-                      {/* Review Text */}
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">
-                          Detailed Review
-                        </label>
-                        <textarea
-                          placeholder="What did you like or dislike? What should other shoppers know?"
-                          className="w-full min-h-[120px] p-4 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all outline-none resize-y text-sm"
-                          value={reviewText}
-                          onChange={(e) => setReviewText(e.target.value)}
-                        />
-                      </div>
+      {/* CONTENT */}
+      <div className="od-review-content">
+        {/* REVIEW TEXT */}
+        {review?.review_text && (
+          <p className="od-review-text">
+            {review.review_text}
+          </p>
+        )}
 
-                      {/* Custom Image Upload */}
-                      <div className="space-y-3">
-                        <label className="text-sm font-medium text-gray-700">
-                          Attach Photos (Optional)
-                        </label>
-                        
-                        <div className="flex flex-wrap items-center gap-4">
-                          <div className="relative">
-                            <input
-                              type="file"
-                              id="file-upload"
-                              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
-                              disabled={uploading}
-                              onChange={(e) =>
-                                e.target.files && handleImageUpload(e.target.files[0])
-                              }
-                            />
-                            <div className="w-24 h-24 border-2 border-dashed border-gray-300 hover:border-indigo-500 rounded-xl flex flex-col items-center justify-center bg-white transition-colors duration-200">
-                              {uploading ? (
-                                <span className="text-xs font-medium text-gray-500 animate-pulse">
-                                  Uploading...
-                                </span>
-                              ) : (
-                                <>
-                                  <UploadCloud className="w-6 h-6 text-gray-400 mb-1" />
-                                  <span className="text-xs font-medium text-gray-500">
-                                    Add Photo
-                                  </span>
-                                </>
-                              )}
-                            </div>
-                          </div>
+        {/* STARS */}
+        <div className="od-review-stars">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              size={16}
+              fill={i < (review?.rating || 0) ? "#f0a500" : "none"}
+              color={i < (review?.rating || 0) ? "#f0a500" : "#d6d1c4"}
+            />
+          ))}
 
-                          {/* Image Previews */}
-                          {images.map((img, i) => (
-                            <div
-                              key={i}
-                              className="w-24 h-24 rounded-xl border border-gray-200 overflow-hidden relative group"
-                            >
-                              <img
-                                src={img.url}
-                                className="w-full h-full object-cover"
-                                alt="Preview"
-                              />
-                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <CheckCircle2 className="text-white w-6 h-6" />
-                              </div>
-                            </div>
+          <span className="od-review-rating">
+            {review?.rating}/5
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {/* RIGHT */}
+    <div className="od-review-right">
+      {/* EDIT */}
+      {review?.id && (
+        <button
+          onClick={() => {
+            setEditingReview(review);
+            setEditingItem(item);
+          }}
+          className="od-review-edit-btn"
+        >
+          <Edit2 size={14} />
+          Edit
+        </button>
+      )}
+
+      {/* STATUS */}
+      {review?.status && (
+        <span
+          className="od-review-status"
+          style={{
+            background:
+              review.status === "approved"
+                ? "var(--od-green-light)"
+                : review.status === "pending"
+                ? "var(--od-amber-light)"
+                : "var(--od-red-light)",
+            color:
+              review.status === "approved"
+                ? "var(--od-green-dark)"
+                : review.status === "pending"
+                ? "var(--od-amber)"
+                : "var(--od-red)",
+          }}
+        >
+          {review.status}
+        </span>
+      )}
+    </div>
+  </div>
+</div>
+                      ) : isOrderDelivered ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            fontSize: "0.85rem",
+                            color: "var(--od-text-mid)",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => setReviewingItem(item)}
+                        >
+                          {[...Array(5)].map((_, index) => (
+                            <Star key={index} size={16} color="#d6d1c4" />
                           ))}
                         </div>
-                      </div>
 
-                      {/* Actions */}
-                      <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
-                        <button
-                          onClick={() => setShowReviewForm(false)}
-                          className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-200 transition-colors"
+                      ) : (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            fontSize: "0.85rem",
+                            color: "var(--od-text-mid)",
+                          }}
                         >
-                          Cancel
-                        </button>
-                        <button
-                          onClick={submitReview}
-                          className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm"
-                        >
-                          Submit Review
-                        </button>
-                      </div>
+                        </div>
+                      )}
                     </div>
-                  )
-                )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Address Section */}
+          {order.items[0]?.shipping_address && (
+            <div className="od-section">
+              <div className="od-section-heading">
+                <h2 className="od-section-title">Shipping Address</h2>
+              </div>
+              <div className="od-address-block">
+                <div className="od-address-text">
+                  <p style={{ margin: 0 }}>
+                    <strong>{order.items[0].shipping_address.street}</strong>
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    {order.items[0].shipping_address.city},{" "}
+                    {order.items[0].shipping_address.state}{" "}
+                    {order.items[0].shipping_address.postal_code}
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    {order.items[0].shipping_address.country}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Pricing Section */}
+          <div className="od-section">
+            <div className="od-section-heading">
+              <h2 className="od-section-title">Price Summary</h2>
+            </div>
+            <table className="od-price-table">
+  <tbody>
+    {/* PRODUCTS */}
+    {order.items.map((item) => (
+      <tr key={item.id}>
+        <td>{item.product.name}</td>
+        <td>
+          {item.quantity} × ₹
+          {parseFloat(item.price_at_order).toLocaleString()}
+        </td>
+      </tr>
+    ))}
+
+    {/* SUBTOTAL */}
+    <tr style={{ borderTop: "1px solid var(--od-border)" }}>
+      <td style={{ paddingTop: "0.9rem" }}>Subtotal</td>
+      <td style={{ paddingTop: "0.9rem" }}>
+        ₹
+        {order.items
+          .reduce(
+            (sum, item) =>
+              sum +
+              parseFloat(item.price_at_order) * item.quantity,
+            0
+          )
+          .toLocaleString()}
+      </td>
+    </tr>
+
+    {/* PRODUCT DISCOUNT */}
+    {order.discount_amount &&
+      parseFloat(order.discount_amount) > 0 && (
+        <tr>
+          <td style={{ color: "var(--od-green-ok)" }}>
+            Coupon Discount
+          </td>
+
+          <td style={{ color: "var(--od-green-ok)" }}>
+            -₹
+            {parseFloat(order.discount_amount).toLocaleString()}
+          </td>
+        </tr>
+      )}
+
+    {/* OFFER DISCOUNT */}
+    {order.offer_discount &&
+      parseFloat(order.offer_discount) > 0 && (
+        <tr>
+          <td style={{ color: "var(--od-green-ok)" }}>
+            Offer Discount
+          </td>
+
+          <td style={{ color: "var(--od-green-ok)" }}>
+            -₹
+            {parseFloat(order.offer_discount).toLocaleString()}
+          </td>
+        </tr>
+      )}
+
+    {/* MHC POINTS */}
+    {order.mhc_points &&
+      parseFloat(order.mhc_points) > 0 && (
+        <tr>
+          <td
+            style={{
+              color: "var(--od-green-ok)",
+              fontWeight: 600,
+            }}
+          >
+            MHC Points Used
+          </td>
+
+          <td
+            style={{
+              color: "var(--od-green-ok)",
+              fontWeight: 700,
+            }}
+          >
+            -₹
+            {parseFloat(order.mhc_points).toLocaleString()}
+          </td>
+        </tr>
+      )}
+
+    {/* TOTAL MRP */}
+    {/* {order.total_mrp && (
+      <tr>
+        <td
+          style={{
+            color: "var(--od-text-light)",
+          }}
+        >
+          Total MRP
+        </td>
+
+        <td
+          style={{
+            color: "var(--od-text-light)",
+            textDecoration: "line-through",
+          }}
+        >
+          ₹{parseFloat(order.total_mrp).toLocaleString()}
+        </td>
+      </tr>
+    )} */}
+  </tbody>
+</table>
+
+           <div className="mt-4 flex items-center justify-between gap-4 rounded-2xl bg-[#1b1b1b] p-4 sm:p-5 md:p-6">
+  
+  {/* LEFT */}
+  <div className="min-w-0">
+    <div className="text-[11px] sm:text-xs font-medium tracking-[2px] text-white/50">
+      TOTAL
+    </div>
+
+    <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#C5D82D] leading-none">
+      ₹{parseFloat(order.total_amount).toLocaleString()}
+    </div>
+  </div>
+
+  {/* RIGHT */}
+  <div className="min-w-0 text-right">
+    <div className="text-[11px] sm:text-xs font-medium tracking-[2px] text-white/50">
+      STATUS
+    </div>
+
+    <div
+      className="mt-1 text-lg sm:text-xl font-bold capitalize leading-none"
+      style={{
+        color: getStatusColor(orderStatus),
+      }}
+    >
+      {orderStatus}
+    </div>
+  </div>
+</div>
+
+            {/* Cancel Order Section */}
+            {canCancelOrder && (
+              <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid var(--od-border)" }}>
+                <button
+                  onClick={() => setShowCancelModal(true)}
+                  style={{
+                    padding: "0.75rem 1.5rem",
+                    background: "#d93025",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "8px",
+                    fontWeight: 600,
+                    fontSize: "0.9rem",
+                    cursor: "pointer",
+                    transition: "opacity 0.2s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                >
+                  Cancel Order
+                </button>
+                <p
+                  style={{
+                    fontSize: "0.85rem",
+                    color: "var(--od-text-mid)",
+                    marginTop: "0.5rem",
+                    margin: "0.5rem 0 0 0",
+                  }}
+                >
+                  You can cancel this order within 24 hours of ordering
+                </p>
               </div>
             )}
-            
           </div>
         </div>
       </div>
+
+      {/* Review Modal */}
+      <ReviewModal
+        item={reviewingItem!}
+        isOpen={!!reviewingItem}
+        onClose={() => setReviewingItem(null)}
+        onSubmitSuccess={() => setReviewsUpdated(!reviewsUpdated)}
+      />
+
+      {/* Edit Review Modal */}
+      <EditReviewModal
+        item={editingItem!}
+        review={editingReview!}
+        isOpen={!!editingReview && !!editingItem}
+        onClose={() => {
+          setEditingReview(null);
+          setEditingItem(null);
+        }}
+        onSubmitSuccess={() => setReviewsUpdated(!reviewsUpdated)}
+      />
+
+      {/* Cancel Modal */}
+      <CancelModal
+        isOpen={showCancelModal}
+        onClose={() => setShowCancelModal(false)}
+        onSuccess={() => setOrderStatus("Cancelled")}
+        orderId={order.id}
+      />
     </div>
   );
 }

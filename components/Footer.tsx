@@ -1,143 +1,9 @@
-// "use client";
- 
-// import { Mail, Phone, MapPin } from "lucide-react";
- 
-// export default function Footer() {
-//   return (
-//     <footer className="bg-[#071a33] text-gray-300 w-full">
-//       <div className="max-w-7xl mx-auto px-6 py-16">
- 
-//         {/* TOP GRID */}
-//         <div className="grid md:grid-cols-4 gap-10">
- 
-//           {/* BRAND */}
-//           <div>
-//             <h2 className="text-white text-2xl font-semibold mb-4">
-//               GRASA.
-//             </h2>
- 
-//             <p className="text-gray-400 leading-relaxed mb-6">
-//               Precision nutrition and functional foods crafted to support gut
-//               health, anti-aging, and disease reversal.
-//             </p>
- 
-//             <div className="flex gap-4">
-//               {["YT", "IG", "FB", "💬"].map((item, i) => (
-//                 <div
-//                   key={i}
-//                   className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition cursor-pointer"
-//                 >
-//                   {item}
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
- 
-//           {/* QUICK LINKS */}
-//           <div>
-//             <h3 className="text-white font-semibold mb-4 tracking-wide">
-//               QUICK LINKS
-//             </h3>
- 
-//             <ul className="space-y-3 text-gray-400">
-//               <li className="hover:text-white cursor-pointer">
-//                 Take The Gut Test™
-//               </li>
-//               <li className="hover:text-white cursor-pointer">
-//                 My Recommended Plan
-//               </li>
-//               <li className="hover:text-white cursor-pointer">
-//                 All Products
-//               </li>
-//               <li className="hover:text-white cursor-pointer">
-//                 Customer Stories
-//               </li>
-//               <li className="hover:text-white cursor-pointer">
-//                 Blog
-//               </li>
-//             </ul>
-//           </div>
- 
-//           {/* POLICIES */}
-//           <div>
-//             <h3 className="text-white font-semibold mb-4 tracking-wide">
-//               POLICIES
-//             </h3>
- 
-//             <ul className="space-y-3 text-gray-400">
-//               <li className="hover:text-white cursor-pointer">
-//                 Money Back Policy
-//               </li>
-//               <li className="hover:text-white cursor-pointer">
-//                 Return Policy
-//               </li>
-//               <li className="hover:text-white cursor-pointer">
-//                 Privacy Policy
-//               </li>
-//               <li className="hover:text-white cursor-pointer">
-//                 Terms & Conditions
-//               </li>
-//               <li className="hover:text-white cursor-pointer">
-//                 Our Story
-//               </li>
-//             </ul>
-//           </div>
- 
-//           {/* CONTACT */}
-//           <div>
-//             <h3 className="text-white font-semibold mb-4 tracking-wide">
-//               CONTACT US
-//             </h3>
- 
-//             <div className="space-y-4 text-gray-400">
- 
-//               <div className="flex items-center gap-3">
-//                 <Mail size={18} />
-//                 hello@grasafoods.com
-//               </div>
- 
-//               <div className="flex items-center gap-3">
-//                 <Phone size={18} />
-//                 +91 9876543210
-//               </div>
- 
-//               <div className="flex items-start gap-3">
-//                 <MapPin size={18} />
-//                 MediCAPS Healthcare Ecosystem, India
-//               </div>
- 
-//             </div>
-//           </div>
- 
-//         </div>
- 
-//         {/* DIVIDER */}
-//         <div className="border-t border-white/10 mt-14 pt-6 flex flex-col md:flex-row justify-between text-sm text-gray-500">
- 
-//           <p>
-//             © 2025 GRASA Foods. Powered by MediCAPS. All rights reserved.
-//           </p>
- 
-//           <p>
-//             Precision Nutrition · AI-Powered Healthcare
-//           </p>
- 
-//         </div>
- 
-//       </div>
-//     </footer>
-//   );
-// }
-
-
-
-
 // "use client"
 
 // import Link from "next/link"
 // import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa"
 
-// // --- JSON-LD Schema Generation (Unchanged, as it's for SEO/data, not UI) ---
+// // --- JSON-LD Schema Generation ---
 // const generateFooterSchema = () => {
 //   const domain = "https://www.grasafoods.com"
 //   const logoUrl = `${domain}/GRASA.png`
@@ -154,7 +20,7 @@
 //         "@type": "ContactPoint",
 //         "telephone": "+91-9870263399",
 //         "contactType": "customer service",
-//         "email": "support@grasafoods.com",
+//         "email": "",
 //         "areaServed": "IN",
 //         "availableLanguage": "en",
 //       },
@@ -176,7 +42,7 @@
 
 //   // 2. Site Navigation Schema
 //   const navigationLinks = [
-//     { href: "/products", label: "Products" },
+//     { href: "/products", label: "Products"support@grasafoods.com },
 //     { href: "/millet", label: "Millet" },
 //     { href: "/partner", label: "Partner" },
 //     { href: "/privacy-policy", label: "Privacy & Policy" },
@@ -235,62 +101,70 @@
 //       />
 
 //       {/* FOOTER STRUCTURE START */}
-//       <footer className="bg-gray-100 border-t border-gray-200 text-gray-700">
-//         <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 py-12 md:py-16">
+//       <footer className="bg-[#f4f4f2] border-t border-[#d6d1c4] text-[#5c5c5c] font-sans">
+//         <div className="mx-auto max-w-7xl px-6 lg:px-12 py-16 md:py-24">
 
 //           {/* Top Section: Logo, Info, Links, and Social */}
-//           <div className="grid grid-cols-1 gap-10 md:grid-cols-4 lg:grid-cols-5">
+//           <div className="grid grid-cols-1 gap-12 md:grid-cols-4 lg:grid-cols-5">
 
 //             {/* Column 1: Company Logo and Core Info */}
-//             <div className="md:col-span-2 lg:col-span-2 space-y-5">
-//               <div className="flex items-center gap-3">
-//                 <img
-//                   src="/logo.png"
-//                   alt="Grasa logo"
-//                   className="h-14 w-14 rounded-full shadow-md"
-//                 />
-//                 <h2 className="font-sans text-xl uppercase font-bold tracking-tight text-gray-800">
-//                   GRASA
-//                 </h2>
-//               </div>
+//             <div className="md:col-span-2 lg:col-span-2 space-y-6">
+//   {/* Replaced the div with a Link tag and added 'w-fit' so the clickable area wraps tightly */}
+//   <Link href="/" className="flex items-center gap-4 cursor-pointer w-fit group">
+//     <div className="bg-white p-1 rounded-2xl shadow-sm border border-[#d6d1c4] transition-colors group-hover:border-[#1b1b1b]">
+//       <img
+//         src="/logo.png"
+//         alt="Grasa logo"
+//         className="h-14 w-14 object-contain transition-transform group-hover:scale-105"
+//       />
+//     </div>
+//     <h2 className="text-2xl uppercase font-extrabold tracking-tight text-[#1b1b1b]">
+//       GRASA
+//     </h2>
+//   </Link>
 
-//               <p className="text-md text-gray-600 max-w-md">
+//               <p className="text-[15px] font-medium leading-relaxed max-w-sm">
 //                 Precision Nutrition Innovation Arm of MediCAPS. Dedicated to evidence-based wellness with a gentle, clinical aesthetic.
 //               </p>
 
 //               {/* Contact Information */}
-//               <div className="space-y-2 text-md">
-//                 <p className="font-semibold text-gray-800">
+//               <div className="space-y-3 text-[15px] pt-2">
+//                 <p className="font-bold text-[#1b1b1b]">
 //                    GRASA MILLETS & FOODS PVT LTD
 //                 </p>
 //                 <p>
-//                   <a href="tel:9870263399" className="hover:text-primary transition-colors flex items-center gap-2">
-//                     <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-//                     +91 9870263399
+//                   <a href="tel:9870263399" className="hover:text-[#849411] transition-colors flex items-center gap-2 font-medium group">
+//                     <svg className="w-4 h-4 text-[#C5D82D] group-hover:text-[#849411] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+//                     +91 98702 63399
 //                   </a>
 //                 </p>
 //                 <p>
-//                   <a href="mailto:support@grasafoods.com" className="hover:text-primary transition-colors flex items-center gap-2">
-//                     <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+//                   <a href="mailto:support@grasafoods.com" className="hover:text-[#849411] transition-colors flex items-center gap-2 font-medium group">
+//                     <svg className="w-4 h-4 text-[#C5D82D] group-hover:text-[#849411] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
 //                     support@grasafoods.com
 //                   </a>
 //                 </p>
-//                 <p className="text-sm text-gray-600">
-//                   <span className="font-medium text-gray-700">FSSAI Regd. No.:</span> 23326009000349
-//                 </p>
+//                 <div className="pt-2">
+//                   <span className="inline-block bg-[#ebecdf] text-[#849411] text-xs font-bold px-3 py-1.5 rounded-lg uppercase tracking-wide">
+//                     FSSAI: 23326009000349
+//                   </span>
+//                 </div>
 //               </div>
 //             </div>
 
 //             {/* Column 2 & 3: Navigation Links */}
 //             {Object.entries(links).map(([group, items], index) => (
-//               <div key={group} className={`space-y-4 ${index === 0 ? 'md:col-span-1' : 'md:col-span-1'}`}>
-//                 <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary-500 inline-block pb-1">{group}</h3>
+//               <div key={group} className="space-y-5">
+//                 <div>
+//                   <h3 className="text-lg font-bold text-[#1b1b1b]">{group}</h3>
+//                   <div className="w-6 h-1 bg-[#C5D82D] mt-2 rounded-full"></div>
+//                 </div>
 //                 <ul className="space-y-3">
 //                   {items.map((it) => (
 //                     <li key={it.href}>
 //                       <Link
 //                         href={it.href}
-//                         className="text-md text-gray-600 hover:text-primary transition-colors block"
+//                         className="text-[15px] font-medium hover:text-[#1b1b1b] transition-all duration-300 block hover:translate-x-1"
 //                       >
 //                         {it.label}
 //                       </Link>
@@ -300,34 +174,36 @@
 //               </div>
 //             ))}
 
-//             {/* Column 4 (or 5): Address and Social Media */}
-//             <div className="space-y-4 lg:col-span-1">
-//               <h3 className="text-base font-bold text-gray-800 border-b-2 border-primary-500 inline-block pb-1">Our Location</h3>
-//               <a
-//                 href="https://www.google.com/maps?cid=3618521765991078645&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ"
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//                 className="text-md text-gray-600 leading-relaxed hover:text-primary block"
-//               >
-//                 IDC INDIA, GL-7, Ashoka Estate Building, Barakhamba Road,
-//                 Connaught Place, New Delhi – 110001
-//               </a>
-
+//             {/* Column 4: Address and Social Media */}
+//             <div className="space-y-6 lg:col-span-1">
+//               <div>
+//                 <h3 className="text-lg font-bold text-[#1b1b1b]">Our Location</h3>
+//                 <div className="w-6 h-1 bg-[#C5D82D] mt-2 rounded-full mb-4"></div>
+//                 <a
+//                   href="https://www.google.com/maps?cid=3618521765991078645&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ"
+//                   target="_blank"
+//                   rel="noopener noreferrer"
+//                   className="text-[15px] font-medium leading-relaxed hover:text-[#1b1b1b] transition-colors block"
+//                 >
+//                   IDC INDIA, GL-7, Ashoka Estate Building, Barakhamba Road,
+//                   Connaught Place, New Delhi – 110001
+//                 </a>
+//               </div>
 
 //               {/* Social Icons */}
-//               <div className="pt-2">
-//                 <h3 className="text-base font-bold text-gray-800 mb-3">Connect</h3>
-//                 <div className="flex items-center gap-3">
+//               <div className="pt-4">
+//                 <h3 className="text-sm font-bold text-[#1b1b1b] uppercase tracking-wider mb-4">Connect With Us</h3>
+//                 <div className="flex flex-wrap items-center gap-2">
 //                   {socialLinks.map(({ href, Icon, color, label }) => (
 //                     <a
 //                       key={label}
 //                       href={href}
 //                       target="_blank"
 //                       rel="noopener noreferrer"
-//                       className="transition-transform duration-300 hover:scale-110"
+//                       className="bg-white border border-[#d6d1c4] p-1 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-[#1b1b1b] hover:shadow-md group flex items-center justify-center"
 //                       aria-label={`Follow us on ${label}`}
 //                     >
-//                       <Icon size={46} style={{ color: color }} />
+//                       <Icon size={40} style={{ color: color }} className="transition-transform group-hover:scale-110" />
 //                     </a>
 //                   ))}
 //                 </div>
@@ -337,9 +213,12 @@
 //           </div>
 
 //           {/* Bottom Section: Copyright */}
-//           <div className="mt-6 pt-6 border-t border-gray-200 text-center">
-//             <p className="text-md text-gray-500">
-//               © {year} GRASA MILLETS & FOODS PVT. LTD. || All rights reserved.
+//           <div className="mt-8 pt-8 border-t border-[#d6d1c4] flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+//             <p className="text-sm font-medium">
+//               © {year} GRASA MILLETS & FOODS PVT. LTD. All rights reserved.
+//             </p>
+//             <p className="text-xs font-bold uppercase tracking-wider text-[#d6d1c4]">
+//               Precision Nutrition • Delhi NCR
 //             </p>
 //           </div>
 
@@ -357,21 +236,22 @@
 
 
 
+
+
 "use client"
 
 import Link from "next/link"
-import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa"
+import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaYoutube } from "react-icons/fa"
 
 // --- JSON-LD Schema Generation ---
 const generateFooterSchema = () => {
-  const domain = "https://www.grasafoods.com"
+  const domain = "https://www.grasamillets.com"
   const logoUrl = `${domain}/GRASA.png`
 
-  // 1. Organization Schema
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "GRASA SUPER FOODS BEVERAGES PVT LTD",
+    "name": "GRASA Millets & Foods Pvt. Ltd. New Delhi",
     "url": domain,
     "logo": logoUrl,
     "contactPoint": [
@@ -395,17 +275,18 @@ const generateFooterSchema = () => {
       "https://www.instagram.com/grasa.medicaps.official/",
       "https://www.facebook.com/profile.php?id=61583618278901",
       "https://www.linkedin.com/company/medicaps-medical-comprehensive-awareness-prevention-and-treatment-support/posts/?feedView=all",
-      "https://wa.me/919870263399"
+      "https://wa.me/919870263399",
+      "https://www.youtube.com/@grasamillets/shorts"
     ]
   }
 
-  // 2. Site Navigation Schema
   const navigationLinks = [
     { href: "/products", label: "Products" },
     { href: "/millet", label: "Millet" },
     { href: "/partner", label: "Partner" },
     { href: "/privacy-policy", label: "Privacy & Policy" },
     { href: "/terms-condition", label: "Terms & Conditions" },
+    // { href: "/about", label: "About Us" },
     { href: "/contact", label: "Contact Us" },
   ]
 
@@ -424,15 +305,14 @@ const generateFooterSchema = () => {
   return [organizationSchema, siteNavigationSchema]
 }
 
-// --- Social Icon Data ---
 const socialLinks = [
   { href: "https://www.facebook.com/profile.php?id=61583618278901", Icon: FaFacebook, color: "#1877F2", label: "Facebook" },
-  { href: "https://www.instagram.com/grasa.medicaps.official/", Icon: FaInstagram, color: "#dc1d5c", label: "Instagram" },
+  { href: "https://www.instagram.com/grasa_official/", Icon: FaInstagram, color: "#dc1d5c", label: "Instagram" },
   { href: "https://www.linkedin.com/company/medicaps-medical-comprehensive-awareness-prevention-and-treatment-support/posts/?feedView=all", Icon: FaLinkedin, color: "#0A66C2", label: "LinkedIn" },
   { href: "https://wa.me/919870263399", Icon: FaWhatsapp, color: "#25D366", label: "WhatsApp" },
+  { href: "https://www.youtube.com/@grasamillets/shorts", Icon: FaYoutube, color: "#FF0000", label: "YouTube" }
 ]
 
-// --- Footer Component ---
 export default function Footer() {
   const year = new Date().getFullYear()
   const schemaData = generateFooterSchema()
@@ -443,53 +323,62 @@ export default function Footer() {
       { href: "/blogs", label: "Blogs" },
       { href: "/vision-mission", label: "Vision & Mission" },
       { href: "/science", label: "Science" },
+      { 
+        href: "https://play.google.com/store/apps/details?id=com.idc.grasa&pcampaignid=web_share", 
+        label: "Get it on Play Store", 
+        isApp: true, 
+        img: "/play-store.png" 
+      },
+      { 
+        href: "https://apps.apple.com/in/app/grasa/id6754323632", 
+        label: "Download on App Store", 
+        isApp: true, 
+        img: "/App-store.png" 
+      },
     ],
     Legal: [
       { href: "/privacy-policy", label: "Privacy & Policy" },
       { href: "/terms-condition", label: "Terms & Conditions" },
       { href: "/cancellation-refund", label: "Cancellation & Refund Policy" },
+      { href: "/about", label: "About Us" },
+      { href: "/contact", label: "Contact Us" },
     ],
   }
 
   return (
     <>
-      {/* JSON-LD SCHEMA SCRIPT */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
 
-      {/* FOOTER STRUCTURE START */}
       <footer className="bg-[#f4f4f2] border-t border-[#d6d1c4] text-[#5c5c5c] font-sans">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12 py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 py-5">
 
-          {/* Top Section: Logo, Info, Links, and Social */}
           <div className="grid grid-cols-1 gap-12 md:grid-cols-4 lg:grid-cols-5">
 
             {/* Column 1: Company Logo and Core Info */}
             <div className="md:col-span-2 lg:col-span-2 space-y-6">
-  {/* Replaced the div with a Link tag and added 'w-fit' so the clickable area wraps tightly */}
-  <Link href="/" className="flex items-center gap-4 cursor-pointer w-fit group">
-    <div className="bg-white p-1 rounded-2xl shadow-sm border border-[#d6d1c4] transition-colors group-hover:border-[#1b1b1b]">
-      <img
-        src="/logo.png"
-        alt="Grasa logo"
-        className="h-14 w-14 object-contain transition-transform group-hover:scale-105"
-      />
-    </div>
-    <h2 className="text-2xl uppercase font-extrabold tracking-tight text-[#1b1b1b]">
-      GRASA
-    </h2>
-  </Link>
+              <Link href="/" className="flex items-center gap-4 cursor-pointer w-fit group">
+                <div className="bg-white p-1 rounded-2xl shadow-sm border border-[#d6d1c4] transition-colors group-hover:border-[#1b1b1b]">
+                  <img
+                    src="/logo.png"
+                    alt="Grasa logo"
+                    className="h-14 w-14 object-contain transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <h2 className="text-2xl uppercase font-extrabold tracking-tight text-[#1b1b1b]">
+                  GRASA
+                </h2>
+              </Link>
 
               <p className="text-[15px] font-medium leading-relaxed max-w-sm">
                 Precision Nutrition Innovation Arm of MediCAPS. Dedicated to evidence-based wellness with a gentle, clinical aesthetic.
               </p>
 
-              {/* Contact Information */}
               <div className="space-y-3 text-[15px] pt-2">
                 <p className="font-bold text-[#1b1b1b]">
-                   GRASA MILLETS & FOODS PVT LTD
+                   GRASA Millets & Foods Pvt. Ltd. New Delhi
                 </p>
                 <p>
                   <a href="tel:9870263399" className="hover:text-[#849411] transition-colors flex items-center gap-2 font-medium group">
@@ -512,8 +401,8 @@ export default function Footer() {
             </div>
 
             {/* Column 2 & 3: Navigation Links */}
-            {Object.entries(links).map(([group, items], index) => (
-              <div key={group} className="space-y-5">
+            {Object.entries(links).map(([group, items]) => (
+              <div key={group} className="space-y-2">
                 <div>
                   <h3 className="text-lg font-bold text-[#1b1b1b]">{group}</h3>
                   <div className="w-6 h-1 bg-[#C5D82D] mt-2 rounded-full"></div>
@@ -521,12 +410,29 @@ export default function Footer() {
                 <ul className="space-y-3">
                   {items.map((it) => (
                     <li key={it.href}>
-                      <Link
-                        href={it.href}
-                        className="text-[15px] font-medium hover:text-[#1b1b1b] transition-all duration-300 block hover:translate-x-1"
-                      >
-                        {it.label}
-                      </Link>
+                      {it.isApp ? (
+                        /* App Store / Play Store Badges — fixed to same height & width */
+                        <a 
+                          href={it.href} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-block transition-transform hover:scale-102 active:scale-95"
+                        >
+                          <img 
+                            src={it.img} 
+                            alt={it.label} 
+                            className="h-12 w-auto  object-contain"
+                          />
+                        </a>
+                      ) : (
+                        /* Regular Links */
+                        <Link
+                          href={it.href}
+                          className="text-[15px] font-medium hover:text-[#1b1b1b] transition-all duration-300 block hover:translate-x-1"
+                        >
+                          {it.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -539,7 +445,7 @@ export default function Footer() {
                 <h3 className="text-lg font-bold text-[#1b1b1b]">Our Location</h3>
                 <div className="w-6 h-1 bg-[#C5D82D] mt-2 rounded-full mb-4"></div>
                 <a
-                  href="https://www.google.com/maps?cid=3618521765991078645&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ"
+                  href="https://maps.google.com/?q=IDC+INDIA+Ashoka+Estate+Building+New+Delhi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[15px] font-medium leading-relaxed hover:text-[#1b1b1b] transition-colors block"
@@ -549,7 +455,6 @@ export default function Footer() {
                 </a>
               </div>
 
-              {/* Social Icons */}
               <div className="pt-4">
                 <h3 className="text-sm font-bold text-[#1b1b1b] uppercase tracking-wider mb-4">Connect With Us</h3>
                 <div className="flex flex-wrap items-center gap-2">
@@ -574,7 +479,7 @@ export default function Footer() {
           {/* Bottom Section: Copyright */}
           <div className="mt-8 pt-8 border-t border-[#d6d1c4] flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
             <p className="text-sm font-medium">
-              © {year} GRASA MILLETS & FOODS PVT. LTD. All rights reserved.
+              © {year} GRASA Millets & Foods Pvt. Ltd. New Delhi. All rights reserved.
             </p>
             <p className="text-xs font-bold uppercase tracking-wider text-[#d6d1c4]">
               Precision Nutrition • Delhi NCR
@@ -583,7 +488,6 @@ export default function Footer() {
 
         </div>
       </footer>
-      {/* FOOTER STRUCTURE END */}
     </>
   )
 }
