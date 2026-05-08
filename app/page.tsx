@@ -250,7 +250,9 @@ export default function Home() {
       />
 
       <HeroSection />
-      <Award />
+      <div id="award-section">
+        <Award />
+      </div>
       <SuccessStoriesCarousel />
       <ScienceSection />
       <LongevityCheck />
@@ -262,7 +264,7 @@ export default function Home() {
       <ConsultationSection />
       <FAQComponent />
       {/* ✅ ADD HERE (last) */}
-    <FloatingConsultationButton />
+      <FloatingConsultationButton />
     </>
   );
 }

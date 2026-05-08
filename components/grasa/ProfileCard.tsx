@@ -428,23 +428,6 @@ export default function ProfileCard({
     }
   };
 
-  /* ------------------- FORMAT DATE HELPER ------------------- */
-  // const formatDate = (dateString: string | undefined) => {
-  //   if (!dateString) return "N/A";
-  //   try {
-  //     return new Date(dateString).toLocaleDateString("en-IN", {
-  //       year: "numeric",
-  //       month: "short",
-  //       day: "numeric",
-  //       hour: "2-digit",
-  //       minute: "2-digit",
-  //     });
-  //   } catch {
-  //     return dateString;
-  //   }
-  // };
-
-
   const formatDate = (dateString: string | undefined) => {
   if (!dateString) return "N/A";
   try {
@@ -617,23 +600,6 @@ export default function ProfileCard({
                       label="Next Billing"
                       value={formatDate(subscription.next_billing_at)}
                     />
-
-                    {/* BILLING CYCLE CARD */}
-                    {/* <div className="p-5 border border-[#d6d1c4] rounded-2xl bg-white flex flex-col gap-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-[#C5D82D]">
-                      <p className="text-[#5c5c5c] text-xs font-bold uppercase tracking-wider">Billing Cycle Progress</p>
-                      <p className="text-[#1b1b1b] font-semibold text-lg">
-                        {subscription.paid_count} / {subscription.total_count}
-                      </p>
-                      <div className="w-full bg-[#ebecdf] rounded-full h-2 mt-2">
-                        <div
-                          className="bg-[#C5D82D] h-2 rounded-full transition-all duration-300"
-                          style={{
-                            width: `${((subscription.paid_count || 0) / (subscription.total_count || 1)) * 100}%`,
-                          }}
-                        ></div>
-                      </div>
-                    </div> */}
-
                     {/* CANCELLATION STATUS CARD */}
                     {subscription.cancel_at_cycle_end && (
                       <div className="p-6 border border-[#fca5a5] rounded-2xl bg-[#fee2e2] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:col-span-2 md:col-span-3">

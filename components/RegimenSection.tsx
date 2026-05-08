@@ -206,10 +206,10 @@ export default function RegimenSection() {
 
   return (
     <section className="w-full bg-[#faf8f3] overflow-hidden py-10">
-      <div className="max-w-[100%] mx-auto px-6 lg:px-12">
+      <div className="max-w-[100%] mx-auto md:px-4 lg:px-12">
         
         {/* Main Dark Container */}
-        <div className="relative w-full bg-[#0f1114] rounded-[2.5rem] p-8 sm:p-12 md:p-16 flex flex-col gap-12 overflow-hidden shadow-2xl">
+        <div className="relative w-full bg-[#0f1114] md:rounded-[2.5rem] p-8 sm:p-12 md:p-16 flex flex-col gap-12 overflow-hidden shadow-2xl">
           
           {/* Subtle Glow Backgrounds */}
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-lime-500/10 blur-[120px] rounded-full -mr-48 -mt-48 pointer-events-none" />

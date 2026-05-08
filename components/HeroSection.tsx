@@ -266,17 +266,21 @@ const HeroSection = () => {
           </div> */}
 
 
-          <div className="absolute top-6 left-6 sm:top-8 sm:left-10 z-20 pr-6">
-            <div className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#E8C96A] to-[#C4972A] text-blackbackdrop-blur-md border border-[#E8C96A]/40 py-2 px-3  rounded-full shadow-lg hover:scale-105 hover:bg-[#1C3A2A] transition-all cursor-default w-fit max-w-full">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#E8C96A] to-[#C4972A] flex items-center justify-center text-sm sm:text-base flex-shrink-0 shadow-[0_0_0_2px_rgba(196,151,42,0.3)]">
-                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
-              </div>
-              <p className="text-[#F5F0E8] text-[10px] sm:text-sm font-normal tracking-wide truncate sm:whitespace-normal">
-                <strong className="text-[#000000] ">RASHTRIYA RATNA SAMMAN 2026</strong> 
-                <span className="hidden sm:inline"> — Emerging Health Tech & Nutrition Innovation</span>
-              </p>
-            </div>
-          </div>
+  <div className="absolute top-6 left-6 sm:top-8 sm:left-10 z-20 pr-6">
+  <div
+    onClick={() => {
+      document.getElementById('award-section')?.scrollIntoView({ behavior: 'smooth' });
+    }}
+    className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#E8C96A] to-[#C4972A] text-blackbackdrop-blur-md border border-[#E8C96A]/40 py-2 px-3 rounded-full shadow-lg hover:scale-105 hover:bg-[#1C3A2A] transition-all cursor-pointer w-fit max-w-full">
+    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#E8C96A] to-[#C4972A] flex items-center justify-center text-sm sm:text-base flex-shrink-0 shadow-[0_0_0_2px_rgba(196,151,42,0.3)]">
+      <Award className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
+    </div>
+    <p className="text-[#F5F0E8] text-[10px] sm:text-sm font-normal tracking-wide truncate sm:whitespace-normal">
+      <strong className="text-[#000000]">RASHTRIYA RATNA SAMMAN 2026</strong>
+      <span className="hidden sm:inline"> — Emerging Health Tech & Nutrition Innovation</span>
+    </p>
+  </div>
+</div>
 
           {/* Content */}
           <div className="relative z-10 max-w-xl lg:max-w-2xl text-white mt-10 sm:mt-0">

@@ -863,7 +863,7 @@ export default function ConsultationSection() {
 
   return (
     <section id="consultation-form" className="w-full bg-[#ebecdf] py-5 scroll-mt-20">
-      <div className="max-w-[1400px] mx-auto px-12 grid lg:grid-cols-2 gap-12 items-start">
+      <div className="max-w-full mx-auto px-4 grid lg:grid-cols-2 gap-12 items-start">
         {/* LEFT CONTENT */}
         <div>
           <span className="inline-block text-[#1b1b1b] text-sm uppercase tracking-wider font-bold mb-3">

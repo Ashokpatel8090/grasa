@@ -72,7 +72,7 @@ export default function LongevityIntro() {
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-[540px]">
-              This 8-question check gives you an honest picture of your biological age in 2 minutes.
+              This 12-question check gives you an honest picture of your biological age in 3 minutes.
             </p>
           </div>
 
@@ -82,12 +82,12 @@ export default function LongevityIntro() {
             {/* Stats Row */}
             <div className="flex justify-between items-center mb-10">
               <div className="text-center">
-                <div className="text-2xl sm:text-3xl font-bold text-[#C5D82D] mb-1">8</div>
+                <div className="text-2xl sm:text-3xl font-bold text-[#C5D82D] mb-1">12</div>
                 <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Questions</div>
               </div>
               <div className="w-[1px] h-10 bg-white/20"></div>
               <div className="text-center">
-                <div className="text-2xl sm:text-3xl font-bold text-[#C5D82D] mb-1">2 min</div>
+                <div className="text-2xl sm:text-3xl font-bold text-[#C5D82D] mb-1">3 min</div>
                 <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">To complete</div>
               </div>
               <div className="w-[1px] h-10 bg-white/20"></div>

@@ -1,23 +1,30 @@
 
+
 "use client";
 
 import { useState, useEffect } from "react";
 import { BASE_URL } from "@/components/config/api";
+import { X, Loader2, CheckCircle2, Star, Download, AlertCircle, Edit2 } from "lucide-react";
 
-// ─────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────
-const getCookie = (name: string): string | null => {
-  if (typeof document === "undefined") return null;
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(";").shift() ?? null;
-  return null;
+// ── TypeScript Types ──────────────────────────────────────────────────────────
+type ReviewImage = {
+  id?: number;
+  url: string;
+  public_id: string;
 };
 
-// ─────────────────────────────────────────────
-// TYPES
-// ─────────────────────────────────────────────
+type Review = {
+  id: number | null;
+  product_id?: number | null;
+  user_id?: number | null;
+  order_id?: number | null;
+  rating: number | null;
+  review_text: string | null;
+  is_verified_purchase?: boolean | null;
+  status?: string | null;
+  images?: ReviewImage[] | null;
+};
+
 type Product = {
   id: number;
   name: string;
@@ -26,7 +33,6 @@ type Product = {
   category?: string;
   mrp?: string;
   effective_price?: string;
-  discount_percent?: string;
 };
 
 type ShippingAddress = {
@@ -39,37 +45,15 @@ type ShippingAddress = {
   landmark?: string;
 };
 
-type ReviewImage = {
-  url: string;
-  public_id: string;
-};
-
-type Review = {
-  id: number | null;
-  rating: number | null;
-  review_text: string | null;
-  images?: ReviewImage[];
-};
-
-type CancellationReason = {
-  id: number | null;
-  code: string | null;
-  description: string | null;
-};
-
 type Item = {
   id: number;
   quantity: number;
   price_at_order: string;
   subtotal: string;
-  taxes?: string;
-  discount?: string;
-  paid_amount?: string;
   product: Product;
   shipping_address: ShippingAddress;
   status?: string;
   reviews?: Review;
-  cancellation_reason?: CancellationReason;
 };
 
 type PaymentTransaction = {
@@ -78,6 +62,13 @@ type PaymentTransaction = {
   status: string;
   payment_gateway: string;
   amount: string;
+  currency?: string;
+};
+
+type CancellationReason = {
+  id: number;
+  code: string;
+  description: string;
 };
 
 type Order = {
@@ -87,16 +78,32 @@ type Order = {
   total_amount: string;
   currency: string;
   total_mrp?: string;
-  offer_discount?: string;
+  discount_amount?: string;
   mhc_points?: string;
-  notes?: string;
+  offer_discount?: string;
   payment_transaction?: PaymentTransaction;
   items: Item[];
 };
 
-// ─────────────────────────────────────────────
-// STAR RATING
-// ─────────────────────────────────────────────
+// ── Cookie Utility ────────────────────────────────────────────────────────────
+const getCookie = (name: string): string | null => {
+  if (typeof document === "undefined") return null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(";").shift() ?? null;
+  return null;
+};
+
+// ── Helper Functions ──────────────────────────────────────────────────────────
+const hasValidReview = (review: Review | undefined | null): boolean => {
+  if (!review) return false;
+  return (
+    review.id !== null &&
+    review.rating !== null &&
+    review.rating !== undefined
+  );
+};
+
 const StarRating = ({
   rating,
   setRating,
@@ -106,7 +113,7 @@ const StarRating = ({
 }) => {
   const [hover, setHover] = useState(0);
   return (
-    <div style={{ display: "flex", gap: "6px", marginBottom: "1.25rem" }}>
+    <div style={{ display: "flex", gap: "6px", marginBottom: "1rem" }}>
       {[1, 2, 3, 4, 5].map((star) => (
         <button
           key={star}
@@ -117,7 +124,7 @@ const StarRating = ({
           style={{
             background: "none",
             border: "none",
-            fontSize: "28px",
+            fontSize: "26px",
             cursor: "pointer",
             color: star <= (hover || rating) ? "#f0a500" : "#d6d1c4",
             transition: "color 0.15s, transform 0.1s",
@@ -133,1116 +140,2045 @@ const StarRating = ({
   );
 };
 
-// ─────────────────────────────────────────────
-// ICONS
-// ─────────────────────────────────────────────
-const IconCalendar = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" />
-    <line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
-  </svg>
-);
-const IconCard = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" />
-  </svg>
-);
-const IconReceipt = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-    <polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" />
-    <line x1="16" y1="17" x2="8" y2="17" />
-  </svg>
-);
-const IconTruck = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <rect x="1" y="3" width="15" height="13" /><polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-    <circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" />
-  </svg>
-);
-const IconPin = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-  </svg>
-);
-const IconStarFilled = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#f0a500" stroke="#f0a500" strokeWidth="1">
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-  </svg>
-);
-const IconAlertCircle = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
-  </svg>
-);
-const IconXCircle = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" />
-  </svg>
-);
-const IconCheck = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
-const IconPencil = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-  </svg>
-);
-const IconUpload = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <polyline points="16 16 12 12 8 16" /><line x1="12" y1="12" x2="12" y2="21" />
-    <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" />
-  </svg>
-);
+// ── Cancel Modal Component ───────────────────────────────────────────────────
+const CancelModal = ({
+  isOpen,
+  onClose,
+  onSuccess,
+  orderId,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+  orderId: number;
+}) => {
+  const [reasons, setReasons] = useState<CancellationReason[]>([]);
+  const [selectedReason, setSelectedReason] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
-// ─────────────────────────────────────────────
-// STYLES
-// ─────────────────────────────────────────────
-const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+  useEffect(() => {
+    if (isOpen && reasons.length === 0) {
+      fetchReasons();
+    }
+  }, [isOpen]);
 
-  :root {
-    --od-bg:            #ebecdf;
-    --od-bg-card:       #f4f4f2;
-    --od-bg-white:      #ffffff;
-    --od-text-dark:     #1b1b1b;
-    --od-text-mid:      #5c5c5c;
-    --od-text-light:    #8a8a8a;
-    --od-border:        #d6d1c4;
-    --od-green-dark:    #124132;
-    --od-lime:          #C5D82D;
-    --od-red:           #b94040;
-    --od-red-light:     #fdf0f0;
-    --od-red-border:    #e8c5c5;
-    --od-green-ok:      #2d6a4f;
-    --od-green-light:   #edf5f0;
-    --od-green-border:  #b4d9c8;
-    --od-amber:         #7a5c00;
-    --od-amber-light:   #fef9e6;
-    --od-amber-border:  #e8d49a;
-  }
-
-  .od-page {
-    min-height: 100vh;
-    background: var(--od-bg);
-    font-family: 'DM Sans', sans-serif;
-    color: var(--od-text-dark);
-    padding: 2.5rem 1.25rem 5rem;
-  }
-
-  .od-container { max-width: 1100px; margin: 0 auto; }
-
-  /* HEADER */
-  .od-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--od-border);
-  }
-  .od-header-eyebrow {
-    display: block;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--od-green-dark);
-    margin-bottom: 0.5rem;
-  }
-  .od-header-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.8rem, 5vw, 3rem);
-    font-weight: 700;
-    line-height: 1.1;
-    color: var(--od-text-dark);
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
-  .od-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 0.75rem; }
-  .od-meta-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 13px;
-    color: var(--od-text-mid);
-  }
-
-  /* STATUS BADGE */
-  .od-status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border: 1.5px solid;
-    flex-shrink: 0;
-    align-self: flex-start;
-  }
-  .od-status--delivered  { background: var(--od-green-light); color: var(--od-green-ok); border-color: var(--od-green-border); }
-  .od-status--processing { background: var(--od-amber-light); color: var(--od-amber);    border-color: var(--od-amber-border); }
-  .od-status--cancelled  { background: var(--od-red-light);   color: var(--od-red);      border-color: var(--od-red-border);   }
-
-  /* MAIN GRID */
-  .od-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    align-items: start;
-  }
-  @media (min-width: 820px) {
-    .od-grid { grid-template-columns: 340px 1fr; }
-  }
-  @media (min-width: 1024px) {
-    .od-grid { grid-template-columns: 360px 1fr; }
-  }
-
-  /* PRODUCT CARD */
-  .od-product-card {
-    background: var(--od-bg-white);
-    border: 1px solid var(--od-border);
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  @media (min-width: 820px) {
-    .od-product-card { position: sticky; top: 1.5rem; }
-  }
-  .od-product-image-wrap {
-    background: var(--od-bg-card);
-    aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .od-product-image-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 1.5rem;
-    mix-blend-mode: multiply;
-  }
-  .od-product-image-placeholder {
-    opacity: 0.12;
-    width: 80px;
-    height: 80px;
-  }
-  .od-product-category-tag {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    background: var(--od-lime);
-    color: var(--od-text-dark);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 999px;
-    z-index: 1;
-  }
-  .od-product-info { padding: 1.5rem; }
-  .od-product-name {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--od-text-dark);
-    line-height: 1.3;
-    margin: 0 0 0.6rem;
-  }
-  .od-product-desc {
-    font-size: 13.5px;
-    color: var(--od-text-mid);
-    line-height: 1.7;
-    margin: 0;
-  }
-  .od-product-qty-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--od-border);
-  }
-  .od-qty-label {
-    font-size: 11px;
-    color: var(--od-text-light);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-  }
-  .od-qty-value {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--od-text-dark);
-  }
-
-  /* RIGHT COLUMN */
-  .od-right-col { display: flex; flex-direction: column; gap: 1.25rem; }
-
-  /* GENERIC CARD */
-  .od-card {
-    background: var(--od-bg-white);
-    border: 1px solid var(--od-border);
-    border-radius: 20px;
-    padding: 1.75rem;
-  }
-  .od-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
-  .od-card-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: var(--od-bg-card);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .od-card-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--od-text-dark);
-    margin: 0;
-  }
-
-  /* CANCELLED STATE CARD */
-  .od-cancelled-card {
-    background: var(--od-red-light);
-    border: 1px solid var(--od-red-border);
-    border-radius: 20px;
-    padding: 1.5rem 1.75rem;
-    animation: od-fade-in 0.3s ease;
-  }
-  .od-cancelled-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--od-red);
-    margin: 0 0 0.4rem;
-  }
-  .od-cancelled-desc { font-size: 13.5px; color: #7a3030; margin: 0; }
-
-  /* CANCEL OPTION CARD */
-  .od-cancel-card {
-    background: var(--od-red-light);
-    border: 1px solid var(--od-red-border);
-    border-radius: 20px;
-    padding: 1.5rem 1.75rem;
-  }
-  .od-cancel-trigger-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .od-cancel-copy-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--od-text-dark);
-    display: block;
-    margin-bottom: 3px;
-  }
-  .od-cancel-copy-sub { font-size: 12px; color: var(--od-text-mid); }
-  .od-btn-cancel-open {
-    padding: 10px 22px;
-    border-radius: 999px;
-    border: 1.5px solid var(--od-red-border);
-    background: transparent;
-    color: var(--od-red);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.18s, color 0.18s;
-    white-space: nowrap;
-  }
-  .od-btn-cancel-open:hover { background: var(--od-red); color: #fff; }
-
-  .od-cancel-form {
-    padding-top: 1.25rem;
-    margin-top: 1.25rem;
-    border-top: 1px solid var(--od-red-border);
-    animation: od-fade-in 0.25s ease;
-  }
-  .od-cancel-form-heading {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--od-red);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 0.9rem;
-  }
-  .od-cancel-reasons { display: flex; flex-direction: column; gap: 8px; }
-  .od-reason-label {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 12px 14px;
-    border: 1px solid var(--od-border);
-    border-radius: 12px;
-    cursor: pointer;
-    background: var(--od-bg-white);
-    transition: border-color 0.18s, background 0.18s;
-  }
-  .od-reason-label:hover { border-color: #b0aaa0; background: var(--od-bg-card); }
-  .od-reason-label input {
-    margin-top: 2px;
-    accent-color: var(--od-red);
-    flex-shrink: 0;
-    cursor: pointer;
-  }
-  .od-reason-title { font-size: 13.5px; font-weight: 500; color: var(--od-text-dark); text-transform: capitalize; }
-  .od-reason-desc  { font-size: 12px; color: var(--od-text-mid); margin-top: 2px; }
-  .od-cancel-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-  }
-  .od-btn-keep {
-    padding: 10px 22px;
-    border-radius: 999px;
-    border: 1.5px solid var(--od-border);
-    background: transparent;
-    color: var(--od-text-mid);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.18s;
-  }
-  .od-btn-keep:hover:not(:disabled) { background: var(--od-bg-card); }
-  .od-btn-keep:disabled { opacity: 0.5; cursor: not-allowed; }
-  .od-btn-confirm-cancel {
-    padding: 10px 24px;
-    border-radius: 999px;
-    border: none;
-    background: var(--od-red);
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.18s;
-  }
-  .od-btn-confirm-cancel:disabled { opacity: 0.5; cursor: not-allowed; }
-  .od-btn-confirm-cancel:not(:disabled):hover { opacity: 0.85; }
-
-  /* TOAST */
-  .od-toast {
-    position: fixed;
-    bottom: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--od-text-dark);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 999px;
-    font-size: 13.5px;
-    font-weight: 500;
-    font-family: 'DM Sans', sans-serif;
-    z-index: 9999;
-    white-space: nowrap;
-    max-width: 90vw;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-    animation: od-toast-in 0.3s ease forwards;
-  }
-  .od-toast.success { border-left: 4px solid var(--od-lime); }
-  .od-toast.error   { border-left: 4px solid var(--od-red); }
-  @keyframes od-toast-in {
-    from { opacity: 0; transform: translateX(-50%) translateY(16px); }
-    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-  }
-  @keyframes od-fade-in {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* PRICING TABLE */
-  .od-price-table { width: 100%; border-collapse: collapse; }
-  .od-price-table td { padding: 7px 0; font-size: 14px; vertical-align: middle; }
-  .od-price-table td:last-child { text-align: right; font-weight: 500; }
-  .od-price-table td:first-child { color: var(--od-text-mid); }
-  .od-price-divider td { border-top: 1px solid var(--od-border); padding-top: 14px; }
-  .od-price-total td { font-size: 1rem; font-weight: 700; padding-bottom: 0; }
-  .od-strikethrough { text-decoration: line-through; color: var(--od-text-light) !important; font-weight: 400 !important; }
-  .od-green-text    { color: var(--od-green-ok); }
-
-  /* SUMMARY BANNER */
-  .od-summary-banner {
-    background: var(--od-text-dark);
-    border-radius: 14px;
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 1.25rem;
-  }
-  .od-banner-label     { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; }
-  .od-banner-amount    { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--od-lime); line-height: 1; }
-  .od-banner-saved     { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
-  .od-banner-txn       { text-align: right; }
-  .od-banner-txn-label { font-size: 11px; color: rgba(255,255,255,0.4); }
-  .od-banner-txn-val   { font-size: 13px; font-weight: 500; color: #fff; margin-top: 3px; word-break: break-all; }
-
-  /* ADDRESS */
-  .od-address-block {
-    background: var(--od-bg-card);
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .od-address-icon  { flex-shrink: 0; margin-top: 2px; opacity: 0.45; }
-  .od-address-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
-  .od-address-text  { font-size: 13px; color: var(--od-text-mid); line-height: 1.65; }
-  .od-address-text p { margin: 0; }
-
-  /* REVIEW */
-  .od-existing-review {
-    background: var(--od-bg-card);
-    border-radius: 14px;
-    padding: 1.25rem;
-    animation: od-fade-in 0.25s ease;
-  }
-  .od-review-stars        { display: flex; align-items: center; gap: 3px; margin-bottom: 0.7rem; }
-  .od-review-star-filled  { color: #f0a500; font-size: 18px; }
-  .od-review-star-empty   { color: #d6d1c4; font-size: 18px; }
-  .od-review-rating-text  { font-size: 13px; color: var(--od-text-mid); font-weight: 500; margin-left: 6px; }
-  .od-review-quote        { font-size: 14px; color: var(--od-text-mid); line-height: 1.7; font-style: italic; margin: 0; }
-  .od-review-images       { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
-  .od-review-thumb        { width: 72px; height: 72px; border-radius: 10px; object-fit: cover; border: 1px solid var(--od-border); }
-
-  .od-review-success {
-    background: var(--od-green-light);
-    border: 1px solid var(--od-green-border);
-    border-radius: 14px;
-    padding: 1rem 1.25rem;
-    font-size: 13.5px;
-    color: var(--od-green-ok);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    animation: od-fade-in 0.25s ease;
-  }
-
-  .od-btn-write-review {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 26px;
-    border-radius: 999px;
-    background: var(--od-text-dark);
-    color: var(--od-lime);
-    border: none;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13.5px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    letter-spacing: 0.02em;
-  }
-  .od-btn-write-review:hover { background: #2d2d2d; }
-
-  /* REVIEW FORM */
-  .od-review-form-inner {
-    background: var(--od-bg-card);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin-top: 1.25rem;
-    border: 1px solid var(--od-border);
-    animation: od-fade-in 0.25s ease;
-  }
-  .od-form-label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--od-text-mid);
-    margin-bottom: 8px;
-  }
-  .od-review-textarea {
-    width: 100%;
-    min-height: 110px;
-    padding: 12px 14px;
-    border: 1.5px solid var(--od-border);
-    border-radius: 12px;
-    background: var(--od-bg-white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13.5px;
-    color: var(--od-text-dark);
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.2s;
-    margin-bottom: 1.25rem;
-    box-sizing: border-box;
-  }
-  .od-review-textarea:focus { border-color: #8a8a8a; }
-  .od-review-textarea::placeholder { color: var(--od-text-light); }
-
-  .od-upload-area { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 1.25rem; }
-  .od-upload-box  { position: relative; width: 72px; height: 72px; }
-  .od-upload-box input[type="file"] {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-  }
-  .od-upload-box-inner {
-    width: 72px;
-    height: 72px;
-    border-radius: 12px;
-    border: 1.5px dashed var(--od-border);
-    background: var(--od-bg-white);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    color: var(--od-text-light);
-    font-weight: 500;
-    gap: 4px;
-    transition: border-color 0.18s, background 0.18s;
-    pointer-events: none;
-  }
-  .od-upload-box:hover .od-upload-box-inner { border-color: #8a8a8a; background: var(--od-bg-card); }
-  .od-upload-preview {
-    width: 72px;
-    height: 72px;
-    border-radius: 12px;
-    border: 1px solid var(--od-border);
-    object-fit: cover;
-  }
-
-  .od-review-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    padding-top: 1rem;
-    border-top: 1px solid var(--od-border);
-    flex-wrap: wrap;
-  }
-  .od-btn-cancel-review {
-    padding: 10px 22px;
-    border-radius: 999px;
-    border: 1.5px solid var(--od-border);
-    background: transparent;
-    color: var(--od-text-mid);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.18s;
-  }
-  .od-btn-cancel-review:hover { background: var(--od-bg-card); }
-  .od-btn-submit-review {
-    padding: 10px 24px;
-    border-radius: 999px;
-    border: none;
-    background: var(--od-text-dark);
-    color: var(--od-lime);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity 0.18s;
-    letter-spacing: 0.03em;
-  }
-  .od-btn-submit-review:hover { opacity: 0.82; }
-
-  /* RESPONSIVE */
-  @media (max-width: 600px) {
-    .od-page            { padding: 1.25rem 1rem 4rem; }
-    .od-card            { padding: 1.25rem; }
-    .od-cancel-card     { padding: 1.25rem; }
-    .od-cancelled-card  { padding: 1.25rem; }
-    .od-summary-banner  { flex-direction: column; align-items: flex-start; padding: 1rem; }
-    .od-banner-amount   { font-size: 1.75rem; }
-    .od-banner-txn      { text-align: left; }
-    .od-product-info    { padding: 1.25rem; }
-    .od-header          { flex-direction: column; align-items: flex-start; }
-    .od-cancel-actions  { flex-direction: column; }
-    .od-cancel-actions button { width: 100%; justify-content: center; }
-  }
-  @media (max-width: 400px) {
-    .od-cancel-trigger-row { flex-direction: column; align-items: flex-start; }
-    .od-btn-cancel-open    { width: 100%; justify-content: center; }
-  }
-`;
-
-// ─────────────────────────────────────────────
-// TOAST COMPONENT
-// ─────────────────────────────────────────────
-type ToastType = "success" | "error" | null;
-
-const Toast = ({ message, type }: { message: string; type: ToastType }) => {
-  if (!type) return null;
-  return <div className={`od-toast ${type}`}>{type === "success" ? "✓  " : "✕  "}{message}</div>;
-};
-
-// ─────────────────────────────────────────────
-// MAIN COMPONENT
-// ─────────────────────────────────────────────
-export default function OrderDetails({ order }: { order: Order }) {
-  const item = order.items?.[0];
-  const product = item?.product;
-  const address = item?.shipping_address;
-  const review = item?.reviews;
-  const cancellationReason = item?.cancellation_reason;
-
-  // ── Toast ──
-  const [toast, setToast] = useState<{ message: string; type: ToastType }>({ message: "", type: null });
-  const showToast = (message: string, type: ToastType) => {
-    setToast({ message, type });
-    setTimeout(() => setToast({ message: "", type: null }), 3500);
+  const fetchReasons = async () => {
+    try {
+      const token = getCookie("token");
+      const res = await fetch(`${BASE_URL}/grasa/shop/cancellation-reasons`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setReasons(data);
+      }
+    } catch (err) {
+      console.error("[v0] Failed to fetch cancellation reasons:", err);
+    }
   };
 
-  // ── Review state ──
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [reviewText, setReviewText] = useState("");
-  const [images, setImages] = useState<ReviewImage[]>([]);
-  const [uploading, setUploading] = useState(false);
-  // BUG FIX: Track review locally so UI updates without page reload
-  const [localReview, setLocalReview] = useState<Review | null>(
-    review?.rating !== null && review?.rating !== undefined ? review : null
-  );
+  const handleCancel = async () => {
+    if (!selectedReason) {
+      setError("Please select a cancellation reason");
+      return;
+    }
 
-  // ── Cancellation state ──
-  const [showCancelForm, setShowCancelForm] = useState(false);
-  const [cancellationReasonsList, setCancellationReasonsList] = useState<CancellationReason[]>([]);
-  const [selectedReasonId, setSelectedReasonId] = useState<number | null>(null);
-  const [isCancelling, setIsCancelling] = useState(false);
-  // BUG FIX #1: Track cancellation locally → button disappears immediately after cancel
-  const [localCancelled, setLocalCancelled] = useState(
-    !!(cancellationReason && cancellationReason.id !== null)
-  );
-  const [localCancellationReason, setLocalCancellationReason] = useState<CancellationReason | null>(
-    cancellationReason?.id ? cancellationReason : null
-  );
-
-  // ── Derived state ──
-  const orderDate = new Date(order.order_date).getTime();
-  const hoursSinceOrder = (Date.now() - orderDate) / (1000 * 60 * 60);
-  const isWithin24Hours = hoursSinceOrder <= 24;
-
-  // BUG FIX #2: Use localCancelled (not prop) so canCancel reacts to cancellation
-  const isCancelled = localCancelled;
-  const canCancel =
-    !isCancelled &&
-    order.status?.toLowerCase() !== "delivered" &&
-    isWithin24Hours;
-
-  const hasExistingReview = !!(localReview && localReview.rating !== null);
-  // BUG FIX #3: Review section disappears when order is cancelled
-  const shouldShowReviewSection =
-    (order.status?.toLowerCase() === "delivered" && !isCancelled) || hasExistingReview;
-
-  // ── Fetch cancellation reasons ──
-  useEffect(() => {
-    if (!canCancel) return;
-    const token = getCookie("token");
-    fetch(`${BASE_URL}/grasa/shop/cancellation-reasons`, {
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    })
-      .then((r) => (r.ok ? r.json() : []))
-      .then(setCancellationReasonsList)
-      .catch(console.error);
-  }, [canCancel]);
-
-  // ── Image upload ──
-  const handleImageUpload = async (file: File) => {
-    if (!file) return;
-    setUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
     try {
-      const res = await fetch(`${BASE_URL}/product-reviews/upload`, { method: "POST", body: formData });
-      if (!res.ok) throw new Error();
-      const data = await res.json();
-      setImages((prev) => [...prev, data]);
-    } catch {
-      showToast("Image upload failed. Please try again.", "error");
+      setLoading(true);
+      setError("");
+
+      const token = getCookie("token");
+      const res = await fetch(
+        `${BASE_URL}/grasa/shop/orders/${orderId}/cancel`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cancellation_reason_id: selectedReason }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to cancel order");
+      }
+
+      setSuccess(true);
+      setTimeout(() => {
+        onSuccess();
+        onClose();
+      }, 1500);
+    } catch (err) {
+      console.error("[v0] Cancel order error:", err);
+      setError("Failed to cancel order. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: "1rem",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: "12px",
+          padding: "2rem",
+          maxWidth: "400px",
+          width: "100%",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div style={{ marginBottom: "1.5rem" }}>
+          <h2 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700 }}>
+            Cancel Order
+          </h2>
+          <p style={{ margin: "0.5rem 0 0 0", color: "#666", fontSize: "0.9rem" }}>
+            Please select a reason for cancellation
+          </p>
+        </div>
+
+        {success ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "2rem 0",
+            }}
+          >
+            <CheckCircle2 size={48} style={{ color: "#2d6a4f" }} />
+            <p
+              style={{
+                fontSize: "1rem",
+                color: "#2d6a4f",
+                textAlign: "center",
+              }}
+            >
+              Order cancelled successfully!
+            </p>
+          </div>
+        ) : (
+          <>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.75rem",
+                }}
+              >
+                Cancellation Reason
+              </label>
+              <select
+                value={selectedReason || ""}
+                onChange={(e) => setSelectedReason(Number(e.target.value) || null)}
+                style={{
+                  width: "100%",
+                  padding: "0.75rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  fontFamily: "inherit",
+                  appearance: "none",
+                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231b1b1b' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 0.75rem center",
+                  backgroundSize: "1.2em",
+                  paddingRight: "2.5rem",
+                }}
+              >
+                <option value="">Select a reason...</option>
+                {reasons.map((reason) => (
+                  <option key={reason.id} value={reason.id}>
+                    {reason.description}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {error && (
+              <div
+                style={{
+                  background: "#fce8e6",
+                  color: "#d93025",
+                  padding: "0.75rem",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  marginBottom: "1rem",
+                  display: "flex",
+                  gap: "0.5rem",
+                  alignItems: "center",
+                }}
+              >
+                <AlertCircle size={18} />
+                {error}
+              </div>
+            )}
+
+            <div
+              style={{
+                display: "flex",
+                gap: "0.75rem",
+                justifyContent: "flex-end",
+              }}
+            >
+              <button
+                onClick={onClose}
+                disabled={loading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  background: "#fff",
+                  cursor: loading ? "not-allowed" : "pointer",
+                  opacity: loading ? 0.6 : 1,
+                  fontWeight: 600,
+                }}
+              >
+                Keep Order
+              </button>
+              <button
+                onClick={handleCancel}
+                disabled={loading || !selectedReason}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  background: "#d93025",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: loading || !selectedReason ? "not-allowed" : "pointer",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  opacity: loading || !selectedReason ? 0.6 : 1,
+                }}
+              >
+                {loading && (
+                  <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
+                )}
+                {loading ? "Cancelling..." : "Cancel Order"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
+    </div>
+  );
+};
+
+// ── Edit Review Modal Component ──────────────────────────────────────────────
+const EditReviewModal = ({
+  item,
+  review,
+  isOpen,
+  onClose,
+  onSubmitSuccess,
+}: {
+  item: Item | null;
+  review: Review | null;
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmitSuccess: () => void;
+}) => {
+  // Handle null review - return early
+  if (!isOpen || !review || !item) {
+    return null;
+  }
+
+  const [rating, setRating] = useState(review?.rating ? review.rating : 0);
+  const [reviewText, setReviewText] = useState(review?.review_text ? review.review_text : "");
+  const [newImages, setNewImages] = useState<File[]>([]);
+  const [existingImages, setExistingImages] = useState<ReviewImage[]>(
+    review?.images && Array.isArray(review.images) ? review.images : []
+  );
+  const [uploading, setUploading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setNewImages((prev) => [...prev, ...Array.from(e.target.files!)]);
+    }
+  };
+
+  const removeNewImage = (index: number) => {
+    setNewImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const removeExistingImage = (index: number) => {
+    setExistingImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmitEdit = async () => {
+    if (rating === 0) {
+      setSubmitError("Please select a rating");
+      return;
+    }
+
+    if (!reviewText.trim()) {
+      setSubmitError("Please write a review");
+      return;
+    }
+
+    try {
+      setUploading(true);
+      setSubmitError("");
+
+      const token = getCookie("token");
+
+      // Upload new images if any
+      const uploadedNewImages: ReviewImage[] = [];
+
+      for (const file of newImages) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const uploadRes = await fetch(`${BASE_URL}/upload`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+
+        if (uploadRes.ok) {
+          const uploadedData = await uploadRes.json();
+          uploadedNewImages.push({
+            url: uploadedData.url,
+            public_id: uploadedData.public_id,
+          });
+        }
+      }
+
+      // Combine existing and new images
+      const allImages = [...existingImages, ...uploadedNewImages];
+
+      // Validate review has required IDs
+      if (!review?.id) {
+        setSubmitError("Review ID is missing");
+        return;
+      }
+
+      // Submit review update
+      const reviewPayload = {
+        rating,
+        review_text: reviewText,
+        order_item_id: item.id,
+        images: allImages,
+      };
+
+      const reviewRes = await fetch(
+        `${BASE_URL}/product-reviews/products/${item.order_id}/reviews/${review.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reviewPayload),
+        }
+      );
+
+      if (!reviewRes.ok) {
+        throw new Error("Failed to update review");
+      }
+
+      console.log("[v0] Review updated successfully");
+      setSubmitSuccess(true);
+      setTimeout(() => {
+        onSubmitSuccess();
+        onClose();
+      }, 1500);
+    } catch (error) {
+      console.error("[v0] Review update error:", error);
+      setSubmitError("Failed to update review. Please try again.");
     } finally {
       setUploading(false);
     }
   };
 
-  // ── Submit review ──
-  const submitReview = async () => {
-    if (rating === 0) { showToast("Please select a rating before submitting.", "error"); return; }
-    try {
-      const res = await fetch(`${BASE_URL}/product-reviews/products/${product?.id}/reviews`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rating, review_text: reviewText, order_item_id: item?.id, images }),
-      });
-      if (!res.ok) throw new Error();
-      // BUG FIX: Update local review state — no page reload needed
-      setLocalReview({ id: null, rating, review_text: reviewText, images });
-      setShowReviewForm(false);
-      showToast("Review submitted! Thank you.", "success");
-    } catch {
-      showToast("Failed to submit review. Please try again.", "error");
-    }
-  };
-
-  // ── Cancel order ──
-  const handleCancelOrder = async () => {
-    if (!selectedReasonId) { showToast("Please select a cancellation reason.", "error"); return; }
-    setIsCancelling(true);
-    const token = getCookie("token");
-    try {
-      const response = await fetch(
-        `${BASE_URL}/shop/orders/${order.id}/items/${item?.id}/cancel`,
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-          body: JSON.stringify({ cancellation_reason_id: selectedReasonId }),
-        }
-      );
-      if (response.ok) {
-        // BUG FIX #1: Immediately update local state — cancel button vanishes, cancelled card appears
-        const selectedReason = cancellationReasonsList.find((r) => r.id === selectedReasonId) ?? null;
-        setLocalCancellationReason(selectedReason);
-        setLocalCancelled(true);
-        setShowCancelForm(false);
-        showToast("Order item cancelled successfully.", "success");
-      } else {
-        const err = await response.json().catch(() => ({}));
-        showToast(`Failed to cancel: ${err.message || "Unknown error"}`, "error");
-      }
-    } catch {
-      showToast("An error occurred. Please try again.", "error");
-    } finally {
-      setIsCancelling(false);
-    }
-  };
-
-  // ── Helpers ──
-  const statusClass = () => {
-    if (isCancelled || order.status?.toLowerCase() === "cancelled") return "od-status--cancelled";
-    if (order.status?.toLowerCase() === "delivered") return "od-status--delivered";
-    return "od-status--processing";
-  };
-
-  const statusLabel = isCancelled ? "Cancelled" : order.status;
-
-  const formattedDate = new Date(order.order_date).toLocaleDateString("en-IN", {
-    year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit",
-  });
+  if (!isOpen) return null;
 
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
-      <Toast message={toast.message} type={toast.type} />
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: "1rem",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: "12px",
+          padding: "2rem",
+          maxWidth: "500px",
+          width: "100%",
+          maxHeight: "90vh",
+          overflowY: "auto",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <h2 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700 }}>
+            Edit Review
+          </h2>
+          <button
+            onClick={onClose}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <X size={24} />
+          </button>
+        </div>
 
-      <div className="od-page">
-        <div className="od-container">
-
-          {/* ── HEADER ── */}
-          <div className="od-header">
-            <div>
-              <span className="od-header-eyebrow">Order Details</span>
-              <h1 className="od-header-title">Order #{order.id}</h1>
-              <div className="od-meta">
-                <span className="od-meta-item"><IconCalendar />{formattedDate}</span>
-                <span className="od-meta-item">
-                  <IconCard />
-                  {order.payment_transaction?.payment_gateway || "Standard Checkout"}
-                </span>
-              </div>
-            </div>
-            <span className={`od-status-badge ${statusClass()}`}>
-              {order.status?.toLowerCase() === "delivered" && !isCancelled && <IconCheck />}
-              {isCancelled && <IconXCircle />}
-              {statusLabel}
-            </span>
+        {submitSuccess ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "2rem 0",
+            }}
+          >
+            <CheckCircle2 size={48} style={{ color: "#2d6a4f" }} />
+            <p
+              style={{
+                fontSize: "1rem",
+                color: "#2d6a4f",
+                textAlign: "center",
+              }}
+            >
+              Review updated successfully!
+            </p>
           </div>
-
-          {/* ── MAIN GRID ── */}
-          <div className="od-grid">
-
-            {/* LEFT: PRODUCT CARD */}
-            <div className="od-product-card">
-              <div className="od-product-image-wrap">
-                {product?.category && (
-                  <span className="od-product-category-tag">{product.category}</span>
-                )}
-                {product?.image ? (
-                  <img src={product.image} alt={product.name} />
-                ) : (
-                  <div className="od-product-image-placeholder">
-                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-                      <rect x="40" y="60" width="120" height="100" rx="12" fill="#1b1b1b" />
-                      <rect x="60" y="40" width="80" height="30" rx="8" fill="#1b1b1b" />
-                      <circle cx="100" cy="115" r="18" fill="#ebecdf" />
-                      <rect x="85" y="148" width="30" height="6" rx="3" fill="#ebecdf" />
-                    </svg>
-                  </div>
-                )}
-              </div>
-              <div className="od-product-info">
-                <h2 className="od-product-name">{product?.name}</h2>
-                {product?.description && <p className="od-product-desc">{product.description}</p>}
-                <div className="od-product-qty-row">
-                  <span className="od-qty-label">Quantity</span>
-                  <span className="od-qty-value">× {item?.quantity}</span>
-                </div>
-              </div>
+        ) : (
+          <>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <p style={{ fontSize: "0.9rem", color: "#666", marginBottom: "0.5rem" }}>
+                {item.product.name}
+              </p>
+              <StarRating rating={rating} setRating={setRating} />
             </div>
 
-            {/* RIGHT COLUMN */}
-            <div className="od-right-col">
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Your Review
+              </label>
+              <textarea
+                value={reviewText}
+                maxLength={100}
+                onChange={(e) => setReviewText(e.target.value)}
+                placeholder="Share your experience with this product..."
+                style={{
+                  width: "100%",
+                  minHeight: "100px",
+                  padding: "0.75rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  fontFamily: "inherit",
+                  fontSize: "0.9rem",
+                  resize: "vertical",
+                }}
+              />
+              <div
+  style={{
+    textAlign: "right",
+    fontSize: "0.75rem",
+    color: "var(--od-text-light)",
+    marginTop: "0.35rem",
+  }}
+>
+  {reviewText.length}/100
+</div>
+            </div>
 
-              {/* BUG FIX #1: Cancelled card shown when localCancelled = true */}
-              {isCancelled && (
-                <div className="od-cancelled-card">
-                  <h3 className="od-cancelled-title"><IconXCircle />Order Cancelled</h3>
-                  <p className="od-cancelled-desc">
-                    <strong>Reason:</strong>{" "}
-                    {localCancellationReason?.description ||
-                      localCancellationReason?.code ||
-                      cancellationReason?.description ||
-                      cancellationReason?.code ||
-                      "No reason provided."}
-                  </p>
-                </div>
-              )}
-
-              {/* BUG FIX #2: canCancel is false when localCancelled = true → this block is hidden */}
-              {canCancel && (
-                <div className="od-cancel-card">
-                  {!showCancelForm ? (
-                    <div className="od-cancel-trigger-row">
-                      <div>
-                        <span className="od-cancel-copy-title">Cancel this order?</span>
-                        <span className="od-cancel-copy-sub">Available within 24 hours of placing.</span>
-                      </div>
-                      <button className="od-btn-cancel-open" onClick={() => setShowCancelForm(true)}>
-                        Cancel Item
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Current Images
+              </label>
+              {existingImages.length > 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    marginBottom: "1rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {existingImages.map((img, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        position: "relative",
+                        width: "60px",
+                        height: "60px",
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                        border: "1px solid #d6d1c4",
+                      }}
+                    >
+                      <img
+                        src={img.url}
+                        alt={`existing-${idx}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <button
+                        onClick={() => removeExistingImage(idx)}
+                        style={{
+                          position: "absolute",
+                          top: "-2px",
+                          right: "-2px",
+                          background: "#d93025",
+                          color: "#fff",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "12px",
+                        }}
+                      >
+                        ×
                       </button>
                     </div>
-                  ) : (
-                    <div className="od-cancel-form">
-                      <div className="od-cancel-form-heading">
-                        <IconAlertCircle />Why are you cancelling?
-                      </div>
-                      <div className="od-cancel-reasons">
-                        {cancellationReasonsList.length > 0 ? (
-                          cancellationReasonsList.map((reason) => (
-                            <label key={reason.id} className="od-reason-label">
-                              <input
-                                type="radio"
-                                name="cancel_reason"
-                                value={reason.id ?? ""}
-                                checked={selectedReasonId === reason.id}
-                                onChange={() => setSelectedReasonId(reason.id)}
-                              />
-                              <div>
-                                <div className="od-reason-title">{reason.code?.replace(/_/g, " ")}</div>
-                                {reason.description && <div className="od-reason-desc">{reason.description}</div>}
-                              </div>
-                            </label>
-                          ))
-                        ) : (
-                          <p style={{ fontSize: "13px", color: "var(--od-text-mid)" }}>Loading reasons…</p>
-                        )}
-                      </div>
-                      <div className="od-cancel-actions">
-                        <button className="od-btn-keep" onClick={() => setShowCancelForm(false)} disabled={isCancelling}>
-                          Keep Order
-                        </button>
-                        <button
-                          className="od-btn-confirm-cancel"
-                          onClick={handleCancelOrder}
-                          disabled={isCancelling || !selectedReasonId}
-                        >
-                          {isCancelling ? "Cancelling…" : "Confirm Cancellation"}
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                  ))}
                 </div>
               )}
+            </div>
 
-              {/* PRICING */}
-              <div className="od-card">
-                <div className="od-card-header">
-                  <div className="od-card-icon"><IconReceipt /></div>
-                  <h3 className="od-card-title">Pricing Breakdown</h3>
-                </div>
-                <table className="od-price-table">
-                  <tbody>
-                    <tr>
-                      <td>MRP (per unit)</td>
-                      <td className="od-strikethrough">₹{product?.mrp ?? "—"}</td>
-                    </tr>
-                    <tr>
-                      <td>Offer price</td>
-                      <td>₹{product?.effective_price ?? "—"}</td>
-                    </tr>
-                    <tr>
-                      <td>Quantity</td>
-                      <td>× {item?.quantity}</td>
-                    </tr>
-                    {item?.taxes && (
-                      <tr><td>Taxes</td><td>₹{item.taxes}</td></tr>
-                    )}
-                    {item?.discount && (
-                      <tr><td>Discount</td><td className="od-green-text">− ₹{item.discount}</td></tr>
-                    )}
-                    <tr className="od-price-divider"><td colSpan={2} /></tr>
-                    <tr className="od-price-total">
-                      <td>Item subtotal</td>
-                      <td>₹{item?.subtotal ?? "—"}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="od-summary-banner">
-                  <div>
-                    <div className="od-banner-txn-val">Total Paid</div>
-                    <div className="od-banner-amount">₹{order.total_amount} {order.currency}</div>
-                    {order.offer_discount && parseFloat(order.offer_discount) > 0 && (
-                      <div className="od-banner-saved">You saved ₹{order.offer_discount} on this order</div>
-                    )}
-                  </div>
-                  {order.payment_transaction && (
-                    <div className="od-banner-txn">
-                      <div className="od-banner-txn-val">Transaction ID</div>
-                      <div className="od-banner-txn-val">{order.payment_transaction.gateway_txn_id}</div>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Add More Images (Optional)
+              </label>
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{
+                  padding: "0.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  width: "100%",
+                }}
+              />
+              {newImages.length > 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    marginTop: "0.75rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {newImages.map((img, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        position: "relative",
+                        width: "60px",
+                        height: "60px",
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                        border: "1px solid #d6d1c4",
+                      }}
+                    >
+                      <img
+                        src={URL.createObjectURL(img)}
+                        alt={`new-preview-${idx}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <button
+                        onClick={() => removeNewImage(idx)}
+                        style={{
+                          position: "absolute",
+                          top: "-2px",
+                          right: "-2px",
+                          background: "#d93025",
+                          color: "#fff",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "12px",
+                        }}
+                      >
+                        ×
+                      </button>
                     </div>
-                  )}
+                  ))}
                 </div>
+              )}
+            </div>
+
+            {submitError && (
+              <div
+                style={{
+                  background: "#fce8e6",
+                  color: "#d93025",
+                  padding: "0.75rem",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                {submitError}
               </div>
+            )}
 
-              {/* SHIPPING */}
-              {address && (
-                <div className="od-card">
-                  <div className="od-card-header">
-                    <div className="od-card-icon"><IconTruck /></div>
-                    <h3 className="od-card-title">Shipping Details</h3>
-                  </div>
-                  <div className="od-address-block">
-                    <div className="od-address-icon"><IconPin /></div>
-                    <div>
-                      <div className="od-address-title">Delivery Address</div>
-                      <div className="od-address-text">
-                        <p>{address.street}</p>
-                        {address.landmark && <p>Landmark: {address.landmark}</p>}
-                        <p>{address.city}, {address.state}{address.postal_code ? ` — ${address.postal_code}` : ""}</p>
-                        {address.country && <p>{address.country}</p>}
-                      </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "0.75rem",
+                justifyContent: "flex-end",
+              }}
+            >
+              <button
+                onClick={onClose}
+                disabled={uploading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  background: "#fff",
+                  cursor: uploading ? "not-allowed" : "pointer",
+                  opacity: uploading ? 0.6 : 1,
+                  fontWeight: 600,
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitEdit}
+                disabled={uploading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  background: "#1b7a4f",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: uploading ? "not-allowed" : "pointer",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  opacity: uploading ? 0.6 : 1,
+                }}
+              >
+                {uploading && (
+                  <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
+                )}
+                {uploading ? "Updating..." : "Update Review"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
+    </div>
+  );
+};
+
+// ── Review Modal Component ────────────────────────────────────────────────────
+const ReviewModal = ({
+  item,
+  isOpen,
+  onClose,
+  onSubmitSuccess,
+}: {
+  item: Item;
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmitSuccess: () => void;
+}) => {
+  const [rating, setRating] = useState(0);
+  const [reviewText, setReviewText] = useState("");
+  const [images, setImages] = useState<File[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImages((prev) => [...prev, ...Array.from(e.target.files!)]);
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmitReview = async () => {
+    if (rating === 0) {
+      setSubmitError("Please select a rating");
+      return;
+    }
+
+    if (!reviewText.trim()) {
+      setSubmitError("Please write a review");
+      return;
+    }
+
+    try {
+      setUploading(true);
+      setSubmitError("");
+
+      const token = getCookie("token");
+
+      // Upload images to your backend or cloudinary
+      const uploadedImages: ReviewImage[] = [];
+
+      for (const file of images) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        // Adjust this endpoint based on your backend
+        const uploadRes = await fetch(`${BASE_URL}/upload`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+
+        if (uploadRes.ok) {
+          const uploadedData = await uploadRes.json();
+          uploadedImages.push({
+            url: uploadedData.url,
+            public_id: uploadedData.public_id,
+          });
+        }
+      }
+
+      // Submit review
+      const reviewPayload = {
+        rating,
+        review_text: reviewText,
+        order_item_id: item.id,
+        images: uploadedImages,
+      };
+
+      const reviewRes = await fetch(
+        `${BASE_URL}/product-reviews/products/${item.product.id}/reviews`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reviewPayload),
+        }
+      );
+
+      if (!reviewRes.ok) {
+        throw new Error("Failed to submit review");
+      }
+
+      console.log("[v0] Review submitted successfully");
+      setSubmitSuccess(true);
+      setTimeout(() => {
+        onSubmitSuccess();
+        onClose();
+      }, 1500);
+    } catch (error) {
+      console.error("[v0] Review submission error:", error);
+      setSubmitError("Failed to submit review. Please try again.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: "1rem",
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: "12px",
+          padding: "2rem",
+          maxWidth: "500px",
+          width: "100%",
+          maxHeight: "90vh",
+          overflowY: "auto",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <h2 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700 }}>
+            Write Review
+          </h2>
+          <button
+            onClick={onClose}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        {submitSuccess ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "2rem 0",
+            }}
+          >
+            <CheckCircle2 size={48} style={{ color: "#2d6a4f" }} />
+            <p
+              style={{
+                fontSize: "1rem",
+                color: "#2d6a4f",
+                textAlign: "center",
+              }}
+            >
+              Review submitted successfully!
+            </p>
+          </div>
+        ) : (
+          <>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <p style={{ fontSize: "0.9rem", color: "#666", marginBottom: "0.5rem" }}>
+                {item.product.name}
+              </p>
+              <StarRating rating={rating} setRating={setRating} />
+            </div>
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Your Review
+              </label>
+              <textarea
+                value={reviewText}
+                maxLength={100}
+                onChange={(e) => setReviewText(e.target.value)}
+                placeholder="Share your experience with this product..."
+                style={{
+                  width: "100%",
+                  minHeight: "100px",
+                  padding: "0.75rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  fontFamily: "inherit",
+                  fontSize: "0.9rem",
+                  resize: "vertical",
+                }}
+              />
+              <div
+  style={{
+    textAlign: "right",
+    fontSize: "0.75rem",
+    color: "var(--od-text-light)",
+    marginTop: "0.35rem",
+  }}
+>
+  {reviewText.length}/100
+</div>
+            </div>
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Add Images (Optional)
+              </label>
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{
+                  padding: "0.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  width: "100%",
+                }}
+              />
+              {images.length > 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    marginTop: "0.75rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {images.map((img, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        position: "relative",
+                        width: "60px",
+                        height: "60px",
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                        border: "1px solid #d6d1c4",
+                      }}
+                    >
+                      <img
+                        src={URL.createObjectURL(img)}
+                        alt={`preview-${idx}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <button
+                        onClick={() => removeImage(idx)}
+                        style={{
+                          position: "absolute",
+                          top: "-2px",
+                          right: "-2px",
+                          background: "#d93025",
+                          color: "#fff",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "12px",
+                        }}
+                      >
+                        ×
+                      </button>
                     </div>
-                  </div>
+                  ))}
                 </div>
               )}
+            </div>
 
-              {/* REVIEWS */}
-              {shouldShowReviewSection && (
-                <div className="od-card">
-                  <div className="od-card-header">
-                    <div className="od-card-icon" style={{ background: "#fef9e6" }}>
-                      <IconStarFilled />
-                    </div>
-                    <h3 className="od-card-title">Rating &amp; Review</h3>
+            {submitError && (
+              <div
+                style={{
+                  background: "#fce8e6",
+                  color: "#d93025",
+                  padding: "0.75rem",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                {submitError}
+              </div>
+            )}
+
+            <div
+              style={{
+                display: "flex",
+                gap: "0.75rem",
+                justifyContent: "flex-end",
+              }}
+            >
+              <button
+                onClick={onClose}
+                disabled={uploading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  border: "1px solid #d6d1c4",
+                  borderRadius: "8px",
+                  background: "#fff",
+                  cursor: uploading ? "not-allowed" : "pointer",
+                  opacity: uploading ? 0.6 : 1,
+                  fontWeight: 600,
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitReview}
+                disabled={uploading}
+                style={{
+                  padding: "0.75rem 1.5rem",
+                  background: "#C5D82D",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: uploading ? "not-allowed" : "pointer",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  opacity: uploading ? 0.6 : 1,
+                }}
+              >
+                {uploading && (
+                  <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
+                )}
+                {uploading ? "Submitting..." : "Submit Review"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
+    </div>
+  );
+};
+
+// ── Main OrderDetails Component ───────────────────────────────────────────────
+export default function OrderDetails({ order }: { order: Order }) {
+  const [reviewingItem, setReviewingItem] = useState<Item | null>(null);
+  const [editingReview, setEditingReview] = useState<Review | null>(null);
+  const [editingItem, setEditingItem] = useState<Item | null>(null);
+  const [reviewsUpdated, setReviewsUpdated] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [invoiceLoading, setInvoiceLoading] = useState(false);
+  const [invoiceError, setInvoiceError] = useState("");
+  const [orderStatus, setOrderStatus] = useState(order.status);
+
+  const styles = `
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+    
+    :root {
+      --od-bg:           #ebecdf;
+      --od-bg-card:      #f4f4f2;
+      --od-bg-white:     #ffffff;
+      --od-text-dark:    #1b1b1b;
+      --od-text-mid:     #5c5c5c;
+      --od-text-light:   #8a8a8a;
+      --od-border:       #d6d1c4;
+      --od-green-dark:   #124132;
+      --od-lime:         #C5D82D;
+      --od-red:          #b94040;
+      --od-red-light:    #fdf0f0;
+      --od-red-border:   #e8c5c5;
+      --od-green-ok:     #2d6a4f;
+      --od-green-light:  #edf5f0;
+      --od-green-border: #b4d9c8;
+      --od-amber:        #7a5c00;
+      --od-amber-light:  #fef9e6;
+      --od-amber-border: #e8d49a;
+      --od-blue:         #1a56a0;
+      --od-blue-light:   #eff6ff;
+      --od-blue-border:  #bfdbfe;
+    }
+
+    .od-page {
+      min-height: 100vh;
+      background: var(--od-bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--od-text-dark);
+      padding: 2rem 1.25rem 5rem;
+    }
+    .od-container { max-width: 860px; margin: 0 auto; }
+
+    .od-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--od-border);
+    }
+    .od-header-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .od-master-card {
+      background: var(--od-bg-white);
+      border: 1px solid var(--od-border);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .od-section {
+      padding: 1.5rem 1.75rem;
+      border-bottom: 1px solid var(--od-border);
+    }
+    .od-section:last-child { border-bottom: none; }
+
+    .od-section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .od-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .od-product-row {
+      display: flex;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--od-bg-card);
+      align-items: flex-start;
+    }
+    .od-product-row:last-child { border-bottom: none; }
+
+    .od-product-thumb {
+      width: 88px;
+      height: 88px;
+      border-radius: 12px;
+      background: var(--od-bg-card);
+      border: 1px solid var(--od-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .od-product-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 6px;
+    }
+
+    .od-product-body { flex: 1; min-width: 0; }
+    .od-product-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 0 0.3rem;
+    }
+    .od-product-desc {
+      font-size: 12px;
+      color: var(--od-text-mid);
+      margin: 0 0 0.6rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .od-review-section {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--od-border);
+    }
+
+    .od-review-display {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .od-review-btn {
+      padding: 0.5rem 1rem;
+      background: var(--od-lime);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: opacity 0.2s;
+    }
+    .od-review-btn:hover { opacity: 0.9; }
+
+    .od-price-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .od-price-table td {
+      padding: 6px 0;
+      font-size: 13.5px;
+    }
+    .od-price-table td:last-child { text-align: right; font-weight: 500; }
+    .od-price-table td:first-child { color: var(--od-text-mid); }
+
+    .od-summary-banner {
+      background: var(--od-text-dark);
+      border-radius: 14px;
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.1rem;
+    }
+    .od-banner-amount {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--od-lime);
+    }
+
+    .od-address-block {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: var(--od-bg-card);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+    }
+    .od-address-title { font-weight: 600; font-size: 12.5px; margin-bottom: 4px; }
+    .od-address-text { font-size: 12.5px; color: var(--od-text-mid); line-height: 1.7; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  
+  
+    @media (max-width: 768px) {
+  .od-page {
+    padding: 1rem 0.75rem 4rem;
+  }
+
+  .od-section {
+    padding: 1rem;
+  }
+
+  .od-product-row {
+    flex-direction: column;
+  }
+
+  .od-product-thumb {
+    width: 100%;
+    height: 220px;
+  }
+
+  .od-product-thumb img {
+    object-fit: contain;
+  }
+
+  .od-summary-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .od-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .od-header-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .od-product-thumb {
+    height: 180px;
+  }
+
+  .od-banner-amount {
+    font-size: 1.4rem;
+  }
+
+  .od-section-title {
+    font-size: 0.95rem;
+  }
+}
+
+.od-review-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.od-review-left {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.od-review-images {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  max-width: 260px;
+}
+
+.od-review-image-box {
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--od-border);
+  background: #fff;
+}
+
+.od-review-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.od-review-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.od-review-text {
+  font-size: 0.9rem;
+  color: var(--od-text-mid);
+  margin: 0 0 0.7rem;
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+.od-review-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.od-review-rating {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-left: 0.35rem;
+}
+
+.od-review-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.7rem;
+}
+
+.od-review-edit-btn {
+  background: #fff;
+  border: 1px solid var(--od-border);
+  border-radius: 8px;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.od-review-edit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}
+
+.od-review-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .od-review-layout {
+    flex-direction: column;
+  }
+
+  .od-review-left {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .od-review-images {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100%;
+    padding-bottom: 0.3rem;
+  }
+
+  .od-review-image-box {
+    width: 74px;
+    height: 74px;
+    min-width: 74px;
+  }
+
+  .od-review-right {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .od-review-text {
+    margin-top: 0.2rem;
+    font-size: 0.88rem;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .od-review-images {
+    display: grid;
+    grid-template-columns: repeat(3, 74px);
+    overflow-x: auto;
+    gap: 0.55rem;
+    width: 100%;
+  }
+}
+    `;
+
+  
+
+  const getStatusColor = (status: string) => {
+    const s = status?.toLowerCase() || "";
+    if (s.includes("deliver")) return "var(--od-green-ok)";
+    if (s.includes("cancel")) return "var(--od-red)";
+    return "var(--od-amber)";
+  };
+
+  const isOrderDelivered = orderStatus?.toLowerCase().includes("deliver");
+  const isOrderProcessing = orderStatus?.toLowerCase().includes("processing");
+  
+  const getOrderAge = () => {
+    const orderDate = new Date(order.order_date);
+    const now = new Date();
+    const hoursOld = (now.getTime() - orderDate.getTime()) / (1000 * 60 * 60);
+    return hoursOld;
+  };
+
+  const canCancelOrder = isOrderProcessing && getOrderAge() < 24;
+
+  const handleDownloadInvoice = async () => {
+    try {
+      setInvoiceLoading(true);
+      setInvoiceError("");
+
+      const token = getCookie("token");
+      const res = await fetch(
+        `${BASE_URL}/grasa/shop/${order.id}/generate-invoice`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to generate invoice");
+      }
+
+      const data = await res.json();
+      if (data.pdf_url) {
+        // Open PDF in new tab
+        window.open(data.pdf_url, "_blank");
+      }
+    } catch (err) {
+      console.error("[v0] Invoice download error:", err);
+      setInvoiceError("Failed to download invoice");
+    } finally {
+      setInvoiceLoading(false);
+    }
+  };
+
+  return (
+    <div className="od-page">
+      <style>{styles}</style>
+      <div className="od-container">
+        {/* Header */}
+        <div className="od-header">
+          <div>
+            <h1 className="od-header-title">Order #{order.id}</h1>
+            <div
+              style={{
+                fontSize: "0.9rem",
+                color: "var(--od-text-mid)",
+                marginTop: "0.5rem",
+              }}
+            >
+              {new Date(order.order_date).toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+            {invoiceError && (
+              <div
+                style={{
+                  background: "#fce8e6",
+                  color: "#d93025",
+                  padding: "0.5rem 0.75rem",
+                  borderRadius: "6px",
+                  fontSize: "0.85rem",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {invoiceError}
+              </div>
+            )}
+            <button
+              onClick={handleDownloadInvoice}
+              disabled={invoiceLoading}
+              style={{
+                padding: "0.65rem 1.2rem",
+                background: "var(--od-lime)",
+                border: "none",
+                borderRadius: "8px",
+                fontWeight: 600,
+                fontSize: "0.9rem",
+                cursor: invoiceLoading ? "not-allowed" : "pointer",
+                opacity: invoiceLoading ? 0.6 : 1,
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {invoiceLoading ? (
+                <Loader2 size={18} style={{ animation: "spin 1s linear infinite" }} />
+              ) : (
+                <Download size={18} />
+              )}
+              {invoiceLoading ? "Generating..." : "Download Invoice"}
+            </button>
+          </div>
+        </div>
+
+        {/* Master Card */}
+        <div className="od-master-card">
+          {/* Products Section */}
+          <div className="od-section">
+            <div className="od-section-heading">
+              <h2 className="od-section-title">Order Items</h2>
+            </div>
+
+            {order.items.map((item) => {
+              const hasReview = hasValidReview(item.reviews);
+              const review = item.reviews;
+
+              return (
+                <div key={item.id} className="od-product-row">
+                  <div className="od-product-thumb">
+                    <img
+                      src={item.product.image || "/placeholder.png"}
+                      alt={item.product.name}
+                    />
                   </div>
+                  <div className="od-product-body">
+                    <h3 className="od-product-name">{item.product.name}</h3>
+                    <p className="od-product-desc">
+                      {item.product.description}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "1rem",
+                        fontSize: "0.9rem",
+                        color: "var(--od-text-mid)",
+                      }}
+                    >
+                      <span>Qty: {item.quantity}</span>
+                      <span>₹{parseFloat(item.price_at_order).toLocaleString()}</span>
+                    </div>
 
-                  {hasExistingReview ? (
-                    <div className="od-existing-review">
-                      <div className="od-review-stars">
-                        {[1, 2, 3, 4, 5].map((s) => (
-                          <span key={s} className={s <= (localReview?.rating ?? 0) ? "od-review-star-filled" : "od-review-star-empty"}>★</span>
-                        ))}
-                        <span className="od-review-rating-text">{localReview?.rating}/5</span>
-                      </div>
-                      {localReview?.review_text && (
-                        <p className="od-review-quote">"{localReview.review_text}"</p>
-                      )}
-                      {localReview?.images && localReview.images.length > 0 && (
-                        <div className="od-review-images">
-                          {localReview.images.map((img, i) => (
-                            <img key={i} src={img.url} alt="Review" className="od-review-thumb" />
+                    {/* Review Section */}
+                    <div className="od-review-section">
+                      {hasReview && review && review.id && review.rating !== null ? (
+                        <div
+  className="od-review-card"
+  style={{
+    background: "var(--od-bg-card)",
+    borderRadius: "16px",
+    padding: "1rem",
+    marginTop: "1rem",
+    width: "100%",
+    overflow: "hidden",
+    border: "1px solid rgba(214,209,196,0.7)",
+  }}
+>
+  <div className="od-review-layout">
+    {/* LEFT */}
+    <div className="od-review-left">
+      {/* IMAGES */}
+      {review?.images && review.images.length > 0 && (
+        <div className="od-review-images">
+          {review.images.map((img, idx) => (
+            <div key={idx} className="od-review-image-box">
+              <img
+                src={img.url}
+                alt={`review-${idx}`}
+                className="od-review-image"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* CONTENT */}
+      <div className="od-review-content">
+        {/* REVIEW TEXT */}
+        {review?.review_text && (
+          <p className="od-review-text">
+            {review.review_text}
+          </p>
+        )}
+
+        {/* STARS */}
+        <div className="od-review-stars">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              size={16}
+              fill={i < (review?.rating || 0) ? "#f0a500" : "none"}
+              color={i < (review?.rating || 0) ? "#f0a500" : "#d6d1c4"}
+            />
+          ))}
+
+          <span className="od-review-rating">
+            {review?.rating}/5
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {/* RIGHT */}
+    <div className="od-review-right">
+      {/* EDIT */}
+      {review?.id && (
+        <button
+          onClick={() => {
+            setEditingReview(review);
+            setEditingItem(item);
+          }}
+          className="od-review-edit-btn"
+        >
+          <Edit2 size={14} />
+          Edit
+        </button>
+      )}
+
+      {/* STATUS */}
+      {review?.status && (
+        <span
+          className="od-review-status"
+          style={{
+            background:
+              review.status === "approved"
+                ? "var(--od-green-light)"
+                : review.status === "pending"
+                ? "var(--od-amber-light)"
+                : "var(--od-red-light)",
+            color:
+              review.status === "approved"
+                ? "var(--od-green-dark)"
+                : review.status === "pending"
+                ? "var(--od-amber)"
+                : "var(--od-red)",
+          }}
+        >
+          {review.status}
+        </span>
+      )}
+    </div>
+  </div>
+</div>
+                      ) : isOrderDelivered ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            fontSize: "0.85rem",
+                            color: "var(--od-text-mid)",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => setReviewingItem(item)}
+                        >
+                          {[...Array(5)].map((_, index) => (
+                            <Star key={index} size={16} color="#d6d1c4" />
                           ))}
                         </div>
+
+                      ) : (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            fontSize: "0.85rem",
+                            color: "var(--od-text-mid)",
+                          }}
+                        >
+                        </div>
                       )}
                     </div>
-                  ) : !showReviewForm ? (
-                    <button className="od-btn-write-review" onClick={() => setShowReviewForm(true)}>
-                      <IconPencil />Write a Product Review
-                    </button>
-                  ) : (
-                    <div className="od-review-form-inner">
-                      <span className="od-form-label">Your rating</span>
-                      <StarRating rating={rating} setRating={setRating} />
-
-                      <span className="od-form-label">Your review</span>
-                      <textarea
-                        className="od-review-textarea"
-                        placeholder="What did you like or dislike? What should other shoppers know?"
-                        value={reviewText}
-                        onChange={(e) => setReviewText(e.target.value)}
-                      />
-
-                      <span className="od-form-label">Add photos (optional)</span>
-                      <div className="od-upload-area">
-                        <div className="od-upload-box">
-                          <input
-                            type="file"
-                            accept="image/*"
-                            disabled={uploading}
-                            onChange={(e) => e.target.files?.[0] && handleImageUpload(e.target.files[0])}
-                          />
-                          <div className="od-upload-box-inner">
-                            <IconUpload />
-                            {uploading ? "Uploading…" : "Add Photo"}
-                          </div>
-                        </div>
-                        {images.map((img, i) => (
-                          <img key={i} src={img.url} alt="Preview" className="od-upload-preview" />
-                        ))}
-                      </div>
-
-                      <div className="od-review-actions">
-                        <button className="od-btn-cancel-review" onClick={() => setShowReviewForm(false)}>Cancel</button>
-                        <button className="od-btn-submit-review" onClick={submitReview}>Submit Review</button>
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
-              )}
+              );
+            })}
+          </div>
 
+          {/* Address Section */}
+          {order.items[0]?.shipping_address && (
+            <div className="od-section">
+              <div className="od-section-heading">
+                <h2 className="od-section-title">Shipping Address</h2>
+              </div>
+              <div className="od-address-block">
+                <div className="od-address-text">
+                  <p style={{ margin: 0 }}>
+                    <strong>{order.items[0].shipping_address.street}</strong>
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    {order.items[0].shipping_address.city},{" "}
+                    {order.items[0].shipping_address.state}{" "}
+                    {order.items[0].shipping_address.postal_code}
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    {order.items[0].shipping_address.country}
+                  </p>
+                </div>
+              </div>
             </div>
+          )}
+
+          {/* Pricing Section */}
+          <div className="od-section">
+            <div className="od-section-heading">
+              <h2 className="od-section-title">Price Summary</h2>
+            </div>
+            <table className="od-price-table">
+  <tbody>
+    {/* PRODUCTS */}
+    {order.items.map((item) => (
+      <tr key={item.id}>
+        <td>{item.product.name}</td>
+        <td>
+          {item.quantity} × ₹
+          {parseFloat(item.price_at_order).toLocaleString()}
+        </td>
+      </tr>
+    ))}
+
+    {/* SUBTOTAL */}
+    <tr style={{ borderTop: "1px solid var(--od-border)" }}>
+      <td style={{ paddingTop: "0.9rem" }}>Subtotal</td>
+      <td style={{ paddingTop: "0.9rem" }}>
+        ₹
+        {order.items
+          .reduce(
+            (sum, item) =>
+              sum +
+              parseFloat(item.price_at_order) * item.quantity,
+            0
+          )
+          .toLocaleString()}
+      </td>
+    </tr>
+
+    {/* PRODUCT DISCOUNT */}
+    {order.discount_amount &&
+      parseFloat(order.discount_amount) > 0 && (
+        <tr>
+          <td style={{ color: "var(--od-green-ok)" }}>
+            Coupon Discount
+          </td>
+
+          <td style={{ color: "var(--od-green-ok)" }}>
+            -₹
+            {parseFloat(order.discount_amount).toLocaleString()}
+          </td>
+        </tr>
+      )}
+
+    {/* OFFER DISCOUNT */}
+    {order.offer_discount &&
+      parseFloat(order.offer_discount) > 0 && (
+        <tr>
+          <td style={{ color: "var(--od-green-ok)" }}>
+            Offer Discount
+          </td>
+
+          <td style={{ color: "var(--od-green-ok)" }}>
+            -₹
+            {parseFloat(order.offer_discount).toLocaleString()}
+          </td>
+        </tr>
+      )}
+
+    {/* MHC POINTS */}
+    {order.mhc_points &&
+      parseFloat(order.mhc_points) > 0 && (
+        <tr>
+          <td
+            style={{
+              color: "var(--od-green-ok)",
+              fontWeight: 600,
+            }}
+          >
+            MHC Points Used
+          </td>
+
+          <td
+            style={{
+              color: "var(--od-green-ok)",
+              fontWeight: 700,
+            }}
+          >
+            -₹
+            {parseFloat(order.mhc_points).toLocaleString()}
+          </td>
+        </tr>
+      )}
+
+    {/* TOTAL MRP */}
+    {/* {order.total_mrp && (
+      <tr>
+        <td
+          style={{
+            color: "var(--od-text-light)",
+          }}
+        >
+          Total MRP
+        </td>
+
+        <td
+          style={{
+            color: "var(--od-text-light)",
+            textDecoration: "line-through",
+          }}
+        >
+          ₹{parseFloat(order.total_mrp).toLocaleString()}
+        </td>
+      </tr>
+    )} */}
+  </tbody>
+</table>
+
+           <div className="mt-4 flex items-center justify-between gap-4 rounded-2xl bg-[#1b1b1b] p-4 sm:p-5 md:p-6">
+  
+  {/* LEFT */}
+  <div className="min-w-0">
+    <div className="text-[11px] sm:text-xs font-medium tracking-[2px] text-white/50">
+      TOTAL
+    </div>
+
+    <div className="mt-1 text-3xl sm:text-4xl font-bold text-[#C5D82D] leading-none">
+      ₹{parseFloat(order.total_amount).toLocaleString()}
+    </div>
+  </div>
+
+  {/* RIGHT */}
+  <div className="min-w-0 text-right">
+    <div className="text-[11px] sm:text-xs font-medium tracking-[2px] text-white/50">
+      STATUS
+    </div>
+
+    <div
+      className="mt-1 text-lg sm:text-xl font-bold capitalize leading-none"
+      style={{
+        color: getStatusColor(orderStatus),
+      }}
+    >
+      {orderStatus}
+    </div>
+  </div>
+</div>
+
+            {/* Cancel Order Section */}
+            {canCancelOrder && (
+              <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid var(--od-border)" }}>
+                <button
+                  onClick={() => setShowCancelModal(true)}
+                  style={{
+                    padding: "0.75rem 1.5rem",
+                    background: "#d93025",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "8px",
+                    fontWeight: 600,
+                    fontSize: "0.9rem",
+                    cursor: "pointer",
+                    transition: "opacity 0.2s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                >
+                  Cancel Order
+                </button>
+                <p
+                  style={{
+                    fontSize: "0.85rem",
+                    color: "var(--od-text-mid)",
+                    marginTop: "0.5rem",
+                    margin: "0.5rem 0 0 0",
+                  }}
+                >
+                  You can cancel this order within 24 hours of ordering
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </>
+
+      {/* Review Modal */}
+      <ReviewModal
+        item={reviewingItem!}
+        isOpen={!!reviewingItem}
+        onClose={() => setReviewingItem(null)}
+        onSubmitSuccess={() => setReviewsUpdated(!reviewsUpdated)}
+      />
+
+      {/* Edit Review Modal */}
+      <EditReviewModal
+        item={editingItem!}
+        review={editingReview!}
+        isOpen={!!editingReview && !!editingItem}
+        onClose={() => {
+          setEditingReview(null);
+          setEditingItem(null);
+        }}
+        onSubmitSuccess={() => setReviewsUpdated(!reviewsUpdated)}
+      />
+
+      {/* Cancel Modal */}
+      <CancelModal
+        isOpen={showCancelModal}
+        onClose={() => setShowCancelModal(false)}
+        onSuccess={() => setOrderStatus("Cancelled")}
+        orderId={order.id}
+      />
+    </div>
   );
 }
